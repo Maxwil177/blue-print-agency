@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blueprint Agency — Digital Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+:root {
+    --sky-blue: #38BDF8;
+    --sky-blue-light: #7DD3FC;
+    --sky-blue-soft: #E0F2FE;
+
+    --white: #FFFFFF;
+    --white-soft: #F8FAFC;
+    --light-bg: #EFF6FF;
+
+    --dark: #0F172A;
+    --dark-2: #1E293B;
+    --muted: #64748B;
+
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: linear-gradient(180deg, #FFFFFF 0%, #EFF6FF 100%); color: var(--dark); font-family: var(--sans); font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid rgba(176,141,87,0.15);
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(14px);
+    animation: fadeDown 0.8s ease both;
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; letter-spacing: 0.15em; color: var(--dark); text-decoration: none; }
+  .nav-logo span { color: var(--sky-blue); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--dark); }
+  .nav-cta { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid var(--sky-blue); color: var(--sky-blue); padding: 0.6rem 1.5rem; cursor: pointer; background: none; transition: all 0.3s; text-decoration: none; }
+  .nav-cta:hover { background: var(--sky-blue); color: var(--dark); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: linear-gradient(135deg, transparent 0%, rgba(56,189,248,0.05) 100%); border-left: 1px solid rgba(56,189,248,0.1); }
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%);
+    top: -120px;
+    right: -120px;
+    z-index: 0;
+}
+
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 2rem; animation: fadeUp 1s 0.2s ease both; }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky-blue); }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); }
+  .hero-title { font-family: var(--serif); font-size: clamp(3.2rem, 6.5vw, 5.5rem); font-weight: 300; line-height: 1.1; max-width: 720px; margin-bottom: 2rem; animation: fadeUp 1s 0.4s ease both; }
+  .hero-title em { font-style: italic; color: var(--sky-blue-light); }
+  .hero-sub { font-size: 1rem; color: var(--muted); line-height: 1.8; max-width: 460px; margin-bottom: 3rem; animation: fadeUp 1s 0.6s ease both; }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; animation: fadeUp 1s 0.8s ease both; }
+  
+.btn-primary {
+    background: linear-gradient(135deg, #38BDF8, #0EA5E9);
+    color: white;
+    padding: 1rem 2.5rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 10px 30px rgba(56,189,248,0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(56,189,248,0.35);
+}
+
+  .btn-ghost { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
+  .btn-ghost:hover { color: var(--dark); }
+  .hero-line { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); width: 1px; height: 200px; background: linear-gradient(to bottom, transparent, var(--sky-blue), transparent); animation: fadeUp 1.5s 1s ease both; }
+
+  /* MARQUEE */
+  .marquee-wrap { border-top: 1px solid rgba(176,141,87,0.15); border-bottom: 1px solid rgba(176,141,87,0.15); padding: 1.2rem 0; overflow: hidden; white-space: nowrap; }
+  .marquee-track { display: inline-block; animation: marquee 22s linear infinite; }
+  .marquee-track span { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); padding: 0 3rem; }
+  .marquee-track span.accent { color: var(--sky-blue); padding: 0; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* STATS */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid rgba(176,141,87,0.15); }
+  .stat { padding: 2.5rem; border-right: 1px solid rgba(176,141,87,0.15); transition: background 0.3s; }
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(176,141,87,0.04); }
+  .stat-num { font-family: var(--serif); font-size: 3rem; font-weight: 300; color: var(--sky-blue-light); line-height: 1; margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+  /* SERVICES */
+  .services { padding: 8rem 4rem; }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 5rem; }
+  .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 1rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2; }
+  .section-title em { font-style: italic; color: var(--sky-blue-light); }
+  .services-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(176,141,87,0.12); margin-bottom: 1px; }
+  .services-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(176,141,87,0.12); }
+  .service-card { background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); padding: 3rem 2.5rem; border-radius: 24px; transition: background 0.4s; position: relative; overflow: hidden; }
+  .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--sky-blue); transition: width 0.4s; }
+  .service-card:hover { background: #F8FBFF; }
+  .service-card:hover::after { width: 100%; }
+  .service-num { font-family: var(--serif); font-size: 0.85rem; color: var(--sky-blue); margin-bottom: 1.5rem; opacity: 0.6; }
+  .service-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.8rem; line-height: 1.3; }
+  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.8; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .service-tag { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sky-blue); border: 1px solid rgba(176,141,87,0.3); padding: 0.3rem 0.7rem; }
+
+  /* PROCESS */
+  .process { padding: 8rem 4rem; border-top: 1px solid rgba(176,141,87,0.15); background: #F8FBFF; }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 5rem; position: relative; }
+  .process-steps::before { content: ''; position: absolute; top: 1.2rem; left: 10%; right: 10%; height: 1px; background: linear-gradient(to right, transparent, var(--sky-blue), var(--sky-blue), transparent); opacity: 0.3; }
+  .process-step { padding: 0 1.5rem; text-align: center; }
+  .step-circle { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--sky-blue); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 0.9rem; color: var(--sky-blue); margin: 0 auto 1.5rem; background: #F8FBFF; position: relative; z-index: 1; }
+  .step-title { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 0.75rem; }
+  .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.8; }
+
+  /* ABOUT */
+  .about { padding: 8rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; border-top: 1px solid rgba(176,141,87,0.15); }
+  .about-quote { font-family: var(--serif); font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 300; font-style: italic; color: var(--sky-blue-light); line-height: 1.6; padding-left: 2rem; border-left: 1px solid var(--sky-blue); }
+  .about-text p { font-size: 0.9375rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem; }
+
+  /* TESTIMONIALS */
+  .testimonials { padding: 8rem 4rem; border-top: 1px solid rgba(176,141,87,0.15); }
+  .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 4rem; }
+  .testi-card { padding: 2.5rem; border: 1px solid rgba(176,141,87,0.15); transition: border-color 0.3s; }
+  .testi-card:hover { border-color: rgba(176,141,87,0.4); }
+  .testi-quote { font-family: var(--serif); font-size: 1.1rem; font-style: italic; line-height: 1.7; margin-bottom: 2rem; color: #D4C9B8; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(176,141,87,0.2); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 0.9rem; color: var(--sky-blue-light); flex-shrink: 0; }
+  .testi-name { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .testi-role { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
+
+  /* CONTACT FORM */
+  .contact { padding: 8rem 4rem; border-top: 1px solid rgba(176,141,87,0.15); background: #F8FBFF; }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .contact-left h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; }
+  .contact-left h2 em { font-style: italic; color: var(--sky-blue-light); }
+  .contact-left p { font-size: 0.9375rem; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
+  .contact-detail { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.875rem; color: var(--muted); }
+  .contact-detail strong { color: var(--dark); font-weight: 400; }
+  .form-group { margin-bottom: 1.5rem; }
+  .form-group label { display: block; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(176,141,87,0.2);
+    color: var(--dark); font-family: var(--sans); font-size: 0.9rem; font-weight: 300;
+    padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s;
+    appearance: none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--sky-blue); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group select option { background: #F8FBFF; color: var(--dark); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit { width: 100%; background: var(--sky-blue); color: var(--dark); padding: 1rem; font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; border: none; cursor: pointer; transition: all 0.3s; margin-top: 0.5rem; }
+  .form-submit:hover { background: var(--sky-blue-light); }
+  .form-success { display: none; padding: 1.5rem; border: 1px solid rgba(176,141,87,0.4); text-align: center; }
+  .form-success p { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--sky-blue-light); }
+
+  /* CTA */
+  .cta-section { padding: 10rem 4rem; text-align: center; border-top: 1px solid rgba(176,141,87,0.15); position: relative; overflow: hidden; }
+  .cta-section::before { content: 'B'; position: absolute; font-family: var(--serif); font-size: 40vw; font-weight: 300; color: rgba(176,141,87,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; line-height: 1; }
+  .cta-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 2rem; }
+  .cta-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.15; max-width: 700px; margin: 0 auto 2.5rem; }
+  .cta-title em { font-style: italic; color: var(--sky-blue-light); }
+  .cta-sub { font-size: 0.9375rem; color: var(--muted); max-width: 420px; margin: 0 auto 3.5rem; line-height: 1.8; }
+
+  /* FOOTER */
+  footer { padding: 3rem 4rem; border-top: 1px solid rgba(176,141,87,0.15); display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.15em; color: var(--muted); }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); opacity: 0.6; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--sky-blue); }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  
+
+/* ===== PREMIUM UPGRADE ===== */
+
+:root {
+  --glass: rgba(255,255,255,0.65);
+  --glass-border: rgba(255,255,255,0.45);
+  --shadow-soft: 0 10px 40px rgba(15,23,42,0.08);
+  --shadow-glow: 0 20px 60px rgba(56,189,248,0.18);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(56,189,248,0.14) 0%, transparent 70%);
+  top: -200px;
+  right: -150px;
+  z-index: -1;
+  animation: floatGlow 8s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(125,211,252,0.12) 0%, transparent 70%);
+  bottom: -200px;
+  left: -100px;
+  z-index: -1;
+}
+
+@keyframes floatGlow {
+  from { transform: translateY(0px) translateX(0px); }
+  to { transform: translateY(30px) translateX(-20px); }
+}
+
+.hero {
+  background:
+    radial-gradient(circle at top right, rgba(56,189,248,0.18), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+}
+
+.hero::before {
+  backdrop-filter: blur(10px);
+}
+
+.service-card,
+.testi-card,
+.blog-card,
+.stat {
+  transition: all 0.45s ease;
+}
+
+.service-card:hover,
+.testi-card:hover,
+.blog-card:hover,
+.stat:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-glow);
+}
+
+.service-card,
+.testi-card,
+.stat,
+.blog-card {
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.service-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56,189,248,0.12);
+  color: var(--sky-blue);
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  transition: 0.7s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stars {
+  color: #38BDF8;
+  margin-bottom: 1rem;
+  letter-spacing: 0.2em;
+}
+
+.blog-section {
+  padding: 8rem 4rem;
+  border-top: 1px solid rgba(56,189,248,0.08);
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.blog-card {
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.blog-image {
+  height: 240px;
+  overflow: hidden;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.blog-card:hover img {
+  transform: scale(1.08);
+}
+
+.blog-content {
+  padding: 2rem;
+}
+
+.blog-category {
+  display: inline-block;
+  background: rgba(56,189,248,0.12);
+  color: var(--sky-blue);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.blog-content h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.blog-btn {
+  color: var(--sky-blue);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-section {
+    padding: 4rem 1.5rem;
+  }
+}
+
+
+  
+
+/* ===== MULTI LANGUAGE + SOCIALS ===== */
+
+.lang-toggle {
+  border: 1px solid rgba(56,189,248,0.3);
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  color: var(--sky-blue);
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.lang-toggle:hover {
+  background: var(--sky-blue);
+  color: white;
+  box-shadow: 0 10px 30px rgba(56,189,248,0.25);
+}
+
+.social-floating {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.social-floating a {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--dark);
+  font-size: 1.2rem;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.45);
+  box-shadow: 0 10px 40px rgba(15,23,42,0.08);
+  transition: all 0.35s ease;
+}
+
+.social-floating a:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(56,189,248,0.25);
+  background: rgba(56,189,248,0.12);
+}
+
+html[dir="rtl"] body {
+  font-family: 'Cairo', sans-serif;
+}
+
+html[dir="rtl"] .nav-links,
+html[dir="rtl"] .hero-actions,
+html[dir="rtl"] .footer-links {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .about-quote {
+  border-left: none;
+  border-right: 1px solid var(--sky-blue);
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+@media(max-width:768px){
+  .social-floating {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .social-floating a {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+
+
+
+/* ===== COMPLETE RTL SUPPORT ===== */
+html[dir="rtl"] body{
+  font-family:'Cairo',sans-serif;
+  text-align:right;
+}
+
+html[dir="rtl"] nav,
+html[dir="rtl"] .section-header,
+html[dir="rtl"] .hero-actions,
+html[dir="rtl"] .contact-detail,
+html[dir="rtl"] footer,
+html[dir="rtl"] .testi-author,
+html[dir="rtl"] .nav-links,
+html[dir="rtl"] .footer-links{
+  flex-direction:row-reverse;
+}
+
+html[dir="rtl"] .about-quote{
+  border-left:none;
+  border-right:1px solid var(--sky-blue);
+  padding-left:0;
+  padding-right:2rem;
+}
+
+html[dir="rtl"] .contact-left,
+html[dir="rtl"] .about-text,
+html[dir="rtl"] .hero,
+html[dir="rtl"] .service-card,
+html[dir="rtl"] .blog-content,
+html[dir="rtl"] .testi-card{
+  text-align:right;
+}
+
+html[dir="rtl"] .form-group input,
+html[dir="rtl"] .form-group textarea,
+html[dir="rtl"] .form-group select{
+  text-align:right;
+}
+
+.lang-toggle{
+  min-width:70px;
+  font-weight:600;
+}
+
+.social-floating a{
+  font-weight:700;
+}
+
+
+
+
+.lang-switcher{
+  display:flex;
+  gap:0.5rem;
+  align-items:center;
+}
+
+.lang-toggle{
+  background:rgba(255,255,255,0.6);
+  border:1px solid rgba(255,255,255,0.45);
+  backdrop-filter:blur(14px);
+  border-radius:999px;
+  min-width:56px;
+  padding:0.65rem 1rem;
+  color:var(--sky-blue);
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:0.15em;
+  cursor:pointer;
+  transition:all 0.35s ease;
+}
+
+.lang-toggle:hover{
+  background:rgba(56,189,248,0.15);
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(56,189,248,0.2);
+}
+
+
+/* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero-line { display: none; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-right: none; border-bottom: 1px solid rgba(176,141,87,0.15); }
+    .services { padding: 4rem 1.5rem; }
+    .services-top { grid-template-columns: 1fr; }
+    .services-bottom { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .process { padding: 4rem 1.5rem; }
+    .process-steps { grid-template-columns: 1fr; gap: 2rem; }
+    .process-steps::before { display: none; }
+    .about { padding: 4rem 1.5rem; grid-template-columns: 1fr; gap: 3rem; }
+    .testimonials { padding: 4rem 1.5rem; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .contact { padding: 4rem 1.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .cta-section { padding: 6rem 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Blueprint<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;"><div class="lang-switcher"><button class="lang-toggle" onclick="applyLanguage('en')">EN</button><button class="lang-toggle" onclick="applyLanguage('fr')">FR</button><button class="lang-toggle" onclick="applyLanguage('ar')">AR</button></div><a href="#contact" class="nav-cta" data-en="Get a Proposal" data-ar="احصل على عرض">Get a Proposal</a></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div>
+    <div class="hero-tag">
+      <div class="hero-dot"></div>
+      <span class="hero-eyebrow" data-en="Digital Marketing Agency" data-ar="وكالة تسويق رقمي">Digital Marketing Agency</span>
+    </div>
+    <h1 class="hero-title" data-en="We grow brands that deserve to be seen." data-ar="نساعد العلامات التجارية التي تستحق أن تُرى.">
+      We grow brands that <em>deserve</em> to be seen.
+    </h1>
+    <p class="hero-sub" data-en="Blueprint Agency is a full-service digital marketing agency helping ambitious brands build visibility, drive conversions, and own their market." data-ar="بلو برينت هي وكالة تسويق رقمي متكاملة تساعد العلامات التجارية الطموحة على بناء حضور قوي وتحقيق نمو حقيقي.">
+      Blueprint Agency is a full-service digital marketing agency helping ambitious brands build visibility, drive conversions, and own their market.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start Growing →</a>
+      <a href="#services" class="btn-ghost">See Our Services</a>
+    </div>
+  </div>
+  <div class="hero-line"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Marketing Strategy</span> <span class="accent">✦</span>
+    <span>Social Media Management</span> <span class="accent">✦</span>
+    <span>Content Creation</span> <span class="accent">✦</span>
+    <span>Paid Media</span> <span class="accent">✦</span>
+    <span>Analytics</span> <span class="accent">✦</span>
+    <span>Marketing Strategy</span> <span class="accent">✦</span>
+    <span>Social Media Management</span> <span class="accent">✦</span>
+    <span>Content Creation</span> <span class="accent">✦</span>
+    <span>Paid Media</span> <span class="accent">✦</span>
+    <span>Analytics</span> <span class="accent">✦</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="stats reveal">
+  <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Brands Scaled</div></div>
+  <div class="stat"><div class="stat-num">$900K+</div><div class="stat-label">Ad Spend Managed</div></div>
+  <div class="stat"><div class="stat-num">95%</div><div class="stat-label">Client Satisfaction</div></div>
+  <div class="stat"><div class="stat-num">120+</div><div class="stat-label">Successful Campaigns</div></div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">What We Do</p>
+      <h2 class="section-title">Five services, <em>one goal</em> — your growth</h2>
+    </div>
+  </div>
+  <div class="services-top">
+    <div class="service-card">
+      <div class="service-icon">✦</div><div class="service-num">01</div>
+      <h3 class="service-title">Marketing Strategy</h3>
+      <p class="service-desc">We map your market, define your positioning, and build a clear roadmap that turns ambition into a measurable growth plan.</p>
+      <div class="service-tags"><span class="service-tag">Positioning</span><span class="service-tag">Roadmapping</span><span class="service-tag">Competitor Analysis</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✦</div><div class="service-num">02</div>
+      <h3 class="service-title">Social Media Management</h3>
+      <p class="service-desc">From content calendars to community engagement, we manage your social presence so you can focus on running your business.</p>
+      <div class="service-tags"><span class="service-tag">Instagram</span><span class="service-tag">LinkedIn</span><span class="service-tag">TikTok</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✦</div><div class="service-num">03</div>
+      <h3 class="service-title">Content Creation</h3>
+      <p class="service-desc">Scroll-stopping visuals, compelling copy, and on-brand storytelling that builds real audience connection and authority.</p>
+      <div class="service-tags"><span class="service-tag">Video</span><span class="service-tag">Copywriting</span><span class="service-tag">Design</span></div>
+    </div>
+  </div>
+  <div class="services-bottom">
+    <div class="service-card">
+      <div class="service-icon">✦</div><div class="service-num">04</div>
+      <h3 class="service-title">Paid Media</h3>
+      <p class="service-desc">Precision-targeted ad campaigns across Google, Meta, and TikTok — engineered for maximum ROAS and minimum wasted spend.</p>
+      <div class="service-tags"><span class="service-tag">Google Ads</span><span class="service-tag">Meta Ads</span><span class="service-tag">TikTok Ads</span><span class="service-tag">Retargeting</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✦</div><div class="service-num">05</div>
+      <h3 class="service-title">Analytics</h3>
+      <p class="service-desc">Full-funnel tracking, custom dashboards, and actionable insights that tell you exactly what's working — and where to invest next.</p>
+      <div class="service-tags"><span class="service-tag">Reporting</span><span class="service-tag">GA4</span><span class="service-tag">Dashboards</span><span class="service-tag">Attribution</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">How We Work</p>
+      <h2 class="section-title">Our <em>proven</em> process</h2>
+    </div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-circle">1</div>
+      <h3 class="step-title">Discover</h3>
+      <p class="step-desc">We audit your current presence, study your competitors, and map your biggest growth opportunities.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">2</div>
+      <h3 class="step-title">Strategize</h3>
+      <p class="step-desc">A custom roadmap built around your goals, budget, and audience — before a single penny is spent.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">3</div>
+      <h3 class="step-title">Execute</h3>
+      <p class="step-desc">Our team launches campaigns, creates content, and optimizes continuously while you focus on your business.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">4</div>
+      <h3 class="step-title">Scale</h3>
+      <p class="step-desc">What works gets amplified. We double down on winning channels and compound your results month over month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <blockquote class="about-quote">"We measure success in one currency — the growth of your business, not the size of our reports."</blockquote>
+  </div>
+  <div class="about-text">
+    <p class="section-eyebrow">Our Approach</p>
+    <p>Blueprint Agency was built by marketers who were tired of agencies that prioritized optics over outcomes. We obsess over the metrics that move your business forward — leads, revenue, and market share.</p>
+    <p>Every client gets a dedicated team, a clear strategy, and full transparency into what we're doing and why. No vanity metrics. No black-box reporting. Just honest work that drives real growth.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Client Results</p>
+      <h2 class="section-title">What our <em>clients</em> say</h2>
+    </div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div><p class="testi-quote">"Blueprint Agency took our Google Ads from breaking even to a 6× ROAS in under 90 days. The results were immediate and they've only gotten better."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RA</div>
+        <div><p class="testi-name">Rania Aziz</p><p class="testi-role">Founder, Lumé Skincare</p></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div><p class="testi-quote">"Their content strategy is methodical, creative, and genuinely effective. Our engagement tripled in four months."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">KT</div>
+        <div><p class="testi-name">Karim Taleb</p><p class="testi-role">CMO, Nexora SaaS</p></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div><p class="testi-quote">"The analytics dashboard they built gave us clarity we'd never had. We finally know what's actually driving our growth."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SD</div>
+        <div><p class="testi-name">Sofia Desroches</p><p class="testi-role">CEO, Atelier Home</p></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div><p class="testi-quote">"They built our entire social presence from zero — strategy, content, ads. It felt like having an in-house team that actually cares."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">MO</div>
+        <div><p class="testi-name">Marc Okonkwo</p><p class="testi-role">Director, Prism Ventures</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- BLOG -->
+<section class="blog-section reveal">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Latest Insights</p>
+      <h2 class="section-title">Our latest <em>marketing</em> insights</h2>
+    </div>
+  </div>
+
+  <div class="blog-grid">
+
+    <article class="blog-card">
+      <div class="blog-image">
+        <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1200&auto=format&fit=crop" alt="Marketing">
+      </div>
+      <div class="blog-content">
+        <span class="blog-category">Paid Ads</span>
+        <h3>How to Scale a Brand with Paid Ads</h3>
+        <p>Discover the exact paid advertising frameworks modern brands use to scale profitably.</p>
+        <a href="#" class="blog-btn">Read More →</a>
+      </div>
+    </article>
+
+    <article class="blog-card">
+      <div class="blog-image">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="Social Media">
+      </div>
+      <div class="blog-content">
+        <span class="blog-category">Social Media</span>
+        <h3>Social Media Trends in 2026</h3>
+        <p>Explore the biggest social media shifts shaping audience engagement and growth.</p>
+        <a href="#" class="blog-btn">Read More →</a>
+      </div>
+    </article>
+
+    <article class="blog-card">
+      <div class="blog-image">
+        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" alt="Branding">
+      </div>
+      <div class="blog-content">
+        <span class="blog-category">Branding</span>
+        <h3>Why Branding Matters for Online Businesses</h3>
+        <p>Strong branding builds trust, authority, and long-term customer loyalty.</p>
+        <a href="#" class="blog-btn">Read More →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <p class="section-eyebrow">Get In Touch</p>
+      <h2>Let's talk about your <em>growth</em></h2>
+      <p>Tell us where you are and where you want to be. We'll put together a custom proposal — no obligation, no fluff.</p>
+      <div class="contact-detail"><strong>Email:</strong> hello@blueprintagency.com</div>
+      <div class="contact-detail"><strong>Phone:</strong> +1 (555) 000-0000</div>
+      <div class="contact-detail"><strong>Location:</strong> Your City, Country</div>
+    </div>
+    <div class="contact-right">
+      <div id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="Salim">
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Benali">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@company.com">
+        </div>
+        <div class="form-group">
+          <label for="company">Company / Website</label>
+          <input type="text" id="company" placeholder="yourcompany.com">
+        </div>
+        <div class="form-group">
+          <label for="service">Service You're Interested In</label>
+          <select id="service">
+            <option value="">Select a service...</option>
+            <option>Marketing Strategy</option>
+            <option>Social Media Management</option>
+            <option>Content Creation</option>
+            <option>Paid Media</option>
+            <option>Analytics</option>
+            <option>Full Package</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell Us About Your Goals</label>
+          <textarea id="message" placeholder="What are you trying to achieve? What's your budget range?"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send My Proposal Request →</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <p>Thank you! We'll be in touch within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <p class="cta-eyebrow">Let's Talk Growth</p>
+  <h2 class="cta-title">Ready to <em>dominate</em> your market?</h2>
+  <p class="cta-sub">Tell us your goals. We'll show you exactly how we'd get you there — no fluff, no pressure.</p>
+  <a href="#contact" class="btn-primary">Get a Free Proposal →</a>
+</section>
+
+
+
+<div class="social-floating">
+  <a href="https://wa.me/YOURNUMBER" target="_blank" aria-label="WhatsApp">✆</a>
+  <a href="https://instagram.com/yourprofile" target="_blank" aria-label="Instagram">IG</a>
+  <a href="https://facebook.com/yourpage" target="_blank" aria-label="Facebook">f</a>
+  <a href="https://linkedin.com/company/yourcompany" target="_blank" aria-label="LinkedIn">in</a>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Blueprint Agency.</span>
+  <span class="footer-copy">© 2026 Blueprint Agency. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Privacy</a>
+  </div>
+</footer>
+
+<script>
+  function submitForm() {
+    const email = document.getElementById('email').value;
+    const fname = document.getElementById('fname').value;
+    if (!fname || !email) {
+      alert('Please fill in at least your name and email.');
+      return;
+    }
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+
+window.addEventListener('scroll', () => {
+  reveals.forEach(reveal => {
+    const windowHeight = window.innerHeight;
+    const elementTop = reveal.getBoundingClientRect().top;
+
+    if (elementTop < windowHeight - 100) {
+      reveal.classList.add('active');
+    }
+  });
+});
+</script>
+
+
+
+
+
+<script>
+const translations = {
+  en: {
+    nav:['Services','Process','About','Contact'],
+    proposal:'Get a Proposal',
+    heroTag:'Digital Marketing Agency',
+    heroTitle:'We grow brands that deserve to be seen.',
+    heroSub:'Blueprint Agency is a full-service digital marketing agency helping ambitious brands build visibility, drive conversions, and own their market.',
+    buttons:['Start Growing →','See Our Services'],
+    stats:['Brands Scaled','Ad Spend Managed','Client Satisfaction','Successful Campaigns'],
+    processTitle:'Our proven process',
+    blogTitle:'Our latest marketing insights',
+    blogCards:[
+      'How to Scale a Brand with Paid Ads',
+      'Social Media Trends in 2026',
+      'Why Branding Matters for Online Businesses'
+    ],
+    contact:'Get In Touch',
+    growth:'Let\'s talk about your growth',
+    footer:'© 2026 Blueprint Agency. All rights reserved.'
+  },
+
+  fr: {
+    nav:['Services','Processus','À propos','Contact'],
+    proposal:'Obtenir une proposition',
+    heroTag:'Agence de Marketing Digital',
+    heroTitle:'Nous développons les marques qui méritent d’être vues.',
+    heroSub:'Blueprint Agency est une agence de marketing digital complète aidant les marques ambitieuses à accroître leur visibilité et leurs conversions.',
+    buttons:['Commencer à grandir →','Découvrir nos services'],
+    stats:['Marques développées','Budget publicitaire géré','Satisfaction client','Campagnes réussies'],
+    processTitle:'Notre processus éprouvé',
+    blogTitle:'Nos dernières analyses marketing',
+    blogCards:[
+      'Comment développer une marque avec la publicité',
+      'Tendances des réseaux sociaux en 2026',
+      'Pourquoi le branding est essentiel'
+    ],
+    contact:'Contactez-nous',
+    growth:'Parlons de votre croissance',
+    footer:'© 2026 Blueprint Agency. Tous droits réservés.'
+  },
+
+  ar: {
+    nav:['الخدمات','العملية','من نحن','اتصل بنا'],
+    proposal:'احصل على عرض',
+    heroTag:'وكالة تسويق رقمي',
+    heroTitle:'نساعد العلامات التجارية التي تستحق أن تُرى',
+    heroSub:'بلو برينت هي وكالة تسويق رقمي متكاملة تساعد العلامات التجارية الطموحة على بناء حضور قوي وتحقيق نمو حقيقي.',
+    buttons:['ابدأ النمو ←','اكتشف خدماتنا'],
+    stats:['علامة تجارية نمت','إدارة ميزانيات إعلانية','رضا العملاء','حملة ناجحة'],
+    processTitle:'عمليتنا المثبتة',
+    blogTitle:'أحدث رؤى التسويق',
+    blogCards:[
+      'كيفية تطوير علامة تجارية بالإعلانات',
+      'اتجاهات وسائل التواصل في 2026',
+      'أهمية الهوية التجارية للأعمال'
+    ],
+    contact:'تواصل معنا',
+    growth:'دعنا نتحدث عن نمو علامتك',
+    footer:'© 2026 بلو برينت. جميع الحقوق محفوظة.'
+  }
+};
+
+function applyLanguage(lang){
+
+  const htmlTag = document.documentElement;
+
+  if(lang === 'ar'){
+    htmlTag.setAttribute('dir','rtl');
+    htmlTag.setAttribute('lang','ar');
+  } else {
+    htmlTag.setAttribute('dir','ltr');
+    htmlTag.setAttribute('lang',lang);
+  }
+
+  const t = translations[lang];
+
+  // NAV
+  document.querySelectorAll('.nav-links a').forEach((el,i)=>{
+    el.innerText=t.nav[i];
+  });
+
+  document.querySelector('.nav-cta').innerText=t.proposal;
+
+  // HERO
+  document.querySelector('.hero-eyebrow').innerText=t.heroTag;
+  document.querySelector('.hero-title').innerText=t.heroTitle;
+  document.querySelector('.hero-sub').innerText=t.heroSub;
+
+  document.querySelectorAll('.hero-actions a')[0].innerText=t.buttons[0];
+  document.querySelectorAll('.hero-actions a')[1].innerText=t.buttons[1];
+
+  // STATS
+  document.querySelectorAll('.stat-label').forEach((el,i)=>{
+    el.innerText=t.stats[i];
+  });
+
+  // PROCESS
+  document.querySelector('#process .section-title').innerText=t.processTitle;
+
+  // BLOG
+  document.querySelector('.blog-section .section-title').innerText=t.blogTitle;
+
+  document.querySelectorAll('.blog-card h3').forEach((el,i)=>{
+    el.innerText=t.blogCards[i];
+  });
+
+  // CONTACT
+  document.querySelector('.contact-left .section-eyebrow').innerText=t.contact;
+  document.querySelector('.contact-left h2').innerText=t.growth;
+
+  // FOOTER
+  document.querySelector('.footer-copy').innerText=t.footer;
+
+  // RTL text alignment
+  document.body.style.textAlign = lang === 'ar' ? 'right' : 'left';
+}
+</script>
+
+
+
+
+</body>
+</html>
