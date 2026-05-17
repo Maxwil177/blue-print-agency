@@ -3,1279 +3,1035 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blueprint Agency — Digital Marketing</title>
+<title>Blueprint Agency — Premium Growth & Performance Marketing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   
-:root {
+  :root {
     --sky-blue: #38BDF8;
     --sky-blue-light: #7DD3FC;
     --sky-blue-soft: #E0F2FE;
-
-    /* Updated for Premium Navy Canvas */
     --white: #FFFFFF;
     --white-soft: rgba(255, 255, 255, 0.95);
+    --dark-navy: #0B132B;
+    --mid-navy: #1C2541;
     --light-bg: #1E293B;
-
-    --dark: #F8FAFC;         /* Light text for dark background */
-    --dark-2: #E2E8F0;       /* Secondary light text */
-    --muted: #94A3B8;        /* Accessible muted text for dark mode */
-
+    --dark: #F8FAFC;
+    --dark-2: #E2E8F0;
+    --muted: #94A3B8;
+    
     --serif: 'Cormorant Garamond', Georgia, serif;
     --sans: 'Jost', sans-serif;
+    
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.07);
+    --shadow-soft: 0 15px 50px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 25px 60px rgba(56,189,248,0.15);
   }
 
   html { scroll-behavior: smooth; }
   
-  /* Navy background base applied globally */
   body { 
-    background: linear-gradient(180deg, #0B132B 0%, #1C2541 100%); 
+    background-color: var(--dark-navy);
     color: var(--dark); 
     font-family: var(--sans); 
     font-weight: 300; 
     overflow-x: hidden; 
+    perspective: 1200px; /* Essential for global 3D spatial alignment */
   }
 
-  /* NAV */
+  /* 3D INTERACTIVE CANVAS BACKGROUND */
+  #canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, var(--mid-navy) 0%, var(--dark-navy) 100%);
+  }
+
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.18;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, var(--sky-blue) 0%, transparent 70%); top: -200px; right: -150px; }
+  .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #0EA5E9 0%, transparent 70%); bottom: -150px; left: -100px; }
+  .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #3b82f6 0%, transparent 70%); top: 40%; left: 30%; opacity: 0.08; }
+
+  /* 3D Kinetic Background Matrix Grid */
+  .grid-3d {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background-image: 
+      linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: rotateX(60deg) translateZ(-200px);
+    transform-style: preserve-3d;
+    opacity: 0.6;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* PREMIUM SCROLL REVEAL (3D TRANSLATION) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px) scale(0.96) rotateX(10deg);
+    transform-style: preserve-3d;
+    transition: opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+    will-change: transform, opacity;
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+
+  /* NAVIGATION */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.5rem 4rem;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    background: rgba(11, 19, 43, 0.75); backdrop-filter: blur(14px);
-    animation: fadeDown 0.8s ease both;
+    padding: 1.75rem 4rem;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(11, 19, 43, 0.7); backdrop-filter: blur(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .nav-logo { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; letter-spacing: 0.15em; color: var(--dark); text-decoration: none; }
-  .nav-logo span { color: var(--sky-blue); }
+  .nav-logo { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.12em; color: var(--dark); text-decoration: none; }
+  .nav-logo span { color: var(--sky-blue); text-shadow: 0 0 15px rgba(56,189,248,0.5); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
-  .nav-links a:hover { color: var(--dark); }
-  .nav-cta { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid var(--sky-blue); color: var(--sky-blue); padding: 0.6rem 1.5rem; cursor: pointer; background: none; transition: all 0.3s; text-decoration: none; }
-  .nav-cta:hover { background: var(--sky-blue); color: #0B132B; }
-
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: linear-gradient(135deg, transparent 0%, rgba(56,189,248,0.05) 100%); border-left: 1px solid rgba(56,189,248,0.1); }
-
-.hero::after {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%);
-    top: -120px;
-    right: -120px;
-    z-index: 0;
-}
-
-  .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 2rem; animation: fadeUp 1s 0.2s ease both; }
-  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky-blue); }
-  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); }
-  .hero-title { font-family: var(--serif); font-size: clamp(3.2rem, 6.5vw, 5.5rem); font-weight: 300; line-height: 1.1; max-width: 720px; margin-bottom: 2rem; animation: fadeUp 1s 0.4s ease both; }
-  .hero-title em { font-style: italic; color: var(--sky-blue-light); }
-  .hero-sub { font-size: 1rem; color: var(--muted); line-height: 1.8; max-width: 460px; margin-bottom: 3rem; animation: fadeUp 1s 0.6s ease both; }
-  .hero-actions { display: flex; gap: 1.5rem; align-items: center; animation: fadeUp 1s 0.8s ease both; }
+  .nav-links a { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
+  .nav-links a:hover { color: var(--sky-blue); }
   
-.btn-primary {
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+  .lang-switcher { display: flex; gap: 0.35rem; background: rgba(255,255,255,0.03); padding: 0.25rem; border-radius: 999px; border: 1px solid var(--glass-border); }
+  .lang-toggle { background: transparent; border: none; border-radius: 999px; padding: 0.4rem 0.8rem; color: var(--muted); font-size: 0.68rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .lang-toggle.active, .lang-toggle:hover { background: rgba(56,189,248,0.15); color: var(--sky-blue); }
+  
+  .nav-cta { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; border: 1px solid var(--sky-blue); color: var(--sky-blue); padding: 0.65rem 1.6rem; cursor: pointer; background: none; transition: all 0.3s; text-decoration: none; border-radius: 4px; }
+  .nav-cta:hover { background: var(--sky-blue); color: var(--dark-navy); box-shadow: 0 0 25px rgba(56,189,248,0.4); transform: translateY(-1px); }
+
+  /* HERO AREA */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 10rem 4rem 6rem; position: relative; overflow: hidden; transform-style: preserve-3d; }
+  .hero-content { position: relative; z-index: 2; max-width: 820px; transform-style: preserve-3d; }
+  
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 2.5rem; background: rgba(56, 189, 248, 0.06); padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.15); transform: translateZ(30px); }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky-blue); box-shadow: 0 0 8px var(--sky-blue); }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sky-blue); font-weight: 500; }
+  
+  .hero-title { font-family: var(--serif); font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 300; line-height: 1.05; margin-bottom: 2.5rem; transform: translateZ(50px); color: var(--white); }
+  .hero-title em { font-style: italic; font-weight: 300; color: var(--sky-blue-light); text-shadow: 0 0 40px rgba(56,189,248,0.35); }
+  
+  .hero-sub { font-size: 1.1rem; color: var(--muted); line-height: 1.8; max-width: 540px; margin-bottom: 3.5rem; transform: translateZ(20px); font-weight: 300; }
+  .hero-actions { display: flex; gap: 2rem; align-items: center; transform: translateZ(40px); }
+  
+  .btn-primary {
     background: linear-gradient(135deg, #38BDF8, #0EA5E9);
-    color: white;
-    padding: 1rem 2.5rem;
-    font-family: var(--sans);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 500;
-    border: none;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 10px 30px rgba(56,189,248,0.25);
-}
+    color: white; padding: 1.1rem 2.8rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; border: none; border-radius: 999px; cursor: pointer; transition: all 0.35s ease; text-decoration: none; display: inline-block; box-shadow: var(--btn-shadow, 0 10px 30px rgba(56,189,248,0.25)); position: relative; overflow: hidden;
+  }
+  .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.6s; }
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(56,189,248,0.45), 0 0 20px rgba(56,189,248,0.2); }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(56,189,248,0.35);
-}
+  .btn-ghost { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: color 0.3s, transform 0.3s; font-weight: 500; }
+  .btn-ghost:hover { color: var(--white); transform: translateX(4px); }
+  
+  /* Interactive 3D Mockup Container */
+  .hero-3d-scene {
+    position: absolute; right: 4rem; top: 52%; transform: translateY(-50%); width: 45%; height: 600px; transform-style: preserve-3d; pointer-events: none;
+  }
+  .funnel-visualization {
+    position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateY(-20deg) rotateX(15deg); transition: transform 0.1s ease;
+  }
+  /* Elegant abstract geometric layers tracking conversion paths representing optimization */
+  .funnel-layer {
+    position: absolute; left: 15%; width: 70%; height: 80px; border: 1px solid rgba(56, 189, 248, 0.25); background: rgba(28, 37, 65, 0.4); backdrop-filter: blur(5px); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; transform-style: preserve-3d; transition: all 0.5s ease; box-shadow: inset 0 0 20px rgba(56,189,248,0.05);
+  }
+  .funnel-layer::before {
+    content: ''; position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(90deg, rgba(56,189,248,0.05), transparent); pointer-events: none;
+  }
+  .fl-1 { top: 60px; transform: translateZ(80px) scale(1); border-color: rgba(56, 189, 248, 0.4); }
+  .fl-2 { top: 180px; transform: translateZ(40px) scale(0.85); }
+  .fl-3 { top: 300px; transform: translateZ(0px) scale(0.7); }
+  .fl-4 { top: 420px; transform: translateZ(-40px) scale(0.55); border-color: rgba(125, 211, 252, 0.5); background: rgba(56, 189, 248, 0.1); }
+  
+  .funnel-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .funnel-layer:hover .funnel-title { color: var(--white); }
+  .funnel-metric { font-family: var(--serif); font-size: 1.8rem; color: var(--sky-blue-light); font-weight: 400; }
+  .funnel-connector {
+    position: absolute; left: 50%; top: 140px; width: 1px; height: 300px; background: linear-gradient(to bottom, var(--sky-blue), transparent); opacity: 0.3;
+  }
 
-  .btn-ghost { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
-  .btn-ghost:hover { color: var(--dark); }
-  .hero-line { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); width: 1px; height: 200px; background: linear-gradient(to bottom, transparent, var(--sky-blue), transparent); animation: fadeUp 1.5s 1s ease both; }
-
-  /* MARQUEE */
-  .marquee-wrap { border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 1.2rem 0; overflow: hidden; white-space: nowrap; }
-  .marquee-track { display: inline-block; animation: marquee 22s linear infinite; }
-  .marquee-track span { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); padding: 0 3rem; }
-  .marquee-track span.accent { color: var(--sky-blue); padding: 0; }
+  /* KINETIC AUDIENCE MARQUEE */
+  .marquee-wrap { border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1.6rem 0; overflow: hidden; white-space: nowrap; background: rgba(11, 19, 43, 0.4); backdrop-filter: blur(5px); }
+  .marquee-track { display: inline-block; animation: marquee 28s linear infinite; }
+  .marquee-track span { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); padding: 0 3.5rem; font-weight: 400; }
+  .marquee-track span.accent { color: var(--sky-blue); padding: 0; text-shadow: 0 0 10px rgba(56,189,248,0.4); }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* STATS */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid rgba(255,255,255,0.1); }
-  .stat { padding: 2.5rem; border-right: 1px solid rgba(255,255,255,0.1); transition: background 0.3s; }
+  /* DATA STRATA PERFORMANCE METRICS */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); background: rgba(11, 19, 43, 0.5); border-bottom: 1px solid rgba(255,255,255,0.06); transform-style: preserve-3d; }
+  .stat { padding: 4rem 2.5rem; border-right: 1px solid rgba(255,255,255,0.06); transform-style: preserve-3d; background: var(--glass); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); border-bottom: 1px solid transparent; }
   .stat:last-child { border-right: none; }
-  .stat:hover { background: rgba(255,255,255,0.04); }
-  .stat-num { font-family: var(--serif); font-size: 3rem; font-weight: 300; color: var(--sky-blue-light); line-height: 1; margin-bottom: 0.4rem; }
-  .stat-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .stat:hover { background: rgba(255, 255, 255, 0.05); transform: translateZ(20px); border-bottom-color: var(--sky-blue); }
+  .stat-num { font-family: var(--serif); font-size: 3.8rem; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 0.6rem; transform: translateZ(30px); transition: transform 0.3s; text-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+  .stat:hover .stat-num { color: var(--sky-blue-light); transform: translateZ(45px); }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); transform: translateZ(15px); }
 
-  /* SERVICES */
-  .services { padding: 8rem 4rem; }
-  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 5rem; }
-  .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 1rem; }
-  .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2; }
-  .section-title em { font-style: italic; color: var(--sky-blue-light); }
-  .services-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.08); margin-bottom: 1px; }
-  .services-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.08); }
-  .service-card { padding: 3rem 2.5rem; border-radius: 24px; transition: background 0.4s; position: relative; overflow: hidden; }
-  .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--sky-blue); transition: width 0.4s; }
-  .service-card:hover { background: rgba(255, 255, 255, 0.12); }
-  .service-card:hover::after { width: 100%; }
-  .service-num { font-family: var(--serif); font-size: 0.85rem; color: var(--sky-blue); margin-bottom: 1.5rem; opacity: 0.6; }
-  .service-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.8rem; line-height: 1.3; color: var(--white); }
-  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.8; }
-  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-  .service-tag { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sky-blue); border: 1px solid rgba(255,255,255,0.15); padding: 0.3rem 0.7rem; }
+  /* STRATEGIC CAPABILITIES (SERVICES) */
+  .services { padding: 10rem 4rem; position: relative; }
+  .section-header { display: flex; flex-direction: column; margin-bottom: 6rem; position: relative; }
+  .section-header::after { content: ''; display: block; width: 80px; height: 2px; margin-top: 2rem; background: linear-gradient(90deg, var(--sky-blue), transparent); }
+  .section-eyebrow { font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 1.2rem; font-weight: 500; }
+  .section-title { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 300; line-height: 1.15; color: var(--white); }
+  .section-title em { font-style: italic; font-weight: 300; color: var(--sky-blue-light); text-shadow: 0 0 30px rgba(56,189,248,0.2); }
+  
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; transform-style: preserve-3d; }
+  .services-grid-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; transform-style: preserve-3d; }
+  
+  .service-card { 
+    background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; padding: 4rem 3rem; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; position: relative; overflow: hidden; box-shadow: var(--shadow-soft);
+  }
+  .service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(56,189,248,0.03), transparent); opacity: 0; transition: opacity 0.4s; }
+  .service-card:hover::before { opacity: 1; }
+  .service-card:hover { transform: translateY(-8px) translateZ(15px); border-color: rgba(56, 189, 248, 0.35); box-shadow: var(--shadow-glow); }
+  
+  .service-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(56,189,248,0.08); color: var(--sky-blue); margin-bottom: 2.5rem; font-size: 1rem; border: 1px solid rgba(56,189,248,0.15); transform: translateZ(20px); transition: transform 0.4s; }
+  .service-card:hover .service-icon { transform: translateZ(35px) rotate(15deg); background: rgba(56,189,248,0.15); color: var(--white); box-shadow: 0 0 15px rgba(56,189,248,0.3); }
+  
+  .service-num { font-family: var(--serif); font-size: 0.8rem; color: var(--sky-blue); opacity: 0.4; margin-bottom: 1rem; display: block; letter-spacing: 0.1em; }
+  .service-title { font-family: var(--serif); font-size: 1.65rem; font-weight: 400; margin-bottom: 1.2rem; color: var(--white); transform: translateZ(25px); }
+  .service-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; transform: translateZ(10px); margin-bottom: 2rem; font-weight: 300; }
+  
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; transform: translateZ(15px); }
+  .service-tag { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky-blue-light); background: rgba(56,189,248,0.04); border: 1px solid rgba(255,255,255,0.06); padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 400; }
 
-  /* PROCESS */
-  .process { padding: 8rem 4rem; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); }
-  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 5rem; position: relative; }
-  .process-steps::before { content: ''; position: absolute; top: 1.2rem; left: 10%; right: 10%; height: 1px; background: linear-gradient(to right, transparent, var(--sky-blue), var(--sky-blue), transparent); opacity: 0.3; }
-  .process-step { padding: 0 1.5rem; text-align: center; }
-  .step-circle { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--sky-blue); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 0.9rem; color: var(--sky-blue); margin: 0 auto 1.5rem; background: #1C2541; position: relative; z-index: 1; }
-  .step-title { font-family: var(--serif); font-size: 1.1rem; color: var(--white); margin-bottom: 0.75rem; }
-  .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.8; }
+  /* THE FLUID PIPELINE (PROCESS) */
+  .process { padding: 10rem 4rem; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); transform-style: preserve-3d; }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; margin-top: 6rem; position: relative; transform-style: preserve-3d; }
+  .process-steps::before { content: ''; position: absolute; top: 2rem; left: 12%; right: 12%; height: 1px; background: linear-gradient(to right, transparent, rgba(56,189,248,0.3), rgba(56,189,248,0.3), transparent); pointer-events: none; }
+  
+  .process-step { text-align: center; transform-style: preserve-3d; transition: transform 0.4s; padding: 1rem; }
+  .process-step:hover { transform: translateZ(20px); }
+  
+  .step-circle { width: 4rem; height: 4rem; border-radius: 50%; border: 1px solid rgba(56, 189, 248, 0.25); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1.1rem; color: var(--sky-blue); margin: 0 auto 2rem; background: var(--mid-navy); position: relative; z-index: 2; box-shadow: var(--shadow-soft); transition: all 0.3s; }
+  .process-step:hover .step-circle { border-color: var(--sky-blue); color: var(--white); box-shadow: 0 0 20px rgba(56,189,248,0.3); transform: scale(1.05); }
+  
+  .step-title { font-family: var(--serif); font-size: 1.3rem; color: var(--white); margin-bottom: 1rem; font-weight: 400; transform: translateZ(15px); }
+  .step-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; font-weight: 300; transform: translateZ(10px); }
 
-  /* ABOUT */
-  .about { padding: 8rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); }
-  .about-quote { font-family: var(--serif); font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 300; font-style: italic; color: var(--sky-blue-light); line-height: 1.6; padding-left: 2rem; border-left: 1px solid var(--sky-blue); }
-  .about-text p { font-size: 0.9375rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem; }
+  /* RADICAL TRANSPARENCY (ABOUT) */
+  .about { padding: 10rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-quote { font-family: var(--serif); font-size: clamp(1.6rem, 2.5vw, 2.3rem); font-weight: 300; font-style: italic; color: var(--white); line-height: 1.5; padding-left: 2.5rem; border-left: 2px solid var(--sky-blue); text-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+  .about-quote span { color: var(--sky-blue); }
+  .about-text p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; font-weight: 300; }
+  .about-text p:last-child { margin-bottom: 0; }
 
-  /* TESTIMONIALS */
-  .testimonials { padding: 8rem 4rem; border-top: 1px solid rgba(255,255,255,0.1); }
-  .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 4rem; }
-  .testi-card { padding: 2.5rem; border: 1px solid rgba(255,255,255,0.1); transition: border-color 0.3s; }
-  .testi-card:hover { border-color: rgba(56,189,248,0.4); }
-  .testi-quote { font-family: var(--serif); font-size: 1.1rem; font-style: italic; line-height: 1.7; margin-bottom: 2rem; color: #E2E8F0; }
-  .testi-author { display: flex; align-items: center; gap: 1rem; }
-  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(56,189,248,0.15); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 0.9rem; color: var(--sky-blue-light); flex-shrink: 0; }
-  .testi-name { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; margin-bottom: 0.2rem; color: var(--white); }
-  .testi-role { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
+  /* INTELLIGENCE HUB (BLOG) */
+  .blog-section { padding: 10rem 4rem; border-top: 1px solid rgba(255,255,255,0.04); }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 5rem; transform-style: preserve-3d; }
+  
+  .blog-card { border-radius: 16px; overflow: hidden; background: var(--glass); border: 1px solid var(--glass-border); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; box-shadow: var(--shadow-soft); }
+  .blog-card:hover { transform: translateY(-10px) translateZ(15px); border-color: rgba(56,189,248,0.3); box-shadow: var(--shadow-glow); }
+  
+  .blog-graphic-box { height: 160px; background: linear-gradient(135deg, rgba(28,37,65,0.8), rgba(11,19,43,0.9)); display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid var(--glass-border); overflow: hidden; }
+  .blog-graphic-box::before { content: 'DATA AUDIT'; position: absolute; font-family: var(--sans); font-size: 4rem; font-weight: 600; color: rgba(255,255,255,0.01); letter-spacing: 2px; }
+  .blog-card:nth-child(2) .blog-graphic-box::before { content: 'ROI FOCUS'; }
+  .blog-card:nth-child(3) .blog-graphic-box::before { content: 'ROAS CALC'; }
+  
+  .chart-simulation { width: 60%; height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; position: relative; overflow: hidden; }
+  .chart-line-inner { height: 100%; width: 0; background: linear-gradient(90deg, var(--sky-blue), var(--sky-blue-light)); transition: width 1.5s ease; }
+  .blog-card:hover .chart-line-inner { width: 85%; }
+  
+  .blog-content { padding: 2.5rem; transform-style: preserve-3d; }
+  .blog-category { display: inline-block; background: rgba(56,189,248,0.08); color: var(--sky-blue); padding: 0.4rem 0.9rem; border-radius: 4px; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 500; border: 1px solid rgba(56,189,248,0.15); }
+  
+  .blog-content h3 { font-family: var(--serif); font-size: 1.45rem; color: var(--white); margin-bottom: 1rem; font-weight: 400; line-height: 1.3; transform: translateZ(20px); }
+  .blog-content p { color: var(--muted); line-height: 1.7; font-size: 0.88rem; margin-bottom: 2rem; font-weight: 300; transform: translateZ(10px); }
+  .blog-btn { color: var(--sky-blue); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s, transform 0.3s; }
+  .blog-card:hover .blog-btn { color: var(--white); transform: translateX(4px); }
 
-  /* CONTACT FORM */
-  .contact { padding: 8rem 4rem; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); }
+  /* PROVEN DISRUPTIONS (TESTIMONIALS) */
+  .testimonials { padding: 10rem 4rem; background: radial-gradient(circle at bottom left, rgba(56,189,248,0.03), transparent 40%); }
+  .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: 5rem; transform-style: preserve-3d; }
+  
+  .testi-card { padding: 3.5rem; border-radius: 16px; background: var(--glass); border: 1px solid var(--glass-border); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; box-shadow: var(--shadow-soft); }
+  .testi-card:hover { transform: translateY(-6px) translateZ(15px); border-color: rgba(56,189,248,0.3); box-shadow: var(--shadow-glow); }
+  
+  .stars { color: var(--sky-blue); margin-bottom: 1.5rem; letter-spacing: 0.2em; font-size: 0.85rem; }
+  .testi-quote { font-family: var(--serif); font-size: 1.3rem; font-style: italic; line-height: 1.6; margin-bottom: 2.5rem; color: var(--dark-2); font-weight: 300; }
+  
+  .testi-author { display: flex; align-items: center; gap: 1.2rem; }
+  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(56,189,248,0.1); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: var(--sky-blue-light); border: 1px solid rgba(56,189,248,0.15); font-weight: 400; }
+  .testi-name { font-size: 0.9rem; font-weight: 500; color: var(--white); margin-bottom: 0.15rem; }
+  .testi-role { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
+
+  /* REVENUE ENGINE INTERACTION ROOM (CONTACT) */
+  .contact { padding: 10rem 4rem; border-top: 1px solid rgba(255,255,255,0.04); background: rgba(11,19,43,0.3); transform-style: preserve-3d; }
   .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-  .contact-left h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; }
-  .contact-left h2 em { font-style: italic; color: var(--sky-blue-light); }
-  .contact-left p { font-size: 0.9375rem; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
-  .contact-detail { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.875rem; color: var(--muted); }
-  .contact-detail strong { color: var(--dark); font-weight: 400; }
-  .form-group { margin-bottom: 1.5rem; }
-  .form-group label { display: block; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+  
+  .contact-left .section-title { margin-bottom: 2rem; }
+  .contact-left p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 3.5rem; font-weight: 300; }
+  
+  .contact-details-box { display: flex; flex-direction: column; gap: 1.5rem; }
+  .contact-detail { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.95rem; color: var(--muted); }
+  .contact-detail strong { color: var(--white); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sky-blue); }
+  
+  .contact-right { background: rgba(11, 19, 43, 0.5); padding: 4rem; border-radius: 16px; border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); transform-style: preserve-3d; transition: transform 0.3s; }
+  
+  .form-group { margin-bottom: 1.8rem; }
+  .form-group label { display: block; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; font-weight: 500; }
+  
   .form-group input, .form-group textarea, .form-group select {
-    width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
-    color: var(--white); font-family: var(--sans); font-size: 0.9rem; font-weight: 300;
-    padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s;
+    width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white); font-family: var(--sans); font-size: 0.92rem; font-weight: 300;
+    padding: 0.95rem 1.2rem; outline: none; transition: all 0.3s; border-radius: 4px;
     appearance: none;
   }
-  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--sky-blue); }
-  .form-group textarea { resize: vertical; min-height: 120px; }
-  .form-group select option { background: #1C2541; color: var(--white); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-submit { width: 100%; background: var(--sky-blue); color: #0B132B; padding: 1rem; font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; border: none; cursor: pointer; transition: all 0.3s; margin-top: 0.5rem; }
-  .form-submit:hover { background: var(--sky-blue-light); }
-  .form-success { display: none; padding: 1.5rem; border: 1px solid rgba(56,189,248,0.4); text-align: center; }
-  .form-success p { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--sky-blue-light); }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--sky-blue); background: rgba(255,255,255,0.04); box-shadow: 0 0 15px rgba(56,189,248,0.1); }
+  .form-group textarea { resize: vertical; min-height: 130px; }
+  
+  /* Select Dropdown custom styling layout logic */
+  .form-group select { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 20px) calc(1em + 4px), calc(100% - 15px) calc(1em + 4px); background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+  .form-group select option { background: var(--mid-navy); color: var(--white); }
+  
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  
+  .form-submit { width: 100%; background: linear-gradient(135deg, #38BDF8, #0EA5E9); color: var(--white); padding: 1.1rem; font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; border: none; border-radius: 4px; cursor: pointer; transition: all 0.3s; margin-top: 1rem; box-shadow: 0 8px 25px rgba(56,189,248,0.2); }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(56,189,248,0.4); background: linear-gradient(135deg, #7DD3FC, #0EA5E9); }
+  
+  .form-success { display: none; padding: 2.5rem; border: 1px solid rgba(56,189,248,0.2); text-align: center; border-radius: 8px; background: rgba(56,189,248,0.02); }
+  .form-success p { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--sky-blue-light); }
 
-  /* CTA */
-  .cta-section { padding: 10rem 4rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); position: relative; overflow: hidden; }
-  .cta-section::before { content: 'B'; position: absolute; font-family: var(--serif); font-size: 40vw; font-weight: 300; color: rgba(255,255,255,0.02); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; line-height: 1; }
-  .cta-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 2rem; }
-  .cta-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.15; max-width: 700px; margin: 0 auto 2.5rem; }
-  .cta-title em { font-style: italic; color: var(--sky-blue-light); }
-  .cta-sub { font-size: 0.9375rem; color: var(--muted); max-width: 420px; margin: 0 auto 3.5rem; line-height: 1.8; }
+  /* MACRO EXPANSION ACTION SECTION (CTA) */
+  .cta-section { padding: 12rem 4rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.04); position: relative; overflow: hidden; background: linear-gradient(180deg, var(--dark-navy) 0%, #060B18 100%); }
+  .cta-section::before { content: 'ROI'; position: absolute; font-family: var(--serif); font-size: 35vw; font-weight: 600; color: rgba(56,189,248,0.01); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; line-height: 1; }
+  .cta-eyebrow { font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 2.5rem; font-weight: 500; }
+  .cta-title { font-family: var(--serif); font-size: clamp(2.5rem, 5.5vw, 4.8rem); font-weight: 300; line-height: 1.1; max-width: 850px; margin: 0 auto 2.5rem; color: var(--white); }
+  .cta-title em { font-style: italic; font-weight: 300; color: var(--sky-blue-light); text-shadow: 0 0 35px rgba(56,189,248,0.25); }
+  .cta-sub { font-size: 1rem; color: var(--muted); max-width: 460px; margin: 0 auto 4rem; line-height: 1.8; font-weight: 300; }
 
-  /* FOOTER */
-  footer { padding: 3rem 4rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.15em; color: var(--muted); }
-  .footer-copy { font-size: 0.75rem; color: var(--muted); opacity: 0.6; }
-  .footer-links { display: flex; gap: 2rem; }
-  .footer-links a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  /* STRATEGIC TERMINUS (FOOTER) */
+  footer { padding: 4rem 4rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; background: #060B18; }
+  .footer-logo { font-family: var(--serif); font-size: 1.25rem; letter-spacing: 0.12em; color: var(--muted); text-decoration: none; }
+  .footer-logo span { color: rgba(255,255,255,0.3); }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); opacity: 0.5; font-weight: 300; }
+  .footer-links { display: flex; gap: 2.5rem; }
+  .footer-links a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
   .footer-links a:hover { color: var(--sky-blue); }
 
-  /* ANIMATIONS */
-  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
+  /* COMPLETE DYNAMIC RTL SYSTEM CORE LAYOUT INTEGRATION */
+  html[dir="rtl"] body { font-family: 'Cairo', var(--sans); text-align: right; }
+  html[dir="rtl"] nav,
+  html[dir="rtl"] .hero-actions,
+  html[dir="rtl"] footer,
+  html[dir="rtl"] .testi-author,
+  html[dir="rtl"] .nav-links,
+  html[dir="rtl"] .nav-right,
+  html[dir="rtl"] .footer-links { flex-direction: row-reverse; }
   
-
-/* ===== PREMIUM GLASS MORPHISM UPGRADES ===== */
-
-:root {
-  --glass: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.2);
-  --shadow-glow: 0 20px 60px rgba(56,189,248,0.12);
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
-  top: -200px;
-  right: -150px;
-  z-index: -1;
-  animation: floatGlow 8s ease-in-out infinite alternate;
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(125,211,252,0.06) 0%, transparent 70%);
-  bottom: -200px;
-  left: -100px;
-  z-index: -1;
-}
-
-@keyframes floatGlow {
-  from { transform: translateY(0px) translateX(0px); }
-  to { transform: translateY(30px) translateX(-20px); }
-}
-
-.hero {
-  background:
-    radial-gradient(circle at top right, rgba(56,189,248,0.12), transparent 30%),
-    linear-gradient(180deg, #0B132B 0%, #1C2541 100%);
-}
-
-.hero::before {
-  backdrop-filter: blur(10px);
-}
-
-.service-card,
-.testi-card,
-.blog-card,
-.stat {
-  transition: all 0.45s ease;
-}
-
-.service-card:hover,
-.testi-card:hover,
-.blog-card:hover,
-.stat:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-glow);
-}
-
-.service-card,
-.testi-card,
-.stat,
-.blog-card {
-  background: var(--glass);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-soft);
-}
-
-.service-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(56,189,248,0.12);
-  color: var(--sky-blue);
-  margin-bottom: 1.5rem;
-  font-size: 1.2rem;
-}
-
-.btn-primary {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,0.4),
-    transparent
-  );
-  transition: 0.7s;
-}
-
-.btn-primary:hover::before {
-  left: 100%;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.stars {
-  color: #38BDF8;
-  margin-bottom: 1rem;
-  letter-spacing: 0.2em;
-}
-
-.blog-section {
-  padding: 8rem 4rem;
-  border-top: 1px solid rgba(56,189,248,0.08);
-}
-
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 4rem;
-}
-
-.blog-card {
-  border-radius: 28px;
-  overflow: hidden;
-}
-
-.blog-image {
-  height: 240px;
-  overflow: hidden;
-}
-
-.blog-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.blog-card:hover img {
-  transform: scale(1.08);
-}
-
-.blog-content {
-  padding: 2rem;
-}
-
-.blog-category {
-  display: inline-block;
-  background: rgba(56,189,248,0.12);
-  color: var(--sky-blue);
-  padding: 0.45rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.blog-content h3 {
-  font-family: var(--serif);
-  font-size: 1.5rem;
-  color: var(--white);
-  margin-bottom: 1rem;
-}
-
-.blog-content p {
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-}
-
-.blog-btn {
-  color: var(--sky-blue);
-  text-decoration: none;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-@media (max-width: 768px) {
-  .blog-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .blog-section {
-    padding: 4rem 1.5rem;
-  }
-}
-
-
+  html[dir="rtl"] .about-quote { border-left: none; border-right: 2px solid var(--sky-blue); padding-left: 0; padding-right: 2.5rem; }
   
+  html[dir="rtl"] .contact-left,
+  html[dir="rtl"] .about-text,
+  html[dir="rtl"] .hero,
+  html[dir="rtl"] .service-card,
+  html[dir="rtl"] .blog-content,
+  html[dir="rtl"] .section-header,
+  html[dir="rtl"] .testi-card { text-align: right; }
+  
+  html[dir="rtl"] .section-header::after { margin-left: auto; margin-right: 0; background: linear-gradient(270deg, var(--sky-blue), transparent); }
+  html[dir="rtl"] .form-group input, html[dir="rtl"] .form-group textarea, html[dir="rtl"] .form-group select { text-align: right; }
+  html[dir="rtl"] .btn-ghost:hover { transform: translateX(-4px); }
+  html[dir="rtl"] .hero-3d-scene { left: 4rem; right: auto; }
+  html[dir="rtl"] .funnel-visualization { transform: rotateY(20deg) rotateX(15deg); }
 
-/* ===== MULTI LANGUAGE + SOCIALS ===== */
-
-.lang-toggle {
-  border: 1px solid rgba(56,189,248,0.3);
-  background: rgba(11, 19, 43, 0.6);
-  backdrop-filter: blur(10px);
-  color: var(--sky-blue);
-  padding: 0.6rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-.lang-toggle:hover {
-  background: var(--sky-blue);
-  color: #0B132B;
-  box-shadow: 0 10px 30px rgba(56,189,248,0.25);
-}
-
-.social-floating {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.social-floating a {
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: var(--white);
-  font-size: 1.2rem;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  transition: all 0.35s ease;
-}
-
-.social-floating a:hover {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 20px 50px rgba(56,189,248,0.25);
-  background: rgba(56,189,248,0.2);
-}
-
-html[dir="rtl"] body {
-  font-family: 'Cairo', sans-serif;
-}
-
-html[dir="rtl"] .nav-links,
-html[dir="rtl"] .hero-actions,
-html[dir="rtl"] .footer-links {
-  flex-direction: row-reverse;
-}
-
-html[dir="rtl"] .about-quote {
-  border-left: none;
-  border-right: 1px solid var(--sky-blue);
-  padding-left: 0;
-  padding-right: 2rem;
-}
-
-@media(max-width:768px){
-  .social-floating {
-    right: 14px;
-    bottom: 14px;
+  /* HARDENED ULTRA-RESPONSIVE ADAPTATION INTERNALS */
+  @media (max-width: 1100px) {
+    .hero-3d-scene { display: none; }
+    .hero-content { max-width: 100%; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid-bottom { grid-template-columns: repeat(2, 1fr); }
   }
 
-  .social-floating a {
-    width: 52px;
-    height: 52px;
-  }
-}
-
-
-
-
-/* ===== COMPLETE RTL SUPPORT ===== */
-html[dir="rtl"] body{
-  font-family:'Cairo',sans-serif;
-  text-align:right;
-}
-
-html[dir="rtl"] nav,
-html[dir="rtl"] .section-header,
-html[dir="rtl"] .hero-actions,
-html[dir="rtl"] .contact-detail,
-html[dir="rtl"] footer,
-html[dir="rtl"] .testi-author,
-html[dir="rtl"] .nav-links,
-html[dir="rtl"] .footer-links{
-  flex-direction:row-reverse;
-}
-
-html[dir="rtl"] .about-quote{
-  border-left:none;
-  border-right:1px solid var(--sky-blue);
-  padding-left:0;
-  padding-right:2rem;
-}
-
-html[dir="rtl"] .contact-left,
-html[dir="rtl"] .about-text,
-html[dir="rtl"] .hero,
-html[dir="rtl"] .service-card,
-html[dir="rtl"] .blog-content,
-html[dir="rtl"] .testi-card{
-  text-align:right;
-}
-
-html[dir="rtl"] .form-group input,
-html[dir="rtl"] .form-group textarea,
-html[dir="rtl"] .form-group select{
-  text-align:right;
-}
-
-.lang-toggle{
-  min-width:70px;
-  font-weight:600;
-}
-
-.social-floating a{
-  font-weight:700;
-}
-
-
-
-
-.lang-switcher{
-  display:flex;
-  gap:0.5rem;
-  align-items:center;
-}
-
-.lang-toggle{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(14px);
-  border-radius:999px;
-  min-width:56px;
-  padding:0.65rem 1rem;
-  color:var(--sky-blue);
-  font-size:0.72rem;
-  font-weight:600;
-  letter-spacing:0.15em;
-  cursor:pointer;
-  transition:all 0.35s ease;
-}
-
-.lang-toggle:hover{
-  background:rgba(56,189,248,0.15);
-  transform:translateY(-2px);
-  box-shadow:0 10px 30px rgba(56,189,248,0.2);
-}
-
-
-/* RESPONSIVE */
   @media (max-width: 768px) {
-    nav { padding: 1.2rem 1.5rem; }
+    nav { padding: 1.2rem 2rem; }
     .nav-links { display: none; }
-    .hero { padding: 6rem 1.5rem 3rem; }
-    .hero-line { display: none; }
+    .hero { padding: 8rem 2rem 4rem; }
     .stats { grid-template-columns: repeat(2, 1fr); }
-    .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .services { padding: 4rem 1.5rem; }
-    .services-top { grid-template-columns: 1fr; }
-    .services-bottom { grid-template-columns: 1fr; }
-    .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .process { padding: 4rem 1.5rem; }
-    .process-steps { grid-template-columns: 1fr; gap: 2rem; }
+    .stat { padding: 3rem 1.5rem; }
+    .services { padding: 6rem 2rem; }
+    .services-grid, .services-grid-bottom { grid-template-columns: 1fr; gap: 1.5rem; }
+    .services-grid-bottom { margin-top: 1.5rem; }
+    .process { padding: 6rem 2rem; }
+    .process-steps { grid-template-columns: 1fr; gap: 2rem; margin-top: 4rem; }
     .process-steps::before { display: none; }
-    .about { padding: 4rem 1.5rem; grid-template-columns: 1fr; gap: 3rem; }
-    .testimonials { padding: 4rem 1.5rem; }
-    .testi-grid { grid-template-columns: 1fr; }
-    .contact { padding: 4rem 1.5rem; }
-    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .form-row { grid-template-columns: 1fr; }
-    .cta-section { padding: 6rem 1.5rem; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .about { padding: 6rem 2rem; grid-template-columns: 1fr; gap: 4rem; }
+    .blog-section { padding: 6rem 2rem; }
+    .blog-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .testimonials { padding: 6rem 2rem; }
+    .testi-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .contact { padding: 6rem 2rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 4rem; }
+    .contact-right { padding: 2.5rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .cta-section { padding: 8rem 2rem; }
+    footer { flex-direction: column; gap: 2rem; text-align: center; padding: 3rem 2rem; }
+    .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
   }
-
-/* ===== PREMIUM DARK ACCENTS ===== */
-
-nav{
-  transition:all .4s ease;
-  background:rgba(11, 19, 43, 0.85);
-  backdrop-filter:blur(18px);
-  box-shadow:0 10px 40px rgba(0,0,0,0.2);
-}
-
-nav:hover{
-  background:rgba(11, 19, 43, 0.95);
-  box-shadow:0 20px 50px rgba(0,0,0,0.3);
-}
-
-.hero::before{
-  background:
-  linear-gradient(
-    135deg,
-    rgba(255,255,255,0.01) 0%,
-    rgba(255,255,255,0.04) 100%
-  );
-}
-
-.service-card,
-.blog-card,
-.testi-card{
-  position:relative;
-  overflow:hidden;
-  background:
-  linear-gradient(
-    180deg,
-    rgba(255,255,255,0.05),
-    rgba(255,255,255,0.02)
-  );
-  border:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 15px 50px rgba(0,0,0,0.15);
-  transition:
-  transform .45s ease,
-  box-shadow .45s ease,
-  border-color .45s ease;
-}
-
-.service-card::before,
-.blog-card::before,
-.testi-card::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:
-  linear-gradient(
-    135deg,
-    transparent,
-    rgba(255,255,255,0.03)
-  );
-  opacity:0;
-  transition:opacity .4s ease;
-}
-
-.service-card:hover::before,
-.blog-card:hover::before,
-.testi-card:hover::before{
-  opacity:1;
-}
-
-.service-card:hover,
-.blog-card:hover,
-.testi-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 25px 70px rgba(56,189,248,0.15);
-  border-color:rgba(56,189,248,0.3);
-}
-
-.testimonials{
-  background:
-  radial-gradient(
-    circle at top right,
-    rgba(255,255,255,0.02),
-    transparent 35%
-  ),
-  linear-gradient(
-    180deg,
-    #0B132B 0%,
-    #1C2541 100%
-  );
-}
-
-.testi-card{
-  border-radius:28px;
-  backdrop-filter:blur(18px);
-}
-
-.testi-quote {
-  color: #E2E8F0; /* Soft contrast text */
-}
-
-.cta-section{
-  background:
-  radial-gradient(
-    circle at top,
-    rgba(56,189,248,0.2),
-    transparent 35%
-  ),
-  linear-gradient(
-    135deg,
-    #0B132B 0%,
-    #111827 45%,
-    #1E293B 100%
-  );
-}
-
-.cta-title{
-  color:white;
-}
-
-.cta-sub{
-  color:#CBD5E1;
-}
-
-footer{
-  background:
-  linear-gradient(
-    180deg,
-    rgba(0,0,0,0.05),
-    rgba(0,0,0,0.2)
-  );
-}
-
-.hero-title em,
-.section-title em,
-.cta-title em{
-  text-shadow:0 0 30px rgba(56,189,248,0.3);
-}
-
-.btn-primary{
-  box-shadow:0 15px 40px rgba(56,189,248,0.22);
-}
-
-.btn-primary:hover{
-  box-shadow:
-  0 25px 60px rgba(56,189,248,0.34),
-  0 0 30px rgba(56,189,248,0.18);
-}
-
-.section-header::after{
-  content:'';
-  display:block;
-  width:120px;
-  height:1px;
-  margin-top:1.8rem;
-  background:
-  linear-gradient(
-    to right,
-    rgba(56,189,248,0.45),
-    transparent
-  );
-}
-
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<nav>
+<div id="canvas-container">
+  <div class="floating-orb orb-1"></div>
+  <div class="floating-orb orb-2"></div>
+  <div class="floating-orb orb-3"></div>
+  <div class="grid-3d" id="matrixGrid"></div>
+</div>
+
+<nav id="masterNav">
   <a href="#" class="nav-logo">Blueprint<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#services">Capabilities</a></li>
+    <li><a href="#process">Pipeline</a></li>
+    <li><a href="#about">Philosophy</a></li>
+    <li><a href="#insights">Insights</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:1rem;"><div class="lang-switcher"><button class="lang-toggle" onclick="applyLanguage('en')">EN</button><button class="lang-toggle" onclick="applyLanguage('fr')">FR</button><button class="lang-toggle" onclick="applyLanguage('ar')">AR</button></div><a href="#contact" class="nav-cta" data-en="Get a Proposal" data-ar="احصل على عرض">Get a Proposal</a></div>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-toggle active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+      <button class="lang-toggle" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+      <button class="lang-toggle" id="lang-ar" onclick="changeLanguage('ar')">AR</button>
+    </div>
+    <a href="#contact" class="nav-cta" id="navCtaText">Request Strategy</a>
+  </div>
 </nav>
 
 <section class="hero" id="home">
-  <div>
+  <div class="hero-content">
     <div class="hero-tag">
       <div class="hero-dot"></div>
-      <span class="hero-eyebrow" data-en="Digital Marketing Agency" data-ar="وكالة تسويق رقمي">Digital Marketing Agency</span>
+      <span class="hero-eyebrow" id="heroEyebrowText">Performance Marketing Architecture</span>
     </div>
-    <h1 class="hero-title" data-en="We grow brands that deserve to be seen." data-ar="نساعد العلامات التجارية التي تستحق أن تُرى.">
-      We grow brands that <em>deserve</em> to be seen.
-    </h1>
-    <p class="hero-sub" data-en="Blueprint Agency is a full-service digital marketing agency helping ambitious brands build visibility, drive conversions, and own their market." data-ar="بلو برينت هي وكالة تسويق رقمي متكاملة تساعد العلامات التجارية الطموحة على بناء حضور قوي وتحقيق نمو حقيقي.">
-      Blueprint Agency is a full-service digital marketing agency helping ambitious brands build visibility, drive conversions, and own their market.
-    </p>
+    <h1 class="hero-title" id="heroTitleText">We engineer customer flows that <em>multiply</em> enterprise value.</h1>
+    <p class="hero-sub" id="heroSubText">Blueprint Agency is a precision performance deployment firm. We build cross-channel acquisition funnels, scale paid media algorithms, and structure end-to-end multi-touch revenue architecture.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Start Growing →</a>
-      <a href="#services" class="btn-ghost">See Our Services</a>
+      <a href="#contact" class="btn-primary" id="heroBtnPrimaryText">Deploy Scale Framework</a>
+      <a href="#services" class="btn-ghost" id="heroBtnGhostText">View Core Capabilities</a>
     </div>
   </div>
-  <div class="hero-line"></div>
+  
+  <div class="hero-3d-scene">
+    <div class="funnel-visualization" id="heroFunnel">
+      <div class="funnel-layer fl-1">
+        <span class="funnel-title">Audience Acquisition</span>
+        <span class="funnel-metric">4.2M</span>
+      </div>
+      <div class="funnel-layer fl-2">
+        <span class="funnel-title">Qualified Intention</span>
+        <span class="funnel-metric">640K</span>
+      </div>
+      <div class="funnel-layer fl-3">
+        <span class="funnel-title">Conversion Events</span>
+        <span class="funnel-metric">82K</span>
+      </div>
+      <div class="funnel-layer fl-4">
+        <span class="funnel-title">Net Direct Revenue</span>
+        <span class="funnel-metric">$3.8M</span>
+      </div>
+      <div class="funnel-connector"></div>
+    </div>
+  </div>
 </section>
 
 <div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>Marketing Strategy</span> <span class="accent">✦</span>
-    <span>Social Media Management</span> <span class="accent">✦</span>
-    <span>Content Creation</span> <span class="accent">✦</span>
-    <span>Paid Media</span> <span class="accent">✦</span>
-    <span>Analytics</span> <span class="accent">✦</span>
-    <span>Marketing Strategy</span> <span class="accent">✦</span>
-    <span>Social Media Management</span> <span class="accent">✦</span>
-    <span>Content Creation</span> <span class="accent">✦</span>
-    <span>Paid Media</span> <span class="accent">✦</span>
-    <span>Analytics</span> <span class="accent">✦</span>
+  <div class="marquee-track" id="marqueeTrackText">
+    <span>ROAS Optimization</span> <span class="accent">✦</span>
+    <span>Paid Media Scale Models</span> <span class="accent">✦</span>
+    <span>Customer Acquisition Cost Reduction</span> <span class="accent">✦</span>
+    <span>Data Attribution Auditing</span> <span class="accent">✦</span>
+    <span>LTV Expansion Mechanics</span> <span class="accent">✦</span>
+    <span>Retention Optimization</span> <span class="accent">✦</span>
   </div>
 </div>
 
 <section class="stats reveal">
-  <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Brands Scaled</div></div>
-  <div class="stat"><div class="stat-num">$900K+</div><div class="stat-label">Ad Spend Managed</div></div>
-  <div class="stat"><div class="stat-num">95%</div><div class="stat-label">Client Satisfaction</div></div>
-  <div class="stat"><div class="stat-num">120+</div><div class="stat-label">Successful Campaigns</div></div>
+  <div class="stat">
+    <div class="stat-num">$42M+</div>
+    <div class="stat-label" id="statLabel1">Client Revenue Generated</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">4.6×</div>
+    <div class="stat-label" id="statLabel2">Average Blended ROAS</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">-34%</div>
+    <div class="stat-label" id="statLabel3">Average Reduction in CAC</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">160+</div>
+    <div class="stat-label" id="statLabel4">Funnels Structured & Scaled</div>
+  </div>
 </section>
 
 <section class="services" id="services">
-  <div class="section-header">
-    <div>
-      <p class="section-eyebrow">What We Do</p>
-      <h2 class="section-title">Five services, <em>one goal</em> — your growth</h2>
+  <div class="section-header reveal">
+    <p class="section-eyebrow" id="srvEyebrowText">Core Disciplines</p>
+    <h2 class="section-title" id="srvTitleText">Structured execution layers built for <em>measurable conversion</em>.</h2>
+  </div>
+  
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">✦</div>
+      <span class="service-num">01 / CAPABILITY</span>
+      <h3 class="service-title" id="srvCardTitle1">Cross-Channel Allocation</h3>
+      <p class="service-desc" id="srvCardDesc1">We allocate investment capital dynamically across Meta, Google, TikTok, and Programmatic ecosystems based on real-time margin efficiency metrics.</p>
+      <div class="service-tags">
+        <span class="service-tag">Capital Allocation</span>
+        <span class="service-tag">Meta Scale</span>
+        <span class="service-tag">Google Search/PMax</span>
+      </div>
+    </div>
+    
+    <div class="service-card reveal">
+      <div class="service-icon">✦</div>
+      <span class="service-num">02 / CAPABILITY</span>
+      <h3 class="service-title" id="srvCardTitle2">Attribution & Analytics Rooms</h3>
+      <p class="service-desc" id="srvCardDesc2">We strip away data noise, bypass signal degradation, and build multi-touch attribution models to compute true marketing contribution margins.</p>
+      <div class="service-tags">
+        <span class="service-tag">Server-Side Tracking</span>
+        <span class="service-tag">Attribution Proofing</span>
+        <span class="service-tag">GA4 Advanced</span>
+      </div>
+    </div>
+    
+    <div class="service-card reveal">
+      <div class="service-icon">✦</div>
+      <span class="service-num">03 / CAPABILITY</span>
+      <h3 class="service-title" id="srvCardTitle3">Conversion Rate Optimization</h3>
+      <p class="service-desc" id="srvCardDesc3">We isolate drop-off vectors in your acquisition process, rewriting checkout logic and user flow mechanics to maximize visitor yield metrics.</p>
+      <div class="service-tags">
+        <span class="service-tag">Funnel Re-engineering</span>
+        <span class="service-tag">A/B Matrix Testing</span>
+        <span class="service-tag">UX Diagnostics</span>
+      </div>
     </div>
   </div>
-  <div class="services-top">
-    <div class="service-card">
-      <div class="service-icon">✦</div><div class="service-num">01</div>
-      <h3 class="service-title">Marketing Strategy</h3>
-      <p class="service-desc">We map your market, define your positioning, and build a clear roadmap that turns ambition into a measurable growth plan.</p>
-      <div class="service-tags"><span class="service-tag">Positioning</span><span class="service-tag">Roadmapping</span><span class="service-tag">Competitor Analysis</span></div>
+  
+  <div class="services-grid-bottom">
+    <div class="service-card reveal">
+      <div class="service-icon">✦</div>
+      <span class="service-num">04 / CAPABILITY</span>
+      <h3 class="service-title" id="srvCardTitle4">High-Performance Message Engines</h3>
+      <p class="service-desc" id="srvCardDesc4">We build highly calculated visual and textual assets engineered directly to break down specific user resistance metrics and spark action.</p>
+      <div class="service-tags">
+        <span class="service-tag">Creative Testing Matrices</span>
+        <span class="service-tag">Direct-Response Copy</span>
+        <span class="service-tag">Behavioral Hooks</span>
+      </div>
     </div>
-    <div class="service-card">
-      <div class="service-icon">✦</div><div class="service-num">02</div>
-      <h3 class="service-title">Social Media Management</h3>
-      <p class="service-desc">From content calendars to community engagement, we manage your social presence so you can focus on running your business.</p>
-      <div class="service-tags"><span class="service-tag">Instagram</span><span class="service-tag">LinkedIn</span><span class="service-tag">TikTok</span></div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">✦</div><div class="service-num">03</div>
-      <h3 class="service-title">Content Creation</h3>
-      <p class="service-desc">Scroll-stopping visuals, compelling copy, and on-brand storytelling that builds real audience connection and authority.</p>
-      <div class="service-tags"><span class="service-tag">Video</span><span class="service-tag">Copywriting</span><span class="service-tag">Design</span></div>
-    </div>
-  </div>
-  <div class="services-bottom">
-    <div class="service-card">
-      <div class="service-icon">✦</div><div class="service-num">04</div>
-      <h3 class="service-title">Paid Media</h3>
-      <p class="service-desc">Precision-targeted ad campaigns across Google, Meta, and TikTok — engineered for maximum ROAS and minimum wasted spend.</p>
-      <div class="service-tags"><span class="service-tag">Google Ads</span><span class="service-tag">Meta Ads</span><span class="service-tag">TikTok Ads</span><span class="service-tag">Retargeting</span></div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">✦</div><div class="service-num">05</div>
-      <h3 class="service-title">Analytics</h3>
-      <p class="service-desc">Full-funnel tracking, custom dashboards, and actionable insights that tell you exactly what's working — and where to invest next.</p>
-      <div class="service-tags"><span class="service-tag">Reporting</span><span class="service-tag">GA4</span><span class="service-tag">Dashboards</span><span class="service-tag">Attribution</span></div>
+    
+    <div class="service-card reveal">
+      <div class="service-icon">✦</div>
+      <span class="service-num">05 / CAPABILITY</span>
+      <h3 class="service-title" id="srvCardTitle5">LTV Retention Frameworks</h3>
+      <p class="service-desc" id="srvCardDesc5">We build automation sequences designed to maximize user frequency metrics, lengthening relationship values through predictive cross-selling models.</p>
+      <div class="service-tags">
+        <span class="service-tag">Predictive Automation</span>
+        <span class="service-tag">Cohorted Retention</span>
+        <span class="service-tag">Value Maximization</span>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="process" id="process">
-  <div class="section-header">
-    <div>
-      <p class="section-eyebrow">How We Work</p>
-      <h2 class="section-title">Our <em>proven</em> process</h2>
-    </div>
+  <div class="section-header reveal">
+    <p class="section-eyebrow" id="procEyebrowText">System Deployment</p>
+    <h2 class="section-title" id="procTitleText">Our onboarding <em>velocity pipeline</em></h2>
   </div>
+  
   <div class="process-steps">
-    <div class="process-step">
+    <div class="process-step reveal">
       <div class="step-circle">1</div>
-      <h3 class="step-title">Discover</h3>
-      <p class="step-desc">We audit your current presence, study your competitors, and map your biggest growth opportunities.</p>
+      <h3 class="step-title" id="procStepTitle1">Infrastructure Audit</h3>
+      <p class="step-desc" id="procStepDesc1">We execute deep technical tracing across ad accounts and analytical tags to uncover leakage metrics.</p>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal">
       <div class="step-circle">2</div>
-      <h3 class="step-title">Strategize</h3>
-      <p class="step-desc">A custom roadmap built around your goals, budget, and audience — before a single penny is spent.</p>
+      <h3 class="step-title" id="procStepTitle2">Funnel Architectural Blueprint</h3>
+      <p class="step-desc" id="procStepDesc2">We build complete theoretical models detailing exact allocation points, message hooks, and checkout logic adjustments.</p>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal">
       <div class="step-circle">3</div>
-      <h3 class="step-title">Execute</h3>
-      <p class="step-desc">Our team launches campaigns, creates content, and optimizes continuously while you focus on your business.</p>
+      <h3 class="step-title" id="procStepTitle3">Deployment & Velocity Testing</h3>
+      <p class="step-desc" id="procStepDesc3">We push live across communication and budget networks, feeding clean algorithmic data loops to accelerate scaling paths.</p>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal">
       <div class="step-circle">4</div>
-      <h3 class="step-title">Scale</h3>
-      <p class="step-desc">What works gets amplified. We double down on winning channels and compound your results month over month.</p>
+      <h3 class="step-title" id="procStepTitle4">Macro-Scale Amplification</h3>
+      <p class="step-desc" id="procStepDesc4">We push budgets aggressively into working assets while maintaining strict target margin profiles to secure bottom-line compounding.</p>
     </div>
   </div>
 </section>
 
 <section class="about" id="about">
-  <div>
-    <blockquote class="about-quote">"We measure success in one currency — the growth of your business, not the size of our reports."</blockquote>
+  <div class="about-quote reveal">
+    <span id="aboutQuoteText">"True marketing scaling is an exact data engineering science, not a creative guessing game."</span>
   </div>
-  <div class="about-text">
-    <p class="section-eyebrow">Our Approach</p>
-    <p>Blueprint Agency was built by marketers who were tired of agencies that prioritized optics over outcomes. We obsess over the metrics that move your business forward — leads, revenue, and market share.</p>
-    <p>Every client gets a dedicated team, a clear strategy, and full transparency into what we're doing and why. No vanity metrics. No black-box reporting. Just honest work that drives real growth.</p>
-  </div>
-</section>
-
-<section class="testimonials">
-  <div class="section-header">
-    <div>
-      <p class="section-eyebrow">Client Results</p>
-      <h2 class="section-title">What our <em>clients</em> say</h2>
-    </div>
-  </div>
-
-  <div class="testi-grid">
-
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-quote">
-        "Service top franchement. L’équipe comprend vraiment le marché algérien
-        et les résultats sur Instagram w Meta Ads كانوا ممتازين.
-        Le ROAS طلع بزاف après seulement 2 mois."
-      </p>
-
-      <div class="testi-author">
-        <div class="testi-avatar">SB</div>
-        <div>
-          <p class="testi-name">Sami Benyahia</p>
-          <p class="testi-role">Founder, CasaWear DZ</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-quote">
-        "Franchement une équipe sérieuse.
-        Ils ont refait notre stratégie contenu
-        et notre café est devenu beaucoup plus visible
-        sur TikTok et Instagram."
-      </p>
-
-      <div class="testi-author">
-        <div class="testi-avatar">LN</div>
-        <div>
-          <p class="testi-name">Lina Nouicer</p>
-          <p class="testi-role">Manager, Urban Coffee Constantine</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-quote">
-        "Honnêtement je ne m’attendais pas à ce niveau.
-        Les campagnes Meta Ads جابولنا clients every week
-        et notre ecommerce sales doubled."
-      </p>
-
-      <div class="testi-author">
-        <div class="testi-avatar">YA</div>
-        <div>
-          <p class="testi-name">Yacine Amrani</p>
-          <p class="testi-role">CEO, Elixir Beauty Alger</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-quote">
-        "Blueprint Agency عطاونا vision claire.
-        The branding, content and ads all felt premium.
-        Même nos clients قالولنا بلي la marque wlat high-end."
-      </p>
-
-      <div class="testi-author">
-        <div class="testi-avatar">MR</div>
-        <div>
-          <p class="testi-name">Meriem Rahmoune</p>
-          <p class="testi-role">Marketing Director, FitZone Gym</p>
-        </div>
-      </div>
-    </div>
-
+  <div class="about-text reveal">
+    <p id="aboutPara1">We operate as a deeply quantitative growth deployment partner. We do not pitch abstract aesthetic vanity rebrands or hide behind ambiguous engagement data metrics. We map capital allocation models directly to closed enterprise performance results.</p>
+    <p id="aboutPara2">Our team consists strictly of data-oriented media allocators, conversion rate specialists, and direct-response behavioral engineers. We join forces with market leaders to transform chaotic ad spend habits into predictable revenue engines.</p>
   </div>
 </section>
 
-
-<section class="blog-section reveal">
-  <div class="section-header">
-    <div>
-      <p class="section-eyebrow">Latest Insights</p>
-      <h2 class="section-title">Our latest <em>marketing</em> insights</h2>
-    </div>
+<section class="blog-section" id="insights">
+  <div class="section-header reveal">
+    <p class="section-eyebrow" id="blogEyebrowText">Strategic Intelligence</p>
+    <h2 class="section-title" id="blogTitleText">Tactical performance briefs from <em>the frontline</em></h2>
   </div>
-
+  
   <div class="blog-grid">
-
-    <article class="blog-card">
-      <div class="blog-image">
-        <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1200&auto=format&fit=crop" alt="Marketing">
+    <div class="blog-card reveal">
+      <div class="blog-graphic-box">
+        <div class="chart-simulation"><div class="chart-line-inner"></div></div>
       </div>
       <div class="blog-content">
-        <span class="blog-category">Paid Ads</span>
-        <h3>How to Scale a Brand with Paid Ads</h3>
-        <p>Discover the exact paid advertising frameworks modern brands use to scale profitably.</p>
-        <a href="#" class="blog-btn">Read More →</a>
+        <span class="blog-category">Capital Scale</span>
+        <h3 id="blogCardTitle1">Deconstructing Algorithmic Ad Buying Models</h3>
+        <p id="blogCardDesc1">An executive breakdown on structuring simplified ad accounts to feed modern deep-learning attribution systems.</p>
+        <a href="#contact" class="blog-btn">Access Brief →</a>
       </div>
-    </article>
-
-    <article class="blog-card">
-      <div class="blog-image">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="Social Media">
-      </div>
-      <div class="blog-content">
-        <span class="blog-category">Social Media</span>
-        <h3>Social Media Trends in 2026</h3>
-        <p>Explore the biggest social media shifts shaping audience engagement and growth.</p>
-        <a href="#" class="blog-btn">Read More →</a>
-      </div>
-    </article>
-
-    <article class="blog-card">
-      <div class="blog-image">
-        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" alt="Branding">
+    </div>
+    
+    <div class="blog-card reveal">
+      <div class="blog-graphic-box">
+        <div class="chart-simulation"><div class="chart-line-inner"></div></div>
       </div>
       <div class="blog-content">
-        <span class="blog-category">Branding</span>
-        <h3>Why Branding Matters for Online Businesses</h3>
-        <p>Strong branding builds trust, authority, and long-term customer loyalty.</p>
-        <a href="#" class="blog-btn">Read More →</a>
+        <span class="blog-category">Conversion Math</span>
+        <h3 id="blogCardTitle2">Isolating Marginal Performance Degrade Patterns</h3>
+        <p id="blogCardDesc2">How to compute exact conversion saturation limits per target audience tier to prevent ad fatigue events.</p>
+        <a href="#contact" class="blog-btn">Access Brief →</a>
       </div>
-    </article>
+    </div>
+    
+    <div class="blog-card reveal">
+      <div class="blog-graphic-box">
+        <div class="chart-simulation"><div class="chart-line-inner"></div></div>
+      </div>
+      <div class="blog-content">
+        <span class="blog-category">Signal Architecture</span>
+        <h3 id="blogCardTitle3">Navigating Real-Time Privacy Tracking Deprecations</h3>
+        <p id="blogCardDesc3">A complete walkthrough for deploying raw first-party data loops to insulate targeting profiles from browser limits.</p>
+        <a href="#contact" class="blog-btn">Access Brief →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="testimonials" id="testimonials">
+  <div class="section-header reveal">
+    <p class="section-eyebrow" id="testiEyebrowText">Validated Compound Growth</p>
+    <h2 class="section-title" id="testiTitleText">Direct operational feedback from <em>our enterprise partners</em></h2>
+  </div>
+  
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote" id="testiQuote1">"Blueprint re-engineered our conversion flow logic completely. Our customer acquisition costs fell by 41% while overall acquisition volume scaled to heights we hadn't touched before."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">S</div>
+        <div>
+          <div class="testi-name">Sarah E.</div>
+          <div class="testi-role">VP of Acquisition, Vanguard Corp</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-quote" id="testiQuote2">"The tracking architecture they structured gave our board absolute visibility into actual multi-touch attribution streams. We scaled our annual ad spend to eight figures confidently."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">J</div>
+        <div>
+          <div class="testi-name">Julian M.</div>
+          <div class="testi-role">Chief Financial Officer, Horizon Brands</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="contact" id="contact">
   <div class="contact-inner">
-    <div class="contact-left">
-      <p class="section-eyebrow">Get In Touch</p>
-      <h2>Let's talk about your <em>growth</em></h2>
-      <p>Tell us where you are and where you want to be. We'll put together a custom proposal — no obligation, no fluff.</p>
-      <div class="contact-detail"><strong>Email:</strong> hello@blueprintagency.com</div>
-      <div class="contact-detail"><strong>Phone:</strong> +1 (555) 000-0000</div>
-      <div class="contact-detail"><strong>Location:</strong> Your City, Country</div>
+    <div class="contact-left reveal">
+      <p class="section-eyebrow" id="contEyebrowText">Capital Audit Engagement</p>
+      <h2 class="section-title" id="contTitleText">Initiate your performance <em>diagnostic sequence</em></h2>
+      <p id="contDescText">We will execute a thorough multi-point analysis across your historical ad accounts, funnel drop-off vectors, and data tracking loops entirely at our expense. Let us pinpoint the exact friction areas holding back your metrics.</p>
+      <div class="contact-details-box">
+        <div class="contact-detail">
+          <strong>Strategic Communication Terminal</strong>
+          <span>operations@blueprintagency.com</span>
+        </div>
+        <div class="contact-detail">
+          <strong>Cohort Allotment Slots</strong>
+          <span>Accepting 3 enterprise scale accounts for Q3/Q4</span>
+        </div>
+      </div>
     </div>
-    <div class="contact-right">
-      <div id="contactForm">
+    
+    <div class="contact-right reveal" id="formContainerCard">
+      <form id="funnelForm" onsubmit="executeFormSubmit(event)">
         <div class="form-row">
           <div class="form-group">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" placeholder="Salim">
+            <label id="lblFormName">Operator Name</label>
+            <input type="text" required placeholder="John Doe">
           </div>
           <div class="form-group">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" placeholder="Benali">
+            <label id="lblFormEmail">Secure Email Terminal</label>
+            <input type="email" required placeholder="john@company.com">
           </div>
         </div>
         <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="you@company.com">
+          <label id="lblFormUrl">Enterprise Digital Domain</label>
+          <input type="url" placeholder="www.company.com">
         </div>
         <div class="form-group">
-          <label for="company">Company / Website</label>
-          <input type="text" id="company" placeholder="yourcompany.com">
-        </div>
-        <div class="form-group">
-          <label for="service">Service You're Interested In</label>
-          <select id="service">
-            <option value="">Select a service...</option>
-            <option>Marketing Strategy</option>
-            <option>Social Media Management</option>
-            <option>Content Creation</option>
-            <option>Paid Media</option>
-            <option>Analytics</option>
-            <option>Full Package</option>
+          <label id="lblFormFocus">Primary Growth Bottleneck</label>
+          <select id="selectFormFocus">
+            <option>Cross-Channel Capital Scale Friction</option>
+            <option>Unreliable Conversion Tracking & Attribution</option>
+            <option>Funnel Conversion Yield Drops</option>
+            <option>Creative Fatigue / Ad Message Breakdown</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="message">Tell Us About Your Goals</label>
-          <textarea id="message" placeholder="What are you trying to achieve? What's your budget range?"></textarea>
+          <label id="lblFormDetails">Historical Run-Rate Metrics & Goals</label>
+          <textarea placeholder="Briefly detail current average monthly ad budgets, performance bottlenecks, and target numbers..."></textarea>
         </div>
-        <button class="form-submit" onclick="submitForm()">Send My Proposal Request →</button>
-      </div>
-      <div class="form-success" id="formSuccess">
-        <p>Thank you! We'll be in touch within 24 hours.</p>
+        <button type="submit" class="form-submit" id="btnFormSubmitText">Initialize Diagnostic Run</button>
+      </form>
+      <div class="form-success" id="successBlock">
+        <p id="txtFormSuccess">Diagnostic Sequence Initialized. Our technical media allocators will parse your domain data footprints and communicate via terminal routes within 12 hours.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section">
-  <p class="cta-eyebrow">Let's Talk Growth</p>
-  <h2 class="cta-title">Ready to <em>dominate</em> your market?</h2>
-  <p class="cta-sub">Tell us your goals. We'll show you exactly how we'd get you there — no fluff, no pressure.</p>
-  <a href="#contact" class="btn-primary">Get a Free Proposal →</a>
+<section class="cta-section reveal">
+  <p class="cta-eyebrow" id="ctaEyebrowText">Execution Mandate</p>
+  <h2 class="cta-title" id="ctaTitleText">Terminate capital leakage. <em>Scale your volume now</em>.</h2>
+  <p class="cta-sub" id="ctaSubText">Transition away from speculative, artistic marketing campaigns and hook your business to a high-yield algorithmic distribution engine.</p>
+  <a href="#contact" class="btn-primary" id="ctaBtnText">Secure Performance Blueprint</a>
 </section>
 
-
-
-<div class="social-floating">
-  <a href="https://wa.me/YOURNUMBER" target="_blank" aria-label="WhatsApp">✆</a>
-  <a href="https://instagram.com/yourprofile" target="_blank" aria-label="Instagram">IG</a>
-  <a href="https://facebook.com/yourpage" target="_blank" aria-label="Facebook">f</a>
-  <a href="https://linkedin.com/company/yourcompany" target="_blank" aria-label="LinkedIn">in</a>
-</div>
-
-
 <footer>
-  <span class="footer-logo">Blueprint Agency.</span>
-  <span class="footer-copy">© 2026 Blueprint Agency. All rights reserved.</span>
+  <a href="#" class="footer-logo">Blueprint<span>.</span></a>
+  <span class="footer-copy" id="footerCopyText">&copy; 2026 Blueprint Architecture Firm. Performance Optimization Reserved.</span>
   <div class="footer-links">
-    <a href="#">Instagram</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Privacy</a>
+    <a href="#services">Capabilities</a>
+    <a href="#process">Pipeline</a>
+    <a href="#contact">Contact</a>
   </div>
 </footer>
 
 <script>
-  function submitForm() {
-    const email = document.getElementById('email').value;
-    const fname = document.getElementById('fname').value;
-    if (!fname || !email) {
-      alert('Please fill in at least your name and email.');
-      return;
+  // POLYGLOT STRUCTURAL TRANSLATION DICTIONARY
+  const dictionary = {
+    en: {
+      dir: 'ltr',
+      navCta: 'Request Strategy',
+      heroEyebrow: 'Performance Marketing Architecture',
+      heroTitle: 'We engineer customer flows that <em>multiply</em> enterprise value.',
+      heroSub: 'Blueprint Agency is a precision performance deployment firm. We build cross-channel acquisition funnels, scale paid media algorithms, and structure end-to-end multi-touch revenue architecture.',
+      heroBtnPrimary: 'Deploy Scale Framework',
+      heroBtnGhost: 'View Core Capabilities',
+      marquee: '<span>ROAS Optimization</span> <span class="accent">✦</span> <span>Paid Media Scale Models</span> <span class="accent">✦</span> <span>Customer Acquisition Cost Reduction</span> <span class="accent">✦</span> <span>Data Attribution Auditing</span> <span class="accent">✦</span> <span>LTV Expansion Mechanics</span> <span class="accent">✦</span> <span>Retention Optimization</span> <span class="accent">✦</span>',
+      stat1: 'Client Revenue Generated', stat2: 'Average Blended ROAS', stat3: 'Average Reduction in CAC', stat4: 'Funnels Structured & Scaled',
+      srvEyebrow: 'Core Disciplines', srvTitle: 'Structured execution layers built for <em>measurable conversion</em>.',
+      srvC1: 'Cross-Channel Allocation', srvD1: 'We allocate investment capital dynamically across Meta, Google, TikTok, and Programmatic ecosystems based on real-time margin efficiency metrics.',
+      srvC2: 'Attribution & Analytics Rooms', srvD2: 'We strip away data noise, bypass signal degradation, and build multi-touch attribution models to compute true marketing contribution margins.',
+      srvC3: 'Conversion Rate Optimization', srvD3: 'We isolate drop-off vectors in your acquisition process, rewriting checkout logic and user flow mechanics to maximize visitor yield metrics.',
+      srvC4: 'High-Performance Message Engines', srvD4: 'We build highly calculated visual and textual assets engineered directly to break down specific user resistance metrics and spark action.',
+      srvC5: 'LTV Retention Frameworks', srvD5: 'We build automation sequences designed to maximize user frequency metrics, lengthening relationship values through predictive cross-selling models.',
+      procEyebrow: 'System Deployment', procTitle: 'Our onboarding <em>velocity pipeline</em>',
+      procT1: 'Infrastructure Audit', procD1: 'We execute deep technical tracing across ad accounts and analytical tags to uncover leakage metrics.',
+      procT2: 'Funnel Architectural Blueprint', procD2: 'We build complete theoretical models detailing exact allocation points, message hooks, and checkout logic adjustments.',
+      procT3: 'Deployment & Velocity Testing', procD3: 'We push live across communication and budget networks, feeding clean algorithmic data loops to accelerate scaling paths.',
+      procT4: 'Macro-Scale Amplification', procD4: 'We push budgets aggressively into working assets while maintaining strict target margin profiles to secure bottom-line compounding.',
+      aboutQ: '"True marketing scaling is an exact data engineering science, not a creative guessing game."',
+      aboutP1: 'We operate as a deeply quantitative growth deployment partner. We do not pitch abstract aesthetic vanity rebrands or hide behind ambiguous engagement data metrics. We map capital allocation models directly to closed enterprise performance results.',
+      aboutP2: 'Our team consists strictly of data-oriented media allocators, conversion rate specialists, and direct-response behavioral engineers. We join forces with market leaders to transform chaotic ad spend habits into predictable revenue engines.',
+      blogEyebrow: 'Strategic Intelligence', blogTitle: 'Tactical performance briefs from <em>the frontline</em>',
+      blogT1: 'Deconstructing Algorithmic Ad Buying Models', blogD1: 'An executive breakdown on structuring simplified ad accounts to feed modern deep-learning attribution systems.',
+      blogT2: 'Isolating Marginal Performance Degrade Patterns', blogD2: 'How to compute exact conversion saturation limits per target audience tier to prevent ad fatigue events.',
+      blogT3: 'Navigating Real-Time Privacy Tracking Deprecations', blogD3: 'A complete walkthrough for deploying raw first-party data loops to insulate targeting profiles from browser limits.',
+      testiEyebrow: 'Validated Compound Growth', testiTitle: 'Direct operational feedback from <em>our enterprise partners</em>',
+      testiQ1: '"Blueprint re-engineered our conversion flow logic completely. Our customer acquisition costs fell by 41% while overall acquisition volume scaled to heights we hadn't touched before."',
+      testiQ2: '"The tracking architecture they structured gave our board absolute visibility into actual multi-touch attribution streams. We scaled our annual ad spend to eight figures confidently."',
+      contEyebrow: 'Capital Audit Engagement', contTitle: 'Initiate your performance <em>diagnostic sequence</em>',
+      contDesc: 'We will execute a thorough multi-point analysis across your historical ad accounts, funnel drop-off vectors, and data tracking loops entirely at our expense. Let us pinpoint the exact friction areas holding back your metrics.',
+      fName: 'Operator Name', fEmail: 'Secure Email Terminal', fUrl: 'Enterprise Digital Domain', fFocus: 'Primary Growth Bottleneck', fDetails: 'Historical Run-Rate Metrics & Goals', fBtn: 'Initialize Diagnostic Run',
+      fSuccess: 'Diagnostic Sequence Initialized. Our technical media allocators will parse your domain data footprints and communicate via terminal routes within 12 hours.',
+      ctaEyebrow: 'Execution Mandate', ctaTitle: 'Terminate capital leakage. <em>Scale your volume now</em>.', ctaSub: 'Transition away from speculative, artistic marketing campaigns and hook your business to a high-yield algorithmic distribution engine.', ctaBtn: 'Secure Performance Blueprint',
+      footerCopy: '&copy; 2026 Blueprint Architecture Firm. Performance Optimization Reserved.'
+    },
+    fr: {
+      dir: 'ltr',
+      navCta: 'Demander une Stratégie',
+      heroEyebrow: 'Architecture de Marketing de Performance',
+      heroTitle: 'Nous engineering les flux clients pour <em>multiplier</em> la valeur entreprise.',
+      heroSub: 'Blueprint Agency est une firme de déploiement de performance de précision. Nous construisons des tunnels d'acquisition, adaptons les algorithmes de médias payants et structurons l'architecture de revenus.',
+      heroBtnPrimary: 'Déployer le Cadre de Croissance',
+      heroBtnGhost: 'Voir les Capacités Clés',
+      marquee: '<span>Optimisation du ROAS</span> <span class="accent">✦</span> <span>Modèles d'Échelle Média</span> <span class="accent">✦</span> <span>Réduction du Coût d'Acquisition Client</span> <span class="accent">✦</span> <span>Audit d'Attribution de Données</span> <span class="accent">✦</span>',
+      stat1: 'Revenus Clients Générés', stat2: 'ROAS Global Moyen', stat3: 'Réduction Moyenne du CAC', stat4: 'Tunnels Structurés & Escalés',
+      srvEyebrow: 'Disciplines Fondamentales', srvTitle: 'Couches d'exécution structurées pour une <em>conversion mesurable</em>.',
+      srvC1: 'Allocation Cross-Canal', srvD1: 'Nous allouons le capital d'investissement de manière dynamique sur Meta, Google et TikTok en fonction des marges d'efficacité en temps réel.',
+      srvC2: 'Attribution & Salles Analytics', srvD2: 'Nous éliminons le bruit des données pour calculer les véritables marges de contribution de vos campagnes marketing.',
+      srvC3: 'Optimisation du Taux de Conversion', srvD3: 'Nous isolons les vecteurs de perte dans votre parcours d'achat en réécrivant la logique du panier pour maximiser le rendement.',
+      srvC4: 'Moteurs de Messages Haute Performance', srvD4: 'Nous construisons des visuels et textes calculés spécifiquement pour briser les résistances des utilisateurs et déclencher l'action.',
+      srvC5: 'Modèles de Rétention LTV', srvD5: 'Nous déployons des séquences d'automatisation pour maximiser la fréquence d'achat via des modèles prédictifs.',
+      procEyebrow: 'Déploiement Système', procTitle: 'Notre pipeline de <em>vélocité d'intégration</em>',
+      procT1: 'Audit des Infrastructures', procD1: 'Nous exécutons un traçage technique approfondi sur vos comptes publicitaires pour localiser les fuites de budget.',
+      procT2: 'Plan Architectural du Tunnel', procD2: 'Modélisation théorique complète détaillant les points d'allocation et ajustements logiques.',
+      procT3: 'Tests de Déploiement & Vélocité', procD3: 'Lancement des flux de communication pour alimenter les boucles de données algorithmiques.',
+      procT4: 'Amplification à Grande Échelle', procD4: 'Augmentation agressive des budgets sur les actifs rentables sous contrôle strict des marges.',
+      aboutQ: '"L'augmentation des revenus est une science d'ingénierie de données exacte, pas un jeu de devinettes créatives."',
+      aboutP1: 'Nous agissons comme un partenaire de déploiement de croissance purement quantitatif. Nous ne vendons pas de refontes esthétiques vagues, nous lions le capital directement aux résultats financiers.',
+      aboutP2: 'Notre équipe est composée de spécialistes des médias axés sur les chiffres et d'ingénieurs comportementaux. Nous transformons les dépenses publicitaires chaotiques en moteurs de revenus prévisibles.',
+      blogEyebrow: 'Intelligence Stratégique', blogTitle: 'Notes de performance tactiques du <em>front de scaling</em>',
+      blogT1: 'Déconstruction des Modèles d'Achat Algorithmiques', blogD1: 'Comment simplifier la structure des comptes publicitaires pour nourrir les systèmes d'attribution modernes.',
+      blogT2: 'Isoler les Modèles de Dégradation de Performance', blogD2: 'Calculer les limites exactes de saturation par niveau d'audience pour prévenir la fatigue publicitaire.',
+      blogT3: 'Naviguer dans la Dépréciation du Suivi Privé', blogD3: 'Guide complet pour déployer des boucles de données de première partie à l'abri des restrictions des navigateurs.',
+      testiEyebrow: 'Croissance Validée', testiTitle: 'Retours opérationnels de nos <em>partenaires entreprises</em>',
+      testiQ1: '"Blueprint a complètement réorganisé notre logique de conversion. Nos coûts d'acquisition ont chuté de 41% avec des volumes records."',
+      testiQ2: '"L'architecture de suivi nous a donné une visibilité absolue sur l'attribution réelle. Nous investissons désormais à 8 chiffres sereinement."',
+      contEyebrow: 'Engagement d'Audit de Capital', contTitle: 'Initialiser votre <em>séquence de diagnostic</em>',
+      contDesc: 'Nous réaliserons une analyse approfondie de vos comptes publicitaires et boucles de suivi à nos frais pour identifier précisément les points de friction.',
+      fName: 'Nom du Responsable', fEmail: 'Terminal Email Sécurisé', fUrl: 'Domaine Digital de l'Entreprise', fFocus: 'Bloqueur Principal de Croissance', fDetails: 'Métriques Historiques & Objectifs', fBtn: 'Lancer le Diagnostic',
+      fSuccess: 'Séquence de Diagnostic Initialisée. Nos allocateurs techniques analyseront vos empreintes de données sous 12 heures.',
+      ctaEyebrow: 'Mandat d'Exécution', ctaTitle: 'Stoppez les fuites de capital. <em>Activez la croissance</em>.', ctaSub: 'Oubliez les campagnes artistiques spéculatives et connectez votre entreprise à un moteur de distribution algorithmique.', ctaBtn: 'Obtenir le Plan de Performance',
+      footerCopy: '&copy; 2026 Blueprint Architecture Firm. Tous Droits de Performance Réservés.'
+    },
+    ar: {
+      dir: 'rtl',
+      navCta: 'طلب استراتيجية النمو',
+      heroEyebrow: 'هندسة تسويق الأداء الرقمي',
+      heroTitle: 'نحن نهندس تدفقات العملاء التي <em>تضاعف</em> القيمة السوقية للشركات.',
+      heroSub: 'وكالة بلو برينت هي شركة متخصصة في النشر الدقيق لإعلانات الأداء. نقوم ببناء مسارات الاستحواذ المتقدمة، وتطوير خوارزميات الإعلانات المدفوعة، وضبط العائدات بشكل شامل.',
+      heroBtnPrimary: 'تفعيل إطار النمو الخوارزمي',
+      heroBtnGhost: 'رؤية قدراتنا التشغيلية',
+      marquee: '<span>تحسين العائد على الإنفاق الإعلاني ROAS</span> <span class="accent">✦</span> <span>نماذج مضاعفة الميزانيات</span> <span class="accent">✦</span> <span>تخفيض تكلفة الاستحواذ للعميل CAC</span> <span class="accent">✦</span> <span>تدقيق نسب التحليل البياني</span> <span class="accent">✦</span>',
+      stat1: 'إجمالي الإيرادات المحققة للمستثمرين', stat2: 'معدل العائد الصافي على الإعلانات', stat3: 'متوسط خفض تكاليف الاستحواذ', stat4: 'مسارات التحويل المفتوحة والمطورة',
+      srvEyebrow: 'التخصصات المحورية', srvTitle: 'طبقات تنفيذية مهندسة خصيصاً <em>لتحقيق نسب تحويل قابلة للقياس</em>.',
+      srvC1: 'توزيع رأس المال عبر المنصات', srvD1: 'نقوم بتوزيع الميزانيات الاستثمارية ديناميكياً عبر منصات ميتا، جوجل، وتيك توك بناءً على هوامش الربحية ولحظية الكفاءة.',
+      srvC2: 'غرف التتبع وإثبات البيانات', srvD2: 'نحن نفصل الضوضاء البيانية، ونتجاوز مشاكل تراجع الإشارات، ونبني نماذج تتبع متعددة النقاط لحساب أرباحك الحقيقية.',
+      srvC3: 'تحسين معدلات التحويل ومسار الشراء', srvD3: 'نعزل نقاط تسرب العملاء في مسار الاستحواذ الخاص بك، ونعيد صياغة منطق الدفع والخروج لرفع إنتاجية كل زائر.',
+      srvC4: 'محركات الرسائل الإعلانية الحركية', srvD4: 'نبني الأصول المرئية والنصية المحسوبة بدقة لكسر الحواجز النفسية لدى شريحة المستهلك المستهدفة وحثها على التحرك.',
+      srvC5: 'أطر استبقاء العملاء وتوسيع قيمتهم الممتدة', srvD5: 'نبني تتابعات مؤتمتة لرفع وتيرة إعادة الشراء من العملاء الحاليين، وزيادة قيمتهم الإجمالية عبر نماذج البيع المتقاطع التنبؤية.',
+      procEyebrow: 'نشر الأنظمة وتفعيلها', procTitle: 'مخطط <em>سرعة التدفق</em> الخاص بنا',
+      procT1: 'التدقيق الشامل للبنية التحتية', procD1: 'نجري تتبعاً تقنياً عميقاً عبر الحسابات الإعلانية والوسوم التحليلية لاكتشاف نقاط هدر الميزانية.',
+      procT2: 'المخطط الهندسي لمسار التحويل', procD2: 'نبني نماذج نظرية متكاملة توضح نقاط التخصيص، ومحفزات الرسائل، وتعديلات تدفق الدفع.',
+      procT3: 'الاختبار الميداني السريع للأنظمة', procD3: 'نطلق الحملات حية عبر شبكات التواصل، مع تغذية حلقات البيانات الخوارزمية لتسريع مسارات النمو.',
+      procT4: 'المضاعفة الكبرى والتوسيع', procD4: 'ندفع الميزانيات بقوة داخل الأصول الإعلانية الرابحة مع الحفاظ على هوامش الأرباح الصافية المستهدفة.',
+      aboutQ: '"توسيع نطاق التسويق ومضاعفة الأرباح هو علم هندسة بيانات دقيق، وليس لعبة تخمين إبداعية."',
+      aboutP1: 'نحن نعمل كشريك نمو كمي صارم. لا نقدم تصميمات جمالية شكلية لا طائل منها أو نختبئ خلف أرقام التفاعل الوهمية. نحن نربط نماذج التوزيع المالي مباشرة بالنتائج التشغيلية الختامية لشركتك.',
+      aboutP2: 'يتكون فريقنا حصرياً من مخططي ميزانيات رقمية موجهين بالبيانات، وأخصائيي معدلات التحويل، ومهندسي السلوك الاستهلاكي. نتحالف مع قادة السوق لتحويل الإنفاق العشوائي إلى محركات نمو مستدامة.',
+      blogEyebrow: 'الاستخبارات الاستراتيجية', blogTitle: 'تقارير الأداء التكتيكية من <em>خطوط المواجهة الإعلانية</em>',
+      blogT1: 'تفكيك نماذج الشراء الإعلاني الخوارزمي', blogD1: 'تحليل تنفيذي حول كيفية هيكلة الحسابات الإعلانية المبسطة لتغذية أنظمة التتبع بالذكاء الاصطناعي.',
+      blogT2: 'عزل أنماط تراجع الأداء الهامشي للاستحواذ', blogD2: 'كيفية حساب حدود تشبع الإعلانات الدقيقة لكل شريحة جماهيرية لمنع ظاهرة خمول الإعلان وتراجع بريقه.',
+      blogT3: 'التعامل مع قوانين إلغاء ملفات التتبع والخصوصية', blogD3: 'دليل عملي كامل لنشر حلقات بيانات الطرف الأول لحماية ملفات الاستهداف من قيود المتصفحات الحديثة.',
+      testiEyebrow: 'النمو المركب المثبت', testiTitle: 'آراء شركائنا من <em>المؤسسات والشركات الكبرى</em>',
+      testiQ1: '"أعادت بلو برينت هندسة منطق التحويل لدينا بالكامل. انخفضت تكاليف الاستحواذ بنسبة 41٪ بينما تضاعف حجم المبيعات إلى مستويات لم نصل إليها من قبل."',
+      testiQ2: '"بنية التتبع التقنية التي صمموها منحت مجلس إدارتنا رؤية مطلقة لمصادر الأرباح الحقيقية. نحن الآن نضخ ميزانيات من 8 أرقام بثقة كاملة."',
+      contEyebrow: 'بدء التدقيق المالي والإعلاني', contTitle: 'ابدأ تتابع <em>التشخيص الرقمي لأعمالك</em>',
+      contDesc: 'سنقوم بإجراء تحليل شامل وعميق عبر حساباتك الإعلانية التاريخية، ونقاط تسرب العملاء، وحلقات البيانات على نفقتنا الكاملة. دعنا نحدد مناطق الاحتكاك التي تعوق نموك.',
+      fName: 'اسم المدير المسؤول', fEmail: 'عنوان الاتصال الرقمي الآمن', fUrl: 'النطاق الإلكتروني للمؤسسة', fFocus: 'العقبة الرئيسية أمام نموّك', fDetails: 'المؤشرات الحالية والأهداف المستهدفة', fBtn: 'تفعيل الفحص والتشخيص الرقمي',
+      fSuccess: 'تم تفعيل تسلسل التشخيص بنجاح. سيتولى مهندسو البيانات لدينا فحص بصمتك الرقمية والتواصل معك عبر القنوات الآمنة خلال 12 ساعة.',
+      ctaEyebrow: 'تفويض التنفيذ الصارم', ctaTitle: 'أوقف تسرب رأس المال الإعلاني. <em>ضاعف حجم مبيعاتك الآن</em>.', ctaSub: 'انتقل بعيداً عن الحملات التسويقية الفنية التخمينية، واربط أعمالك بمحرك توزيع خوارزمي عالي الإنتاجية والأرباح.', ctaBtn: 'احصل على مخطط الأداء الاستراتيجي',
+      footerCopy: '&copy; 2026 شركة بلو برينت لهندسة الأداء الرقمي. كافة حقوق الكفاءة محفوظة.'
     }
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+  };
+
+  function changeLanguage(lang) {
+    const data = dictionary[lang];
+    if (!data) return;
+
+    // Toggle active language button appearance
+    document.querySelectorAll('.lang-toggle').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`lang-${lang}`).classList.add('active');
+
+    // Apply layout alignment state directional changes
+    document.documentElement.setAttribute('dir', data.dir);
+
+    // Swap string values inside target layout fields
+    document.getElementById('navCtaText').innerHTML = data.navCta;
+    document.getElementById('heroEyebrowText').innerHTML = data.heroEyebrow;
+    document.getElementById('heroTitleText').innerHTML = data.heroTitle;
+    document.getElementById('heroSubText').innerHTML = data.heroSub;
+    document.getElementById('heroBtnPrimaryText').innerHTML = data.heroBtnPrimary;
+    document.getElementById('heroBtnGhostText').innerHTML = data.heroBtnGhost;
+    document.getElementById('marqueeTrackText').innerHTML = data.marquee;
+    
+    document.getElementById('statLabel1').innerHTML = data.stat1;
+    document.getElementById('statLabel2').innerHTML = data.stat2;
+    document.getElementById('statLabel3').innerHTML = data.stat3;
+    document.getElementById('statLabel4').innerHTML = data.stat4;
+    
+    document.getElementById('srvEyebrowText').innerHTML = data.srvEyebrow;
+    document.getElementById('srvTitleText').innerHTML = data.srvTitle;
+    document.getElementById('srvCardTitle1').innerHTML = data.srvC1;
+    document.getElementById('srvCardDesc1').innerHTML = data.srvD1;
+    document.getElementById('srvCardTitle2').innerHTML = data.srvC2;
+    document.getElementById('srvCardDesc2').innerHTML = data.srvD2;
+    document.getElementById('srvCardTitle3').innerHTML = data.srvC3;
+    document.getElementById('srvCardDesc3').innerHTML = data.srvD3;
+    document.getElementById('srvCardTitle4').innerHTML = data.srvC4;
+    document.getElementById('srvCardDesc4').innerHTML = data.srvD4;
+    document.getElementById('srvCardTitle5').innerHTML = data.srvC5;
+    document.getElementById('srvCardDesc5').innerHTML = data.srvD5;
+    
+    document.getElementById('procEyebrowText').innerHTML = data.procEyebrow;
+    document.getElementById('procTitleText').innerHTML = data.procTitle;
+    document.getElementById('procStepTitle1').innerHTML = data.procT1;
+    document.getElementById('procStepDesc1').innerHTML = data.procD1;
+    document.getElementById('procStepTitle2').innerHTML = data.procT2;
+    document.getElementById('procStepDesc2').innerHTML = data.procD2;
+    document.getElementById('procStepTitle3').innerHTML = data.procT3;
+    document.getElementById('procStepDesc3').innerHTML = data.procD3;
+    document.getElementById('procStepTitle4').innerHTML = data.procT4;
+    document.getElementById('procStepDesc4').innerHTML = data.procD4;
+    
+    document.getElementById('aboutQuoteText').innerHTML = data.aboutQ;
+    document.getElementById('aboutPara1').innerHTML = data.aboutP1;
+    document.getElementById('aboutPara2').innerHTML = data.aboutP2;
+    
+    document.getElementById('blogEyebrowText').innerHTML = data.blogEyebrow;
+    document.getElementById('blogTitleText').innerHTML = data.blogTitle;
+    document.getElementById('blogCardTitle1').innerHTML = data.blogT1;
+    document.getElementById('blogCardDesc1').innerHTML = data.blogD1;
+    document.getElementById('blogCardTitle2').innerHTML = data.blogT2;
+    document.getElementById('blogCardDesc2').innerHTML = data.blogD2;
+    document.getElementById('blogCardTitle3').innerHTML = data.blogT3;
+    document.getElementById('blogCardDesc3').innerHTML = data.blogD3;
+    
+    document.getElementById('testiEyebrowText').innerHTML = data.testiEyebrow;
+    document.getElementById('testiTitleText').innerHTML = data.testiTitle;
+    document.getElementById('testiQuote1').innerHTML = data.testiQ1;
+    document.getElementById('testiQuote2').innerHTML = data.testiQ2;
+    
+    document.getElementById('contEyebrowText').innerHTML = data.contEyebrow;
+    document.getElementById('contTitleText').innerHTML = data.contTitle;
+    document.getElementById('contDescText').innerHTML = data.contDesc;
+    
+    document.getElementById('lblFormName').innerHTML = data.fName;
+    document.getElementById('lblFormEmail').innerHTML = data.fEmail;
+    document.getElementById('lblFormUrl').innerHTML = data.fUrl;
+    document.getElementById('lblFormFocus').innerHTML = data.fFocus;
+    document.getElementById('lblFormDetails').innerHTML = data.fDetails;
+    document.getElementById('btnFormSubmitText').innerHTML = data.fBtn;
+    document.getElementById('txtFormSuccess').innerHTML = data.fSuccess;
+    
+    document.getElementById('ctaEyebrowText').innerHTML = data.ctaEyebrow;
+    document.getElementById('ctaTitleText').innerHTML = data.ctaTitle;
+    document.getElementById('ctaSubText').innerHTML = data.ctaSub;
+    document.getElementById('ctaBtnText').innerHTML = data.ctaBtn;
+    document.getElementById('footerCopyText').innerHTML = data.footerCopy;
+
+    // Dynamically adjust select box values layout options on translation action
+    const sFocus = document.getElementById('selectFormFocus');
+    if(lang === 'ar') {
+      sFocus.options[0].text = 'مشاكل في زيادة ميزانيات الإعلانات وتوسيع القنوات';
+      sFocus.options[1].text = 'عدم دقة قراءات التتبع ونسب التحليل البياني';
+      sFocus.options[2].text = 'تراجع معدلات وإنتاجية التحويل داخل الموقع';
+      sFocus.options[3].text = 'خمول الإعلانات وتراجع تأثير الرسائل التسويقية';
+    } else if(lang === 'fr') {
+      sFocus.options[0].text = 'Friction d'Échelle Capital Multi-Canal';
+      sFocus.options[1].text = 'Suivi de Conversion & Attribution Instable';
+      sFocus.options[2].text = 'Chute de Rendement de Conversion du Tunnel';
+      sFocus.options[3].text = 'Fatigue Créative / Rupture du Message';
+    } else {
+      sFocus.options[0].text = 'Cross-Channel Capital Scale Friction';
+      sFocus.options[1].text = 'Unreliable Conversion Tracking & Attribution';
+      sFocus.options[2].text = 'Funnel Conversion Yield Drops';
+      sFocus.options[3].text = 'Creative Fatigue / Ad Message Breakdown';
+    }
   }
-</script>
 
+  // INTERACTIVE 3D MOUSE MOVEMENT LOGIC (BACKGROUND GRID & ACCENT OBJECT TRANSLATION)
+  const matrixGrid = document.getElementById('matrixGrid');
+  const heroFunnel = document.getElementById('heroFunnel');
+  const formCard = document.getElementById('formContainerCard');
 
-<script>
-const reveals = document.querySelectorAll('.reveal');
+  window.addEventListener('mousemove', (e) => {
+    const xPct = (e.clientX / window.innerWidth) - 0.5; // Bounds output: -0.5 to 0.5
+    const yPct = (e.clientY / window.innerHeight) - 0.5;
 
-window.addEventListener('scroll', () => {
-  reveals.forEach(reveal => {
-    const windowHeight = window.innerHeight;
-    const elementTop = reveal.getBoundingClientRect().top;
+    // Tilt global matrix background grid subtly
+    matrixGrid.style.transform = `rotateX(${60 + (yPct * 12)}deg) rotateY(${xPct * 8}deg) translateZ(-200px)`;
 
-    if (elementTop < windowHeight - 100) {
-      reveal.classList.add('active');
+    // Calculate real-time 3D conversion funnel tilt matrix offset properties
+    if (heroFunnel && window.getComputedStyle(heroFunnel.parentElement).display !== 'none') {
+      const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+      const baseRotationY = isRtl ? 20 : -20;
+      heroFunnel.style.transform = `rotateY(${baseRotationY + (xPct * 25)}deg) rotateX(${15 + (yPct * -20)}deg)`;
+    }
+
+    // Slightly tilt form right container card upon pointer navigation
+    if(formCard && window.innerWidth > 768) {
+      formCard.style.transform = `rotateY(${xPct * 10}deg) rotateX(${yPct * -10}deg)`;
     }
   });
-});
-</script>
 
+  // SCROLL MONITOR LAYER: REVEALING LAYOUT NODES & CONTRAST ADJUSTMENTS
+  const revealTargets = document.querySelectorAll('.reveal');
+  const navBar = document.getElementById('masterNav');
 
+  function evaluateViewportScroll() {
+    const triggerThreshold = window.innerHeight * 0.88;
+    
+    revealTargets.forEach(target => {
+      const elementTop = target.getBoundingClientRect().top;
+      if (elementTop < triggerThreshold) {
+        target.classList.add('active');
+      }
+    });
 
-
-
-<script>
-const translations = {
-  en: {
-    nav:['Services','Process','About','Contact'],
-    proposal:'Get a Proposal',
-    heroTag:'Digital Marketing Agency',
-    heroTitle:'We grow brands that deserve to be seen.',
-    heroSub:'Blueprint Agency is a full-service digital marketing agency helping ambitious brands build visibility, drive conversions, and own their market.',
-    buttons:['Start Growing →','See Our Services'],
-    stats:['Brands Scaled','Ad Spend Managed','Client Satisfaction','Successful Campaigns'],
-    processTitle:'Our proven process',
-    blogTitle:'Our latest marketing insights',
-    blogCards:[
-      'How to Scale a Brand with Paid Ads',
-      'Social Media Trends in 2026',
-      'Why Branding Matters for Online Businesses'
-    ],
-    contact:'Get In Touch',
-    growth:'Let\'s talk about your growth',
-    footer:'© 2026 Blueprint Agency. All rights reserved.'
-  },
-
-  fr: {
-    nav:['Services','Processus','À propos','Contact'],
-    proposal:'Obtenir une proposition',
-    heroTag:'Agence de Marketing Digital',
-    heroTitle:'Nous développons les marques qui méritent d’être vues.',
-    heroSub:'Blueprint Agency est une agence de marketing digital complète aidant les marques ambitieuses à accroître leur visibilité et leurs conversions.',
-    buttons:['Commencer à grandir →','Découvrir nos services'],
-    stats:['Marques développées','Budget publicitaire géré','Satisfaction client','Campagnes réussies'],
-    processTitle:'Notre processus éprouvé',
-    blogTitle:'Nos dernières analyses marketing',
-    blogCards:[
-      'Comment développer une marque avec la publicité',
-      'Tendances des réseaux sociaux en 2026',
-      'Pourquoi le branding est essentiel'
-    ],
-    contact:'Contactez-nous',
-    growth:'Parlons de votre croissance',
-    footer:'© 2026 Blueprint Agency. Tous droits réservés.'
-  },
-
-  ar: {
-    nav:['الخدمات','العملية','من نحن','اتصل بنا'],
-    proposal:'احصل على عرض',
-    heroTag:'وكالة تسويق رقمي',
-    heroTitle:'نساعد العلامات التجارية التي تستحق أن تُرى',
-    heroSub:'بلو برينت هي وكالة تسويق رقمي متكاملة تساعد العلامات التجارية الطموحة على بناء حضور قوي وتحقيق نمو حقيقي.',
-    buttons:['ابدأ النمو ←','اكتشف خدماتنا'],
-    stats:['علامة تجارية نمت','إدارة ميزانيات إعلانية','رضا العملاء','حملة ناجحة'],
-    processTitle:'عمليتنا المثبتة',
-    blogTitle:'أحدث رؤى التسويق',
-    blogCards:[
-      'كيفية تطوير علامة تجارية بالإعلانات',
-      'اتجاهات وسائل التواصل في 2026',
-      'أهمية الهوية التجارية للأعمال'
-    ],
-    contact:'تواصل معنا',
-    growth:'دعنا نتحدث عن نمو علامتك',
-    footer:'© 2026 بلو برينت. جميع الحقوق محفوظة.'
-  }
-};
-
-function applyLanguage(lang){
-
-  const htmlTag = document.documentElement;
-
-  if(lang === 'ar'){
-    htmlTag.setAttribute('dir','rtl');
-    htmlTag.setAttribute('lang','ar');
-  } else {
-    htmlTag.setAttribute('dir','ltr');
-    htmlTag.setAttribute('lang',lang);
+    // Condense header spacing dynamically on vertical document navigation paths
+    if (window.scrollY > 50) {
+      navBar.style.padding = '1rem 4rem';
+      navBar.style.background = 'rgba(6, 11, 24, 0.9)';
+    } else {
+      navBar.style.padding = '1.75rem 4rem';
+      navBar.style.background = 'rgba(11, 19, 43, 0.7)';
+    }
   }
 
-  const t = translations[lang];
+  window.addEventListener('scroll', evaluateViewportScroll);
+  window.addEventListener('load', evaluateViewportScroll);
 
-  // NAV
-  document.querySelectorAll('.nav-links a').forEach((el,i)=>{
-    el.innerText=t.nav[i];
-  });
-
-  document.querySelector('.nav-cta').innerText=t.proposal;
-
-  // HERO
-  document.querySelector('.hero-eyebrow').innerText=t.heroTag;
-  document.querySelector('.hero-title').innerText=t.heroTitle;
-  document.querySelector('.hero-sub').innerText=t.heroSub;
-
-  document.querySelectorAll('.hero-actions a')[0].innerText=t.buttons[0];
-  document.querySelectorAll('.hero-actions a')[1].innerText=t.buttons[1];
-
-  // STATS
-  document.querySelectorAll('.stat-label').forEach((el,i)=>{
-    el.innerText=t.stats[i];
-  });
-
-  // PROCESS
-  document.querySelector('#process .section-title').innerText=t.processTitle;
-
-  // BLOG
-  document.querySelector('.blog-section .section-title').innerText=t.blogTitle;
-
-  document.querySelectorAll('.blog-card h3').forEach((el,i)=>{
-    el.innerText=t.blogCards[i];
-  });
-
-  // CONTACT
-  document.querySelector('.contact-left .section-eyebrow').innerText=t.contact;
-  document.querySelector('.contact-left h2').innerText=t.growth;
-
-  // FOOTER
-  document.querySelector('.footer-copy').innerText=t.footer;
-
-  // RTL text alignment
-  document.body.style.textAlign = lang === 'ar' ? 'right' : 'left';
-}
+  // FORM SUBMISSION EVENT HANDLER
+  function executeFormSubmit(e) {
+    e.preventDefault();
+    document.getElementById('funnelForm').style.display = 'none';
+    document.getElementById('successBlock').style.display = 'block';
+  }
 </script>
 
 </body>
-</html>our whole website will automatically become the navy premium version while keeping the exact same design and structure.
+</html>
