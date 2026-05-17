@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blueprint Agency — Premium Growth & Performance Marketing</title>
+<title>Blueprint Agency — Performance Marketing Architecture</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   
@@ -14,36 +14,31 @@
     --sky-blue-light: #7DD3FC;
     --sky-blue-soft: #E0F2FE;
     --white: #FFFFFF;
-    --white-soft: rgba(255, 255, 255, 0.95);
-    --dark-navy: #0B132B;
-    --mid-navy: #1C2541;
-    --light-bg: #1E293B;
-    --dark: #F8FAFC;
-    --dark-2: #E2E8F0;
-    --muted: #94A3B8;
+    --dark: #F8FAFC;      
+    --muted: #94A3B8;        
+    --navy-deep: #0B132B;
+    --navy-mid: #1C2541;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.07);
+    --shadow-glow: 0 20px 50px rgba(56, 189, 248, 0.1);
     
     --serif: 'Cormorant Garamond', Georgia, serif;
     --sans: 'Jost', sans-serif;
-    
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.07);
-    --shadow-soft: 0 15px 50px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 25px 60px rgba(56,189,248,0.15);
   }
 
   html { scroll-behavior: smooth; }
   
   body { 
-    background-color: var(--dark-navy);
+    background: #0B132B;
     color: var(--dark); 
     font-family: var(--sans); 
     font-weight: 300; 
-    overflow-x: hidden; 
-    perspective: 1200px; /* Essential for global 3D spatial alignment */
+    overflow-x: hidden;
+    position: relative;
   }
 
-  /* 3D INTERACTIVE CANVAS BACKGROUND */
-  #canvas-container {
+  /* 3D KINETIC BACKGROUND MATRIX CANVAS */
+  #bgCanvas {
     position: fixed;
     top: 0;
     left: 0;
@@ -51,372 +46,311 @@
     height: 100vh;
     z-index: -1;
     pointer-events: none;
-    overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, var(--mid-navy) 0%, var(--dark-navy) 100%);
-  }
-
-  .floating-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.18;
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-
-  .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, var(--sky-blue) 0%, transparent 70%); top: -200px; right: -150px; }
-  .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #0EA5E9 0%, transparent 70%); bottom: -150px; left: -100px; }
-  .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #3b82f6 0%, transparent 70%); top: 40%; left: 30%; opacity: 0.08; }
-
-  /* 3D Kinetic Background Matrix Grid */
-  .grid-3d {
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    background-image: 
-      linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    transform: rotateX(60deg) translateZ(-200px);
-    transform-style: preserve-3d;
     opacity: 0.6;
-    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.1s linear;
   }
 
-  /* PREMIUM SCROLL REVEAL (3D TRANSLATION) */
-  .reveal {
-    opacity: 0;
-    transform: translateY(50px) scale(0.96) rotateX(10deg);
-    transform-style: preserve-3d;
-    transition: opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
-    will-change: transform, opacity;
+  /* GLOBAL 3D PERSPECTIVE SETUP */
+  .perspective-container {
+    perspective: 1200px;
   }
 
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotateX(0deg);
-  }
-
-  /* NAVIGATION */
+  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.75rem 4rem;
-    border-bottom: 1px solid var(--glass-border);
-    background: rgba(11, 19, 43, 0.7); backdrop-filter: blur(20px);
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(11, 19, 43, 0.8); backdrop-filter: blur(20px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .nav-logo { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.12em; color: var(--dark); text-decoration: none; }
-  .nav-logo span { color: var(--sky-blue); text-shadow: 0 0 15px rgba(56,189,248,0.5); }
+  .nav-logo { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; letter-spacing: 0.15em; color: var(--dark); text-decoration: none; }
+  .nav-logo span { color: var(--sky-blue); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
-  .nav-links a:hover { color: var(--sky-blue); }
-  
-  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-  .lang-switcher { display: flex; gap: 0.35rem; background: rgba(255,255,255,0.03); padding: 0.25rem; border-radius: 999px; border: 1px solid var(--glass-border); }
-  .lang-toggle { background: transparent; border: none; border-radius: 999px; padding: 0.4rem 0.8rem; color: var(--muted); font-size: 0.68rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-  .lang-toggle.active, .lang-toggle:hover { background: rgba(56,189,248,0.15); color: var(--sky-blue); }
-  
-  .nav-cta { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; border: 1px solid var(--sky-blue); color: var(--sky-blue); padding: 0.65rem 1.6rem; cursor: pointer; background: none; transition: all 0.3s; text-decoration: none; border-radius: 4px; }
-  .nav-cta:hover { background: var(--sky-blue); color: var(--dark-navy); box-shadow: 0 0 25px rgba(56,189,248,0.4); transform: translateY(-1px); }
+  .nav-links a { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--dark); }
+  .nav-cta { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid var(--sky-blue); color: var(--sky-blue); padding: 0.6rem 1.5rem; cursor: pointer; background: none; transition: all 0.3s; text-decoration: none; }
+  .nav-cta:hover { background: var(--sky-blue); color: #0B132B; box-shadow: 0 0 20px rgba(56,189,248,0.4); }
 
-  /* HERO AREA */
-  .hero { min-height: 100vh; display: flex; align-items: center; padding: 10rem 4rem 6rem; position: relative; overflow: hidden; transform-style: preserve-3d; }
-  .hero-content { position: relative; z-index: 2; max-width: 820px; transform-style: preserve-3d; }
-  
-  .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 2.5rem; background: rgba(56, 189, 248, 0.06); padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.15); transform: translateZ(30px); }
-  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky-blue); box-shadow: 0 0 8px var(--sky-blue); }
-  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sky-blue); font-weight: 500; }
-  
-  .hero-title { font-family: var(--serif); font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 300; line-height: 1.05; margin-bottom: 2.5rem; transform: translateZ(50px); color: var(--white); }
-  .hero-title em { font-style: italic; font-weight: 300; color: var(--sky-blue-light); text-shadow: 0 0 40px rgba(56,189,248,0.35); }
-  
-  .hero-sub { font-size: 1.1rem; color: var(--muted); line-height: 1.8; max-width: 540px; margin-bottom: 3.5rem; transform: translateZ(20px); font-weight: 300; }
-  .hero-actions { display: flex; gap: 2rem; align-items: center; transform: translateZ(40px); }
+  /* LANG SWITCHER */
+  .lang-switcher { display: flex; gap: 0.3rem; align-items: center; }
+  .lang-toggle {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+    border-radius: 999px; padding: 0.45rem 0.8rem; color: var(--sky-blue); font-size: 0.68rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease;
+  }
+  .lang-toggle:hover, .lang-toggle.active-lang { background: var(--sky-blue); color: #0B132B; }
+
+  /* HERO WITH INTERACTIVE 3D FUNNEL PARALLAX */
+  .hero { 
+    min-height: 100vh; display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; 
+    padding: 8rem 4rem 4rem; position: relative; overflow: hidden; 
+  }
+  .hero-content { z-index: 2; position: relative; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 2rem; }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky-blue); box-shadow: 0 0 10px var(--sky-blue); }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); }
+  .hero-title { font-family: var(--serif); font-size: clamp(3.2rem, 5.5vw, 5rem); font-weight: 300; line-height: 1.15; max-width: 800px; margin-bottom: 2rem; }
+  .hero-title em { font-style: italic; color: var(--sky-blue-light); text-shadow: 0 0 30px rgba(56,189,248,0.25); }
+  .hero-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 3rem; }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; }
   
   .btn-primary {
-    background: linear-gradient(135deg, #38BDF8, #0EA5E9);
-    color: white; padding: 1.1rem 2.8rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; border: none; border-radius: 999px; cursor: pointer; transition: all 0.35s ease; text-decoration: none; display: inline-block; box-shadow: var(--btn-shadow, 0 10px 30px rgba(56,189,248,0.25)); position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #38BDF8, #0EA5E9); color: white; padding: 1rem 2.5rem;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; border: none;
+    border-radius: 999px; cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+    box-shadow: 0 10px 30px rgba(56,189,248,0.25); position: relative; overflow: hidden;
   }
-  .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.6s; }
+  .btn-primary::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.6s;
+  }
   .btn-primary:hover::before { left: 100%; }
-  .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(56,189,248,0.45), 0 0 20px rgba(56,189,248,0.2); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(56,189,248,0.45); }
+  .btn-ghost { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
+  .btn-ghost:hover { color: var(--dark); }
 
-  .btn-ghost { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: color 0.3s, transform 0.3s; font-weight: 500; }
-  .btn-ghost:hover { color: var(--white); transform: translateX(4px); }
-  
-  /* Interactive 3D Mockup Container */
-  .hero-3d-scene {
-    position: absolute; right: 4rem; top: 52%; transform: translateY(-50%); width: 45%; height: 600px; transform-style: preserve-3d; pointer-events: none;
+  /* INTERACTIVE 3D METRIC VISUALIZER CONTAINER */
+  .hero-visual-container {
+    display: flex; justify-content: center; align-items: center; height: 100%; transform-style: preserve-3d;
   }
-  .funnel-visualization {
-    position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateY(-20deg) rotateX(15deg); transition: transform 0.1s ease;
+  .conversion-funnel-3d {
+    width: 280px; height: 380px; position: relative; transform-style: preserve-3d;
+    transition: transform 0.1s linear; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
   }
-  /* Elegant abstract geometric layers tracking conversion paths representing optimization */
   .funnel-layer {
-    position: absolute; left: 15%; width: 70%; height: 80px; border: 1px solid rgba(56, 189, 248, 0.25); background: rgba(28, 37, 65, 0.4); backdrop-filter: blur(5px); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; transform-style: preserve-3d; transition: all 0.5s ease; box-shadow: inset 0 0 20px rgba(56,189,248,0.05);
+    background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3);
+    backdrop-filter: blur(10px); border-radius: 12px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; color: var(--white);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.1);
+    transform: translateZ(var(--tz)); transition: all 0.3s ease;
   }
-  .funnel-layer::before {
-    content: ''; position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(90deg, rgba(56,189,248,0.05), transparent); pointer-events: none;
+  .funnel-layer:hover {
+    background: rgba(56, 189, 248, 0.15); border-color: var(--sky-blue);
+    transform: translateZ(calc(var(--tz) + 20px)) scale(1.05);
   }
-  .fl-1 { top: 60px; transform: translateZ(80px) scale(1); border-color: rgba(56, 189, 248, 0.4); }
-  .fl-2 { top: 180px; transform: translateZ(40px) scale(0.85); }
-  .fl-3 { top: 300px; transform: translateZ(0px) scale(0.7); }
-  .fl-4 { top: 420px; transform: translateZ(-40px) scale(0.55); border-color: rgba(125, 211, 252, 0.5); background: rgba(56, 189, 248, 0.1); }
+  .fl-1 { width: 100%; height: 90px; --tz: 60px; }
+  .fl-2 { width: 80%; height: 80px; --tz: 20px; }
+  .fl-3 { width: 60%; height: 70px; --tz: -20px; }
+  .fl-4 { width: 40%; height: 60px; --tz: -60px; }
   
-  .funnel-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .funnel-layer:hover .funnel-title { color: var(--white); }
-  .funnel-metric { font-family: var(--serif); font-size: 1.8rem; color: var(--sky-blue-light); font-weight: 400; }
-  .funnel-connector {
-    position: absolute; left: 50%; top: 140px; width: 1px; height: 300px; background: linear-gradient(to bottom, var(--sky-blue), transparent); opacity: 0.3;
-  }
+  .funnel-metric { font-family: var(--sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; color: var(--sky-blue); text-transform: uppercase; }
+  .funnel-value { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; margin-top: 0.2rem; }
 
-  /* KINETIC AUDIENCE MARQUEE */
-  .marquee-wrap { border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1.6rem 0; overflow: hidden; white-space: nowrap; background: rgba(11, 19, 43, 0.4); backdrop-filter: blur(5px); }
-  .marquee-track { display: inline-block; animation: marquee 28s linear infinite; }
-  .marquee-track span { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); padding: 0 3.5rem; font-weight: 400; }
-  .marquee-track span.accent { color: var(--sky-blue); padding: 0; text-shadow: 0 0 10px rgba(56,189,248,0.4); }
+  /* MARQUEE */
+  .marquee-wrap { border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 1.5rem 0; overflow: hidden; white-space: nowrap; background: rgba(11, 19, 43, 0.5); }
+  .marquee-track { display: inline-block; animation: marquee 25s linear infinite; }
+  .marquee-track span { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); padding: 0 3rem; }
+  .marquee-track span.accent { color: var(--sky-blue); padding: 0; text-shadow: 0 0 10px var(--sky-blue); }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* DATA STRATA PERFORMANCE METRICS */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); background: rgba(11, 19, 43, 0.5); border-bottom: 1px solid rgba(255,255,255,0.06); transform-style: preserve-3d; }
-  .stat { padding: 4rem 2.5rem; border-right: 1px solid rgba(255,255,255,0.06); transform-style: preserve-3d; background: var(--glass); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); border-bottom: 1px solid transparent; }
-  .stat:last-child { border-right: none; }
-  .stat:hover { background: rgba(255, 255, 255, 0.05); transform: translateZ(20px); border-bottom-color: var(--sky-blue); }
-  .stat-num { font-family: var(--serif); font-size: 3.8rem; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 0.6rem; transform: translateZ(30px); transition: transform 0.3s; text-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-  .stat:hover .stat-num { color: var(--sky-blue-light); transform: translateZ(45px); }
-  .stat-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); transform: translateZ(15px); }
+  /* REVEAL MATRIX MECHANICS */
+  .reveal { opacity: 0; transform: translateY(40px) scale(0.98); transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
-  /* STRATEGIC CAPABILITIES (SERVICES) */
-  .services { padding: 10rem 4rem; position: relative; }
-  .section-header { display: flex; flex-direction: column; margin-bottom: 6rem; position: relative; }
-  .section-header::after { content: ''; display: block; width: 80px; height: 2px; margin-top: 2rem; background: linear-gradient(90deg, var(--sky-blue), transparent); }
-  .section-eyebrow { font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 1.2rem; font-weight: 500; }
-  .section-title { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 300; line-height: 1.15; color: var(--white); }
-  .section-title em { font-style: italic; font-weight: 300; color: var(--sky-blue-light); text-shadow: 0 0 30px rgba(56,189,248,0.2); }
+  /* STATS */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); background: rgba(255,255,255,0.01); border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .stat { padding: 3.5rem 2.5rem; border-right: 1px solid rgba(255,255,255,0.08); background: var(--glass); backdrop-filter: blur(10px); transition: all 0.4s ease; text-align: center;}
+  .stat:last-child { border-right: none; }
+  .stat:hover { transform: translateY(-5px); background: rgba(56, 189, 248, 0.04); box-shadow: var(--shadow-glow); }
+  .stat-num { font-family: var(--serif); font-size: 3.6rem; font-weight: 300; color: var(--sky-blue-light); line-height: 1; margin-bottom: 0.5rem; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+  /* SERVICES GRID */
+  .services { padding: 10rem 4rem; }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 6rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 2rem;}
+  .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 1rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 300; line-height: 1.2; }
+  .section-title em { font-style: italic; color: var(--sky-blue-light); }
   
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; transform-style: preserve-3d; }
-  .services-grid-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; transform-style: preserve-3d; }
+  .services-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; }
+  .services-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
   
   .service-card { 
-    background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; padding: 4rem 3rem; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; position: relative; overflow: hidden; box-shadow: var(--shadow-soft);
+    padding: 3.5rem 2.5rem; background: var(--glass); border: 1px solid var(--glass-border); 
+    border-radius: 24px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; 
   }
-  .service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(56,189,248,0.03), transparent); opacity: 0; transition: opacity 0.4s; }
-  .service-card:hover::before { opacity: 1; }
-  .service-card:hover { transform: translateY(-8px) translateZ(15px); border-color: rgba(56, 189, 248, 0.35); box-shadow: var(--shadow-glow); }
+  .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #38BDF8, #0EA5E9); transition: width 0.4s ease; }
+  .service-card:hover { transform: translateY(-8px); border-color: rgba(56,189,248,0.3); box-shadow: var(--shadow-glow); background: rgba(255,255,255,0.03); }
+  .service-card:hover::after { width: 100%; }
   
-  .service-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(56,189,248,0.08); color: var(--sky-blue); margin-bottom: 2.5rem; font-size: 1rem; border: 1px solid rgba(56,189,248,0.15); transform: translateZ(20px); transition: transform 0.4s; }
-  .service-card:hover .service-icon { transform: translateZ(35px) rotate(15deg); background: rgba(56,189,248,0.15); color: var(--white); box-shadow: 0 0 15px rgba(56,189,248,0.3); }
-  
-  .service-num { font-family: var(--serif); font-size: 0.8rem; color: var(--sky-blue); opacity: 0.4; margin-bottom: 1rem; display: block; letter-spacing: 0.1em; }
-  .service-title { font-family: var(--serif); font-size: 1.65rem; font-weight: 400; margin-bottom: 1.2rem; color: var(--white); transform: translateZ(25px); }
-  .service-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; transform: translateZ(10px); margin-bottom: 2rem; font-weight: 300; }
-  
-  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; transform: translateZ(15px); }
-  .service-tag { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky-blue-light); background: rgba(56,189,248,0.04); border: 1px solid rgba(255,255,255,0.06); padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 400; }
+  .service-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: rgba(56,189,248,0.08); color: var(--sky-blue); margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid rgba(56,189,248,0.15); }
+  .service-num { font-family: var(--serif); font-size: 0.85rem; color: var(--sky-blue); margin-bottom: 1rem; opacity: 0.5; font-weight: 600; letter-spacing: 0.1em;}
+  .service-title { font-family: var(--serif); font-size: 1.65rem; font-weight: 400; margin-bottom: 1rem; color: var(--white); }
+  .service-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+  .service-tag { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky-blue-light); background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.1); padding: 0.35rem 0.75rem; border-radius: 4px; }
 
-  /* THE FLUID PIPELINE (PROCESS) */
-  .process { padding: 10rem 4rem; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); transform-style: preserve-3d; }
-  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; margin-top: 6rem; position: relative; transform-style: preserve-3d; }
-  .process-steps::before { content: ''; position: absolute; top: 2rem; left: 12%; right: 12%; height: 1px; background: linear-gradient(to right, transparent, rgba(56,189,248,0.3), rgba(56,189,248,0.3), transparent); pointer-events: none; }
-  
-  .process-step { text-align: center; transform-style: preserve-3d; transition: transform 0.4s; padding: 1rem; }
-  .process-step:hover { transform: translateZ(20px); }
-  
-  .step-circle { width: 4rem; height: 4rem; border-radius: 50%; border: 1px solid rgba(56, 189, 248, 0.25); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1.1rem; color: var(--sky-blue); margin: 0 auto 2rem; background: var(--mid-navy); position: relative; z-index: 2; box-shadow: var(--shadow-soft); transition: all 0.3s; }
-  .process-step:hover .step-circle { border-color: var(--sky-blue); color: var(--white); box-shadow: 0 0 20px rgba(56,189,248,0.3); transform: scale(1.05); }
-  
-  .step-title { font-family: var(--serif); font-size: 1.3rem; color: var(--white); margin-bottom: 1rem; font-weight: 400; transform: translateZ(15px); }
-  .step-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; font-weight: 300; transform: translateZ(10px); }
+  /* PROCESS */
+  .process { padding: 10rem 4rem; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.01), transparent); }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 6rem; position: relative; gap: 2rem; }
+  .process-steps::before { content: ''; position: absolute; top: 1.5rem; left: 12%; right: 12%; height: 1px; background: linear-gradient(to right, transparent, rgba(56,189,248,0.4), rgba(56,189,248,0.4), transparent); }
+  .process-step { text-align: center; position: relative; }
+  .step-circle { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--sky-blue); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: var(--sky-blue); margin: 0 auto 2rem; background: #0B132B; box-shadow: 0 0 20px rgba(56,189,248,0.2); position: relative; z-index: 2; font-weight: 600; }
+  .step-title { font-family: var(--serif); font-size: 1.3rem; color: var(--white); margin-bottom: 1rem; font-weight: 400; }
+  .step-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.8; padding: 0 0.5rem; }
 
-  /* RADICAL TRANSPARENCY (ABOUT) */
-  .about { padding: 10rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-  .about-quote { font-family: var(--serif); font-size: clamp(1.6rem, 2.5vw, 2.3rem); font-weight: 300; font-style: italic; color: var(--white); line-height: 1.5; padding-left: 2.5rem; border-left: 2px solid var(--sky-blue); text-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-  .about-quote span { color: var(--sky-blue); }
-  .about-text p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; font-weight: 300; }
-  .about-text p:last-child { margin-bottom: 0; }
+  /* CORE BRIEF ARCHITECTURE (ABOUT) */
+  .about { padding: 10rem 4rem; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 7rem; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); }
+  .about-quote { font-family: var(--serif); font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 300; font-style: italic; color: var(--sky-blue-light); line-height: 1.5; padding-left: 2.5rem; border-left: 2px solid var(--sky-blue); text-shadow: 0 0 30px rgba(56,189,248,0.15); }
+  .about-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
 
-  /* INTELLIGENCE HUB (BLOG) */
-  .blog-section { padding: 10rem 4rem; border-top: 1px solid rgba(255,255,255,0.04); }
-  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 5rem; transform-style: preserve-3d; }
-  
-  .blog-card { border-radius: 16px; overflow: hidden; background: var(--glass); border: 1px solid var(--glass-border); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; box-shadow: var(--shadow-soft); }
-  .blog-card:hover { transform: translateY(-10px) translateZ(15px); border-color: rgba(56,189,248,0.3); box-shadow: var(--shadow-glow); }
-  
-  .blog-graphic-box { height: 160px; background: linear-gradient(135deg, rgba(28,37,65,0.8), rgba(11,19,43,0.9)); display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid var(--glass-border); overflow: hidden; }
-  .blog-graphic-box::before { content: 'DATA AUDIT'; position: absolute; font-family: var(--sans); font-size: 4rem; font-weight: 600; color: rgba(255,255,255,0.01); letter-spacing: 2px; }
-  .blog-card:nth-child(2) .blog-graphic-box::before { content: 'ROI FOCUS'; }
-  .blog-card:nth-child(3) .blog-graphic-box::before { content: 'ROAS CALC'; }
-  
-  .chart-simulation { width: 60%; height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; position: relative; overflow: hidden; }
-  .chart-line-inner { height: 100%; width: 0; background: linear-gradient(90deg, var(--sky-blue), var(--sky-blue-light)); transition: width 1.5s ease; }
-  .blog-card:hover .chart-line-inner { width: 85%; }
-  
-  .blog-content { padding: 2.5rem; transform-style: preserve-3d; }
-  .blog-category { display: inline-block; background: rgba(56,189,248,0.08); color: var(--sky-blue); padding: 0.4rem 0.9rem; border-radius: 4px; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 500; border: 1px solid rgba(56,189,248,0.15); }
-  
-  .blog-content h3 { font-family: var(--serif); font-size: 1.45rem; color: var(--white); margin-bottom: 1rem; font-weight: 400; line-height: 1.3; transform: translateZ(20px); }
-  .blog-content p { color: var(--muted); line-height: 1.7; font-size: 0.88rem; margin-bottom: 2rem; font-weight: 300; transform: translateZ(10px); }
-  .blog-btn { color: var(--sky-blue); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s, transform 0.3s; }
-  .blog-card:hover .blog-btn { color: var(--white); transform: translateX(4px); }
+  /* ANALYTICAL ARCHIVES (BLOG) */
+  .blog-section { padding: 10rem 4rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 5rem; }
+  .blog-card { border-radius: 24px; overflow: hidden; background: var(--glass); border: 1px solid var(--glass-border); transition: all 0.45s ease; }
+  .blog-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-glow); border-color: rgba(56,189,248,0.25); }
+  .blog-image-mock { height: 180px; background: linear-gradient(135deg, #1C2541 0%, #0B132B 100%); display: flex; align-items: center; justify-content: center; color: rgba(56,189,248,0.15); font-size: 4rem; border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.4s; }
+  .blog-card:hover .blog-image-mock { color: rgba(56,189,248,0.3); }
+  .blog-content { padding: 2.5rem; }
+  .blog-category { display: inline-block; background: rgba(56,189,248,0.08); color: var(--sky-blue); padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem; border: 1px solid rgba(56,189,248,0.15); }
+  .blog-content h3 { font-family: var(--serif); font-size: 1.45rem; color: var(--white); margin-bottom: 1rem; font-weight: 400; line-height: 1.3; }
+  .blog-content p { color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.88rem; }
+  .blog-btn { color: var(--sky-blue); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; display: inline-block; transition: transform 0.3s; }
+  .blog-card:hover .blog-btn { transform: translateX(5px); color: var(--sky-blue-light); }
 
-  /* PROVEN DISRUPTIONS (TESTIMONIALS) */
-  .testimonials { padding: 10rem 4rem; background: radial-gradient(circle at bottom left, rgba(56,189,248,0.03), transparent 40%); }
-  .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: 5rem; transform-style: preserve-3d; }
-  
-  .testi-card { padding: 3.5rem; border-radius: 16px; background: var(--glass); border: 1px solid var(--glass-border); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; box-shadow: var(--shadow-soft); }
-  .testi-card:hover { transform: translateY(-6px) translateZ(15px); border-color: rgba(56,189,248,0.3); box-shadow: var(--shadow-glow); }
-  
-  .stars { color: var(--sky-blue); margin-bottom: 1.5rem; letter-spacing: 0.2em; font-size: 0.85rem; }
-  .testi-quote { font-family: var(--serif); font-size: 1.3rem; font-style: italic; line-height: 1.6; margin-bottom: 2.5rem; color: var(--dark-2); font-weight: 300; }
-  
+  /* PARTNER ATTESTATIONS (TESTIMONIALS) */
+  .testimonials { padding: 10rem 4rem; border-top: 1px solid rgba(255,255,255,0.08); background: radial-gradient(circle at top right, rgba(56,189,248,0.03), transparent 40%); }
+  .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: 5rem; }
+  .testi-card { padding: 3.5rem 3rem; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; backdrop-filter: blur(10px); transition: all 0.4s; }
+  .testi-card:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-5px); box-shadow: var(--shadow-glow); }
+  .stars { color: var(--sky-blue); margin-bottom: 1.5rem; letter-spacing: 0.15em; font-size: 0.85rem; }
+  .testi-quote { font-family: var(--serif); font-size: 1.25rem; font-style: italic; line-height: 1.7; margin-bottom: 2.5rem; color: #E2E8F0; font-weight: 300; }
   .testi-author { display: flex; align-items: center; gap: 1.2rem; }
-  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(56,189,248,0.1); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: var(--sky-blue-light); border: 1px solid rgba(56,189,248,0.15); font-weight: 400; }
-  .testi-name { font-size: 0.9rem; font-weight: 500; color: var(--white); margin-bottom: 0.15rem; }
-  .testi-role { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
+  .testi-avatar { width: 46px; height: 46px; border-radius: 50%; background: rgba(56,189,248,0.1); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: var(--sky-blue-light); border: 1px solid rgba(56,189,248,0.2); }
+  .testi-name { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; margin-bottom: 0.2rem; color: var(--white); }
+  .testi-role { font-size: 0.78rem; color: var(--muted); }
 
-  /* REVENUE ENGINE INTERACTION ROOM (CONTACT) */
-  .contact { padding: 10rem 4rem; border-top: 1px solid rgba(255,255,255,0.04); background: rgba(11,19,43,0.3); transform-style: preserve-3d; }
-  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  /* ALLOCATION AUDIT ARCHITECTURE (CONTACT FORM) */
+  .contact { padding: 10rem 4rem; border-top: 1px solid rgba(255,255,255,0.08); position: relative; }
+  .contact-inner { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 6rem; align-items: start; }
+  .contact-left h2 { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 300; line-height: 1.2; margin-bottom: 2rem; }
+  .contact-left h2 em { font-style: italic; color: var(--sky-blue-light); }
+  .contact-left p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 3rem; }
+  .contact-detail { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; font-size: 0.9rem; color: var(--muted); }
+  .contact-detail strong { color: var(--dark); font-weight: 400; width: 110px; display: inline-block; }
   
-  .contact-left .section-title { margin-bottom: 2rem; }
-  .contact-left p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 3.5rem; font-weight: 300; }
-  
-  .contact-details-box { display: flex; flex-direction: column; gap: 1.5rem; }
-  .contact-detail { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.95rem; color: var(--muted); }
-  .contact-detail strong { color: var(--white); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sky-blue); }
-  
-  .contact-right { background: rgba(11, 19, 43, 0.5); padding: 4rem; border-radius: 16px; border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); transform-style: preserve-3d; transition: transform 0.3s; }
-  
-  .form-group { margin-bottom: 1.8rem; }
-  .form-group label { display: block; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; font-weight: 500; }
-  
-  .form-group input, .form-group textarea, .form-group select {
-    width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
-    color: var(--white); font-family: var(--sans); font-size: 0.92rem; font-weight: 300;
-    padding: 0.95rem 1.2rem; outline: none; transition: all 0.3s; border-radius: 4px;
-    appearance: none;
+  .contact-right-box {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid var(--glass-border); padding: 4rem 3.5rem; border-radius: 32px; backdrop-filter: blur(15px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.25); transform-style: preserve-3d; transition: transform 0.1s linear;
   }
-  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--sky-blue); background: rgba(255,255,255,0.04); box-shadow: 0 0 15px rgba(56,189,248,0.1); }
+  .form-group { margin-bottom: 1.8rem; }
+  .form-group label { display: block; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; font-weight: 500; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--white); font-family: var(--sans); font-size: 0.92rem; font-weight: 300;
+    padding: 1rem 1.2rem; outline: none; transition: all 0.3s; border-radius: 8px;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--sky-blue); background: rgba(255,255,255,0.07); box-shadow: 0 0 15px rgba(56,189,248,0.15); }
   .form-group textarea { resize: vertical; min-height: 130px; }
-  
-  /* Select Dropdown custom styling layout logic */
-  .form-group select { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 20px) calc(1em + 4px), calc(100% - 15px) calc(1em + 4px); background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
-  .form-group select option { background: var(--mid-navy); color: var(--white); }
-  
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-group select option { background: #0B132B; color: var(--white); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   
-  .form-submit { width: 100%; background: linear-gradient(135deg, #38BDF8, #0EA5E9); color: var(--white); padding: 1.1rem; font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; border: none; border-radius: 4px; cursor: pointer; transition: all 0.3s; margin-top: 1rem; box-shadow: 0 8px 25px rgba(56,189,248,0.2); }
-  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(56,189,248,0.4); background: linear-gradient(135deg, #7DD3FC, #0EA5E9); }
-  
-  .form-success { display: none; padding: 2.5rem; border: 1px solid rgba(56,189,248,0.2); text-align: center; border-radius: 8px; background: rgba(56,189,248,0.02); }
+  .form-submit { 
+    width: 100%; background: var(--sky-blue); color: #0B132B; padding: 1.1rem; font-family: var(--sans); 
+    font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; border: none; 
+    cursor: pointer; transition: all 0.3s; margin-top: 1rem; border-radius: 8px; box-shadow: 0 10px 25px rgba(56,189,248,0.2);
+  }
+  .form-submit:hover { background: var(--sky-blue-light); transform: translateY(-2px); box-shadow: 0 15px 30px rgba(56,189,248,0.4); }
+  .form-success { display: none; padding: 2rem; border: 1px solid rgba(56,189,248,0.3); text-align: center; border-radius: 12px; background: rgba(56,189,248,0.03); }
   .form-success p { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--sky-blue-light); }
 
-  /* MACRO EXPANSION ACTION SECTION (CTA) */
-  .cta-section { padding: 12rem 4rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.04); position: relative; overflow: hidden; background: linear-gradient(180deg, var(--dark-navy) 0%, #060B18 100%); }
-  .cta-section::before { content: 'ROI'; position: absolute; font-family: var(--serif); font-size: 35vw; font-weight: 600; color: rgba(56,189,248,0.01); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; line-height: 1; }
-  .cta-eyebrow { font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 2.5rem; font-weight: 500; }
-  .cta-title { font-family: var(--serif); font-size: clamp(2.5rem, 5.5vw, 4.8rem); font-weight: 300; line-height: 1.1; max-width: 850px; margin: 0 auto 2.5rem; color: var(--white); }
-  .cta-title em { font-style: italic; font-weight: 300; color: var(--sky-blue-light); text-shadow: 0 0 35px rgba(56,189,248,0.25); }
-  .cta-sub { font-size: 1rem; color: var(--muted); max-width: 460px; margin: 0 auto 4rem; line-height: 1.8; font-weight: 300; }
+  /* SCALING ENGAGEMENT AREA (CTA) */
+  .cta-section { padding: 12rem 4rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); background: radial-gradient(circle at top, rgba(56,189,248,0.15), transparent 45%), #0B132B; position: relative; overflow: hidden; }
+  .cta-section::before { content: 'Ω'; position: absolute; font-family: var(--serif); font-size: 35vw; font-weight: 300; color: rgba(56,189,248,0.015); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .cta-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sky-blue); margin-bottom: 2rem; }
+  .cta-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 300; line-height: 1.2; max-width: 850px; margin: 0 auto 2.5rem; color: var(--white); }
+  .cta-title em { font-style: italic; color: var(--sky-blue-light); text-shadow: 0 0 30px rgba(56,189,248,0.2); }
+  .cta-sub { font-size: 0.98rem; color: #CBD5E1; max-width: 500px; margin: 0 auto 4rem; line-height: 1.8; }
 
-  /* STRATEGIC TERMINUS (FOOTER) */
-  footer { padding: 4rem 4rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; background: #060B18; }
-  .footer-logo { font-family: var(--serif); font-size: 1.25rem; letter-spacing: 0.12em; color: var(--muted); text-decoration: none; }
-  .footer-logo span { color: rgba(255,255,255,0.3); }
-  .footer-copy { font-size: 0.75rem; color: var(--muted); opacity: 0.5; font-weight: 300; }
+  /* FOOTER ARCHITECTURE */
+  footer { padding: 4rem 4rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; background: #070D1E; }
+  .footer-logo { font-family: var(--serif); font-size: 1.2rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none;}
+  .footer-logo span { color: var(--sky-blue); }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); opacity: 0.7; }
   .footer-links { display: flex; gap: 2.5rem; }
-  .footer-links a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
+  .footer-links a { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
   .footer-links a:hover { color: var(--sky-blue); }
 
-  /* COMPLETE DYNAMIC RTL SYSTEM CORE LAYOUT INTEGRATION */
-  html[dir="rtl"] body { font-family: 'Cairo', var(--sans); text-align: right; }
-  html[dir="rtl"] nav,
-  html[dir="rtl"] .hero-actions,
-  html[dir="rtl"] footer,
-  html[dir="rtl"] .testi-author,
-  html[dir="rtl"] .nav-links,
-  html[dir="rtl"] .nav-right,
-  html[dir="rtl"] .footer-links { flex-direction: row-reverse; }
-  
-  html[dir="rtl"] .about-quote { border-left: none; border-right: 2px solid var(--sky-blue); padding-left: 0; padding-right: 2.5rem; }
-  
-  html[dir="rtl"] .contact-left,
-  html[dir="rtl"] .about-text,
-  html[dir="rtl"] .hero,
-  html[dir="rtl"] .service-card,
-  html[dir="rtl"] .blog-content,
-  html[dir="rtl"] .section-header,
-  html[dir="rtl"] .testi-card { text-align: right; }
-  
-  html[dir="rtl"] .section-header::after { margin-left: auto; margin-right: 0; background: linear-gradient(270deg, var(--sky-blue), transparent); }
-  html[dir="rtl"] .form-group input, html[dir="rtl"] .form-group textarea, html[dir="rtl"] .form-group select { text-align: right; }
-  html[dir="rtl"] .btn-ghost:hover { transform: translateX(-4px); }
-  html[dir="rtl"] .hero-3d-scene { left: 4rem; right: auto; }
-  html[dir="rtl"] .funnel-visualization { transform: rotateY(20deg) rotateX(15deg); }
+  /* FLOATING TELEMETRY CHANNELS */
+  .social-floating { position: fixed; right: 30px; bottom: 30px; z-index: 99; display: flex; flex-direction: column; gap: 1rem; }
+  .social-floating a {
+    width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--white); font-size: 1.1rem; background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .social-floating a:hover { transform: translateY(-5px) scale(1.05); box-shadow: var(--shadow-glow); background: rgba(56,189,248,0.15); border-color: rgba(56,189,248,0.3); }
 
-  /* HARDENED ULTRA-RESPONSIVE ADAPTATION INTERNALS */
-  @media (max-width: 1100px) {
-    .hero-3d-scene { display: none; }
-    .hero-content { max-width: 100%; }
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
-    .services-grid-bottom { grid-template-columns: repeat(2, 1fr); }
+  /* NATIVE COMPLEX RTL PARSE GRAPHICS */
+  html[dir="rtl"] { text-align: right; }
+  html[dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+  html[dir="rtl"] nav,
+  html[dir="rtl"] .section-header,
+  html[dir="rtl"] .hero-actions,
+  html[dir="rtl"] .contact-detail,
+  html[dir="rtl"] footer,
+  html[dir="rtl"] .testi-author { flex-direction: row-reverse; }
+  html[dir="rtl"] .nav-links, html[dir="rtl"] .footer-links { flex-direction: row-reverse; }
+  html[dir="rtl"] .about-quote { border-left: none; border-right: 2px solid var(--sky-blue); padding-left: 0; padding-right: 2.5rem; }
+  html[dir="rtl"] .contact-left, html[dir="rtl"] .about-text, html[dir="rtl"] .service-card, html[dir="rtl"] .blog-content, html[dir="rtl"] .testi-card { text-align: right; }
+  html[dir="rtl"] .form-group input, html[dir="rtl"] .form-group textarea, html[dir="rtl"] .form-group select { text-align: right; }
+  html[dir="rtl"] .hero { grid-template-columns: 0.8fr 1.2fr; }
+  html[dir="rtl"] .hero-content { order: 2; }
+  html[dir="rtl"] .hero-visual-container { order: 1; }
+
+  /* SCANNABLE RESPONSIVE MATRIX LAYER */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; gap: 4rem; padding: 8rem 2rem 4rem; text-align: center; }
+    .hero-sub { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    html[dir="rtl"] .hero { grid-template-columns: 1fr; }
+    .hero-visual-container { min-height: 350px; }
+    .about { grid-template-columns: 1fr; gap: 4rem; padding: 6rem 2rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 4rem; }
+    .services-top, .services-bottom, .blog-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .stat:nth-child(2n) { border-right: none; }
   }
 
   @media (max-width: 768px) {
     nav { padding: 1.2rem 2rem; }
     .nav-links { display: none; }
-    .hero { padding: 8rem 2rem 4rem; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .stat { padding: 3rem 1.5rem; }
-    .services { padding: 6rem 2rem; }
-    .services-grid, .services-grid-bottom { grid-template-columns: 1fr; gap: 1.5rem; }
-    .services-grid-bottom { margin-top: 1.5rem; }
-    .process { padding: 6rem 2rem; }
-    .process-steps { grid-template-columns: 1fr; gap: 2rem; margin-top: 4rem; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .process-steps { grid-template-columns: 1fr; gap: 3rem; }
     .process-steps::before { display: none; }
-    .about { padding: 6rem 2rem; grid-template-columns: 1fr; gap: 4rem; }
-    .blog-section { padding: 6rem 2rem; }
-    .blog-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .testimonials { padding: 6rem 2rem; }
-    .testi-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .contact { padding: 6rem 2rem; }
-    .contact-inner { grid-template-columns: 1fr; gap: 4rem; }
-    .contact-right { padding: 2.5rem 1.5rem; }
+    .testi-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; gap: 0; }
-    .cta-section { padding: 8rem 2rem; }
-    footer { flex-direction: column; gap: 2rem; text-align: center; padding: 3rem 2rem; }
+    footer { flex-direction: column; gap: 2rem; text-align: center; padding: 4rem 2rem; }
     .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
+    .services, .process, .blog-section, .testimonials, .contact, .cta-section { padding: 6rem 2rem; }
   }
 </style>
 </head>
-<body>
+<body class="perspective-container">
 
-<div id="canvas-container">
-  <div class="floating-orb orb-1"></div>
-  <div class="floating-orb orb-2"></div>
-  <div class="floating-orb orb-3"></div>
-  <div class="grid-3d" id="matrixGrid"></div>
-</div>
+<!-- 3D HIGH-PERFORMANCE MATRIX BACKGROUND BACKGROUND ENGINE -->
+<canvas id="bgCanvas"></canvas>
 
-<nav id="masterNav">
+<nav id="navbar">
   <a href="#" class="nav-logo">Blueprint<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#services">Capabilities</a></li>
-    <li><a href="#process">Pipeline</a></li>
-    <li><a href="#about">Philosophy</a></li>
-    <li><a href="#insights">Insights</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#process">Architecture</a></li>
+    <li><a href="#about">The Brief</a></li>
+    <li><a href="#contact">Audit Matrix</a></li>
   </ul>
-  <div class="nav-right">
+  <div style="display:flex; align-items:center; gap:1.5rem;">
     <div class="lang-switcher">
-      <button class="lang-toggle active" id="lang-en" onclick="changeLanguage('en')">EN</button>
-      <button class="lang-toggle" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
-      <button class="lang-toggle" id="lang-ar" onclick="changeLanguage('ar')">AR</button>
+      <button class="lang-toggle active-lang" onclick="changeLanguage('en', this)">EN</button>
+      <button class="lang-toggle" onclick="changeLanguage('fr', this)">FR</button>
+      <button class="lang-toggle" onclick="changeLanguage('ar', this)">AR</button>
     </div>
-    <a href="#contact" class="nav-cta" id="navCtaText">Request Strategy</a>
+    <a href="#contact" class="nav-cta" id="navCta">Deploy Scale</a>
   </div>
 </nav>
 
@@ -424,252 +358,236 @@
   <div class="hero-content">
     <div class="hero-tag">
       <div class="hero-dot"></div>
-      <span class="hero-eyebrow" id="heroEyebrowText">Performance Marketing Architecture</span>
+      <span class="hero-eyebrow" id="heroEyebrow">Performance Marketing Architecture</span>
     </div>
-    <h1 class="hero-title" id="heroTitleText">We engineer customer flows that <em>multiply</em> enterprise value.</h1>
-    <p class="hero-sub" id="heroSubText">Blueprint Agency is a precision performance deployment firm. We build cross-channel acquisition funnels, scale paid media algorithms, and structure end-to-end multi-touch revenue architecture.</p>
+    <h1 class="hero-title" id="heroTitle">
+      Engineering data-driven models that <em>amplify</em> corporate enterprise capital.
+    </h1>
+    <p class="hero-sub" id="heroSub">
+      We eliminate the ambiguities of creative speculation. Blueprint designs pure mathematical marketing frameworks that optimize ad budgets, deprecate acquisition cost thresholds, and anchor compound conversion velocity.
+    </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary" id="heroBtnPrimaryText">Deploy Scale Framework</a>
-      <a href="#services" class="btn-ghost" id="heroBtnGhostText">View Core Capabilities</a>
+      <a href="#contact" class="btn-primary" id="heroPrimary">Initiate Scaling Audit Matrix →</a>
+      <a href="#services" class="btn-ghost" id="heroGhost">View Capabilities</a>
     </div>
   </div>
   
-  <div class="hero-3d-scene">
-    <div class="funnel-visualization" id="heroFunnel">
+  <div class="hero-visual-container">
+    <div class="conversion-funnel-3d" id="funnel3d">
       <div class="funnel-layer fl-1">
-        <span class="funnel-title">Audience Acquisition</span>
-        <span class="funnel-metric">4.2M</span>
+        <span class="funnel-metric" id="fnM1">Capital Allocation</span>
+        <span class="funnel-value">$900K+ Active</span>
       </div>
       <div class="funnel-layer fl-2">
-        <span class="funnel-title">Qualified Intention</span>
-        <span class="funnel-metric">640K</span>
+        <span class="funnel-metric" id="fnM2">Precision Ad Media</span>
+        <span class="funnel-value">120M+ Impr.</span>
       </div>
       <div class="funnel-layer fl-3">
-        <span class="funnel-title">Conversion Events</span>
-        <span class="funnel-metric">82K</span>
+        <span class="funnel-metric" id="fnM3">Attribution Integrity</span>
+        <span class="funnel-value">99.8% Server-Side</span>
       </div>
       <div class="funnel-layer fl-4">
-        <span class="funnel-title">Net Direct Revenue</span>
-        <span class="funnel-metric">$3.8M</span>
+        <span class="funnel-metric" id="fnM4">Net Revenue ROAS</span>
+        <span class="funnel-value">4.8x Return</span>
       </div>
-      <div class="funnel-connector"></div>
     </div>
   </div>
 </section>
 
 <div class="marquee-wrap">
-  <div class="marquee-track" id="marqueeTrackText">
-    <span>ROAS Optimization</span> <span class="accent">✦</span>
-    <span>Paid Media Scale Models</span> <span class="accent">✦</span>
-    <span>Customer Acquisition Cost Reduction</span> <span class="accent">✦</span>
-    <span>Data Attribution Auditing</span> <span class="accent">✦</span>
-    <span>LTV Expansion Mechanics</span> <span class="accent">✦</span>
-    <span>Retention Optimization</span> <span class="accent">✦</span>
+  <div class="marquee-track">
+    <span>ROAS Optimization Models</span> <span class="accent">✦</span>
+    <span>Server-Side Tracking Node Integration</span> <span class="accent">✦</span>
+    <span>Multi-Touch Attribution Matrices</span> <span class="accent">✦</span>
+    <span>Paid Media Capital Management</span> <span class="accent">✦</span>
+    <span>Customer Acquisition Cost Deprecation</span> <span class="accent">✦</span>
+    <span>ROAS Optimization Models</span> <span class="accent">✦</span>
+    <span>Server-Side Tracking Node Integration</span> <span class="accent">✦</span>
+    <span>Multi-Touch Attribution Matrices</span> <span class="accent">✦</span>
+    <span>Paid Media Capital Management</span> <span class="accent">✦</span>
+    <span>Customer Acquisition Cost Deprecation</span> <span class="accent">✦</span>
   </div>
 </div>
 
 <section class="stats reveal">
   <div class="stat">
-    <div class="stat-num">$42M+</div>
-    <div class="stat-label" id="statLabel1">Client Revenue Generated</div>
+    <div class="stat-num">4.8x</div>
+    <div class="stat-label" id="st1">Mean Account Portfolio ROAS</div>
   </div>
   <div class="stat">
-    <div class="stat-num">4.6×</div>
-    <div class="stat-label" id="statLabel2">Average Blended ROAS</div>
+    <div class="stat-num">$900K+</div>
+    <div class="stat-label" id="st2">Optimized Ad Budget Flow</div>
   </div>
   <div class="stat">
-    <div class="stat-num">-34%</div>
-    <div class="stat-label" id="statLabel3">Average Reduction in CAC</div>
+    <div class="stat-num">95%</div>
+    <div class="stat-label" id="st3">Retention Contract Stability</div>
   </div>
   <div class="stat">
-    <div class="stat-num">160+</div>
-    <div class="stat-label" id="statLabel4">Funnels Structured & Scaled</div>
+    <div class="stat-num">100%</div>
+    <div class="stat-label" id="st4">Server-Side Verified Tracking</div>
   </div>
 </section>
 
 <section class="services" id="services">
-  <div class="section-header reveal">
-    <p class="section-eyebrow" id="srvEyebrowText">Core Disciplines</p>
-    <h2 class="section-title" id="srvTitleText">Structured execution layers built for <em>measurable conversion</em>.</h2>
-  </div>
-  
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-icon">✦</div>
-      <span class="service-num">01 / CAPABILITY</span>
-      <h3 class="service-title" id="srvCardTitle1">Cross-Channel Allocation</h3>
-      <p class="service-desc" id="srvCardDesc1">We allocate investment capital dynamically across Meta, Google, TikTok, and Programmatic ecosystems based on real-time margin efficiency metrics.</p>
-      <div class="service-tags">
-        <span class="service-tag">Capital Allocation</span>
-        <span class="service-tag">Meta Scale</span>
-        <span class="service-tag">Google Search/PMax</span>
-      </div>
-    </div>
-    
-    <div class="service-card reveal">
-      <div class="service-icon">✦</div>
-      <span class="service-num">02 / CAPABILITY</span>
-      <h3 class="service-title" id="srvCardTitle2">Attribution & Analytics Rooms</h3>
-      <p class="service-desc" id="srvCardDesc2">We strip away data noise, bypass signal degradation, and build multi-touch attribution models to compute true marketing contribution margins.</p>
-      <div class="service-tags">
-        <span class="service-tag">Server-Side Tracking</span>
-        <span class="service-tag">Attribution Proofing</span>
-        <span class="service-tag">GA4 Advanced</span>
-      </div>
-    </div>
-    
-    <div class="service-card reveal">
-      <div class="service-icon">✦</div>
-      <span class="service-num">03 / CAPABILITY</span>
-      <h3 class="service-title" id="srvCardTitle3">Conversion Rate Optimization</h3>
-      <p class="service-desc" id="srvCardDesc3">We isolate drop-off vectors in your acquisition process, rewriting checkout logic and user flow mechanics to maximize visitor yield metrics.</p>
-      <div class="service-tags">
-        <span class="service-tag">Funnel Re-engineering</span>
-        <span class="service-tag">A/B Matrix Testing</span>
-        <span class="service-tag">UX Diagnostics</span>
-      </div>
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow" id="srvEyebrow">Strategic Domains</p>
+      <h2 class="section-title" id="srvTitle">Five core capabilities, <em>one distinct blueprint</em> — algorithmic scale.</h2>
     </div>
   </div>
   
-  <div class="services-grid-bottom">
+  <div class="services-top">
     <div class="service-card reveal">
-      <div class="service-icon">✦</div>
-      <span class="service-num">04 / CAPABILITY</span>
-      <h3 class="service-title" id="srvCardTitle4">High-Performance Message Engines</h3>
-      <p class="service-desc" id="srvCardDesc4">We build highly calculated visual and textual assets engineered directly to break down specific user resistance metrics and spark action.</p>
-      <div class="service-tags">
-        <span class="service-tag">Creative Testing Matrices</span>
-        <span class="service-tag">Direct-Response Copy</span>
-        <span class="service-tag">Behavioral Hooks</span>
-      </div>
+      <div class="service-icon">📊</div>
+      <div class="service-num">01</div>
+      <h3 class="service-title" id="s1Title">Market Placement &amp; Strategy</h3>
+      <p class="service-desc" id="s1Desc">We construct structured architectural diagrams mapping your complete target landscape. No guesswork—just high-fidelity competitor intelligence assessments, product placement matrices, and quantitative investment channels.</p>
+      <div class="service-tags"><span>Market Mapping</span><span>Competitor Arbitrage</span><span>Feasibility Analysis</span></div>
     </div>
     
     <div class="service-card reveal">
-      <div class="service-icon">✦</div>
-      <span class="service-num">05 / CAPABILITY</span>
-      <h3 class="service-title" id="srvCardTitle5">LTV Retention Frameworks</h3>
-      <p class="service-desc" id="srvCardDesc5">We build automation sequences designed to maximize user frequency metrics, lengthening relationship values through predictive cross-selling models.</p>
-      <div class="service-tags">
-        <span class="service-tag">Predictive Automation</span>
-        <span class="service-tag">Cohorted Retention</span>
-        <span class="service-tag">Value Maximization</span>
-      </div>
+      <div class="service-icon">🌐</div>
+      <div class="service-num">02</div>
+      <h3 class="service-title" id="s2Title">Enterprise Paid Media Scaling</h3>
+      <p class="service-desc" id="s2Desc">Deploying quantitative asset distribution algorithms across Google Search networks, Meta tracking environments, and TikTok ad instances to scale target operations safely without performance deterioration.</p>
+      <div class="service-tags"><span>Meta Ads Scaling</span><span>Google Search Network</span><span>Bid Optimization</span></div>
+    </div>
+    
+    <div class="service-card reveal">
+      <div class="service-icon">🎨</div>
+      <div class="service-num">03</div>
+      <h3 class="service-title" id="s3Title">Asset Design &amp; Copy Directives</h3>
+      <p class="service-desc" id="s3Desc">Engineering high-retention visual assets and calculated messaging frameworks built precisely to command user consideration. We transform simple creative formats into high-volume psychological conversion drivers.</p>
+      <div class="service-tags"><span>Visual Asset Design</span><span>Direct Copywriting</span><span>Content Frameworks</span></div>
+    </div>
+  </div>
+  
+  <div class="services-bottom">
+    <div class="service-card reveal">
+      <div class="service-icon">📈</div>
+      <div class="service-num">04</div>
+      <h3 class="service-title" id="s4Title">Conversion Optimization Systems</h3>
+      <p class="service-desc" id="s4Desc">We map digital acquisition workflows down to individual customer behavior interactions. Through structured content split-testing and behavioral telemetry loops, we isolate conversion hurdles to compress sales cycles.</p>
+      <div class="service-tags"><span>A/B Testing Layers</span><span>UX Funnel Analytics</span><span>Interaction Maps</span></div>
+    </div>
+    
+    <div class="service-card reveal">
+      <div class="service-icon">🧬</div>
+      <div class="service-num">05</div>
+      <h3 class="service-title" id="s5Title">Telemetry &amp; Attribution Integrity</h3>
+      <p class="service-desc" id="s5Desc">Bypassing client-side cookie limitations by deploying permanent server-side tag structures and cross-channel event schemas to isolate accurate tracking verification across every single multi-touch path.</p>
+      <div class="service-tags"><span>GA4 Infrastructure</span><span>Server-Side Cloud Tags</span><span>Attribution Nodes</span></div>
     </div>
   </div>
 </section>
 
 <section class="process" id="process">
-  <div class="section-header reveal">
-    <p class="section-eyebrow" id="procEyebrowText">System Deployment</p>
-    <h2 class="section-title" id="procTitleText">Our onboarding <em>velocity pipeline</em></h2>
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow" id="prcEyebrow">Operational Sequence</p>
+      <h2 class="section-title" id="prcTitle">The <em>proven</em> framework</h2>
+    </div>
   </div>
   
   <div class="process-steps">
     <div class="process-step reveal">
       <div class="step-circle">1</div>
-      <h3 class="step-title" id="procStepTitle1">Infrastructure Audit</h3>
-      <p class="step-desc" id="procStepDesc1">We execute deep technical tracing across ad accounts and analytical tags to uncover leakage metrics.</p>
+      <h3 class="step-title" id="p1Title">Technical Audit</h3>
+      <p class="step-desc" id="p1Desc">Isolating attribution breaks, mapping past spending trends, and configuring core structural analytics frameworks before scaling.</p>
     </div>
     <div class="process-step reveal">
       <div class="step-circle">2</div>
-      <h3 class="step-title" id="procStepTitle2">Funnel Architectural Blueprint</h3>
-      <p class="step-desc" id="procStepDesc2">We build complete theoretical models detailing exact allocation points, message hooks, and checkout logic adjustments.</p>
+      <h3 class="step-title" id="p2Title">Modeling Blueprint</h3>
+      <p class="step-desc" id="p2Desc">Constructing clear budget allocation graphs and visual creative models directly aligned with performance goals.</p>
     </div>
     <div class="process-step reveal">
       <div class="step-circle">3</div>
-      <h3 class="step-title" id="procStepTitle3">Deployment & Velocity Testing</h3>
-      <p class="step-desc" id="procStepDesc3">We push live across communication and budget networks, feeding clean algorithmic data loops to accelerate scaling paths.</p>
+      <h3 class="step-title" id="p3Title">Deployment Phase</h3>
+      <p class="step-desc" id="p3Desc">Launching localized media asset tests, testing conversion optimization pathways, and stabilizing account delivery engines.</p>
     </div>
     <div class="process-step reveal">
       <div class="step-circle">4</div>
-      <h3 class="step-title" id="procStepTitle4">Macro-Scale Amplification</h3>
-      <p class="step-desc" id="procStepDesc4">We push budgets aggressively into working assets while maintaining strict target margin profiles to secure bottom-line compounding.</p>
+      <h3 class="step-title" id="p4Title">Algorithmic Scaling</h3>
+      <p class="step-desc" id="p4Desc">Amplifying successful campaigns, stabilizing margins, and systematically dominating broader market segments.</p>
     </div>
   </div>
 </section>
 
 <section class="about" id="about">
-  <div class="about-quote reveal">
-    <span id="aboutQuoteText">"True marketing scaling is an exact data engineering science, not a creative guessing game."</span>
+  <div class="about-quote" id="abtQuote">
+    "Elite digital acquisition structures aren't built on flash or artistic guesswork. They are built on structured mathematical models, rigorous verification loops, and absolute execution alignment."
   </div>
-  <div class="about-text reveal">
-    <p id="aboutPara1">We operate as a deeply quantitative growth deployment partner. We do not pitch abstract aesthetic vanity rebrands or hide behind ambiguous engagement data metrics. We map capital allocation models directly to closed enterprise performance results.</p>
-    <p id="aboutPara2">Our team consists strictly of data-oriented media allocators, conversion rate specialists, and direct-response behavioral engineers. We join forces with market leaders to transform chaotic ad spend habits into predictable revenue engines.</p>
+  <div class="about-text">
+    <p id="abtP1">We function as a unified engineering firm dedicated strictly to tactical performance marketing. We do not bury insights inside misleading vanity tracking sheets or confusing marketing speak. We prioritize bottom-line financial architecture.</p>
+    <p id="abtP2">Whether your objective is to launch high-end minimalist brand equity blueprints or optimize complex international spend channels, our team manages your scaling paths with extreme operational precision.</p>
   </div>
 </section>
 
 <section class="blog-section" id="insights">
-  <div class="section-header reveal">
-    <p class="section-eyebrow" id="blogEyebrowText">Strategic Intelligence</p>
-    <h2 class="section-title" id="blogTitleText">Tactical performance briefs from <em>the frontline</em></h2>
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow" id="blgEyebrow">Analytical Briefs</p>
+      <h2 class="section-title" id="blgTitle">Latest files from <em>the architecture lab</em></h2>
+    </div>
   </div>
-  
   <div class="blog-grid">
     <div class="blog-card reveal">
-      <div class="blog-graphic-box">
-        <div class="chart-simulation"><div class="chart-line-inner"></div></div>
-      </div>
+      <div class="blog-image-mock">📊</div>
       <div class="blog-content">
-        <span class="blog-category">Capital Scale</span>
-        <h3 id="blogCardTitle1">Deconstructing Algorithmic Ad Buying Models</h3>
-        <p id="blogCardDesc1">An executive breakdown on structuring simplified ad accounts to feed modern deep-learning attribution systems.</p>
-        <a href="#contact" class="blog-btn">Access Brief →</a>
+        <span class="blog-category">Media Allocation</span>
+        <h3 id="b1Title">The 2026 ROAS Matrix: Navigating Meta CPM Inflation</h3>
+        <p id="b1Desc">How to bypass ad-fatigue thresholds using strategic campaign diversification node configurations.</p>
+        <a href="#" class="blog-btn" id="b1Btn">Review Brief →</a>
       </div>
     </div>
-    
     <div class="blog-card reveal">
-      <div class="blog-graphic-box">
-        <div class="chart-simulation"><div class="chart-line-inner"></div></div>
-      </div>
+      <div class="blog-image-mock">✨</div>
       <div class="blog-content">
-        <span class="blog-category">Conversion Math</span>
-        <h3 id="blogCardTitle2">Isolating Marginal Performance Degrade Patterns</h3>
-        <p id="blogCardDesc2">How to compute exact conversion saturation limits per target audience tier to prevent ad fatigue events.</p>
-        <a href="#contact" class="blog-btn">Access Brief →</a>
+        <span class="blog-category">Brand Strategy</span>
+        <h3 id="b2Title">Quiet Luxury Positioning: Digital Marketing for High-End Apparel</h3>
+        <p id="b2Desc">Deconstructing minimalist aesthetics and premium scarcity positioning matrices in saturated global consumer markets.</p>
+        <a href="#" class="blog-btn" id="b2Btn">Review Brief →</a>
       </div>
     </div>
-    
     <div class="blog-card reveal">
-      <div class="blog-graphic-box">
-        <div class="chart-simulation"><div class="chart-line-inner"></div></div>
-      </div>
+      <div class="blog-image-mock">🧬</div>
       <div class="blog-content">
-        <span class="blog-category">Signal Architecture</span>
-        <h3 id="blogCardTitle3">Navigating Real-Time Privacy Tracking Deprecations</h3>
-        <p id="blogCardDesc3">A complete walkthrough for deploying raw first-party data loops to insulate targeting profiles from browser limits.</p>
-        <a href="#contact" class="blog-btn">Access Brief →</a>
+        <span class="blog-category">Telemetry</span>
+        <h3 id="b3Title">Server-Side Cloud Infrastructure Overhauls</h3>
+        <p id="b3Desc">An explicit technical look at configuring independent attribution nodes to completely negate cookie tracking decay.</p>
+        <a href="#" class="blog-btn" id="b3Btn">Review Brief →</a>
       </div>
     </div>
   </div>
 </section>
 
 <section class="testimonials" id="testimonials">
-  <div class="section-header reveal">
-    <p class="section-eyebrow" id="testiEyebrowText">Validated Compound Growth</p>
-    <h2 class="section-title" id="testiTitleText">Direct operational feedback from <em>our enterprise partners</em></h2>
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow" id="tstEyebrow">Verified Attestations</p>
+      <h2 class="section-title" id="tstTitle">Strategic outcomes from our <em>partner network</em></h2>
+    </div>
   </div>
-  
   <div class="testi-grid">
     <div class="testi-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="testi-quote" id="testiQuote1">"Blueprint re-engineered our conversion flow logic completely. Our customer acquisition costs fell by 41% while overall acquisition volume scaled to heights we hadn't touched before."</p>
+      <p class="testi-quote" id="q1">"Blueprint totally transformed our client scaling framework. They shifted our chaotic creative processes into a cold, metrics-driven pipeline. Inbound pipelines grew by 140% in single-quarter timelines."</p>
       <div class="testi-author">
-        <div class="testi-avatar">S</div>
+        <div class="testi-avatar">M</div>
         <div>
-          <div class="testi-name">Sarah E.</div>
-          <div class="testi-role">VP of Acquisition, Vanguard Corp</div>
+          <div class="testi-name">Malek S.</div>
+          <div class="testi-role" id="r1">Managing Director, Heritage Retail</div>
         </div>
       </div>
     </div>
-    
     <div class="testi-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="testi-quote" id="testiQuote2">"The tracking architecture they structured gave our board absolute visibility into actual multi-touch attribution streams. We scaled our annual ad spend to eight figures confidently."</p>
+      <p class="testi-quote" id="q2">"They treat capital management with serious technical rigor. The custom reporting setups and server-side tracking nodes they built gave us perfect clarity into our exact customer acquisition metrics."</p>
       <div class="testi-author">
-        <div class="testi-avatar">J</div>
+        <div class="testi-avatar">K</div>
         <div>
-          <div class="testi-name">Julian M.</div>
-          <div class="testi-role">Chief Financial Officer, Horizon Brands</div>
+          <div class="testi-name">Karim B.</div>
+          <div class="testi-role" id="r2">Operations Lead, Nexus Tech</div>
         </div>
       </div>
     </div>
@@ -678,360 +596,397 @@
 
 <section class="contact" id="contact">
   <div class="contact-inner">
-    <div class="contact-left reveal">
-      <p class="section-eyebrow" id="contEyebrowText">Capital Audit Engagement</p>
-      <h2 class="section-title" id="contTitleText">Initiate your performance <em>diagnostic sequence</em></h2>
-      <p id="contDescText">We will execute a thorough multi-point analysis across your historical ad accounts, funnel drop-off vectors, and data tracking loops entirely at our expense. Let us pinpoint the exact friction areas holding back your metrics.</p>
-      <div class="contact-details-box">
-        <div class="contact-detail">
-          <strong>Strategic Communication Terminal</strong>
-          <span>operations@blueprintagency.com</span>
-        </div>
-        <div class="contact-detail">
-          <strong>Cohort Allotment Slots</strong>
-          <span>Accepting 3 enterprise scale accounts for Q3/Q4</span>
-        </div>
-      </div>
+    <div class="contact-left">
+      <p class="section-eyebrow" id="cntEyebrow">Initiate Contact</p>
+      <h2 id="cntTitle">Request an allocation <em>audit brief</em></h2>
+      <p id="cntDesc">Ready to build a predictable scaling structure? Request an exhaustive performance audit mapping your tracking stability and channel vulnerabilities entirely free of charge.</p>
+      <div class="contact-detail"><strong id="cd1">Direct Channel:</strong> hello@blueprintagency.com</div>
+      <div class="contact-detail"><strong id="cd2">Availability:</strong> Limited Q2 Intake Slots Open</div>
     </div>
     
-    <div class="contact-right reveal" id="formContainerCard">
-      <form id="funnelForm" onsubmit="executeFormSubmit(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label id="lblFormName">Operator Name</label>
-            <input type="text" required placeholder="John Doe">
+    <div class="contact-right">
+      <div class="contact-right-box" id="contactBox">
+        <form id="auditForm" onsubmit="handleAuditSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label id="l1">Operator Name</label>
+              <input type="text" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label id="l2">Communications Node</label>
+              <input type="email" required placeholder="operator@company.com">
+            </div>
           </div>
           <div class="form-group">
-            <label id="lblFormEmail">Secure Email Terminal</label>
-            <input type="email" required placeholder="john@company.com">
+            <label id="l3">Enterprise Portal URL</label>
+            <input type="url" placeholder="www.company.com">
           </div>
+          <div class="form-group">
+            <label id="l4">Primary Scaling Hurdle</label>
+            <select>
+              <option>Comprehensive Scaling Blueprint Strategy</option>
+              <option>Paid Media Infrastructure Scaling</option>
+              <option>Asset Creation & Directive Pipelines</option>
+              <option>Attribution Integrity Optimization</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label id="l5">Operational Overview</label>
+            <textarea placeholder="Outline current budget constraints and performance bottlenecks..."></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="fBtn">Deploy Audit Execution Request</button>
+        </form>
+        <div class="form-success" id="auditSuccess">
+          <p id="fSucc">Transmission Logged. Performance engineers will evaluate your target structure and follow up in 24 hours.</p>
         </div>
-        <div class="form-group">
-          <label id="lblFormUrl">Enterprise Digital Domain</label>
-          <input type="url" placeholder="www.company.com">
-        </div>
-        <div class="form-group">
-          <label id="lblFormFocus">Primary Growth Bottleneck</label>
-          <select id="selectFormFocus">
-            <option>Cross-Channel Capital Scale Friction</option>
-            <option>Unreliable Conversion Tracking & Attribution</option>
-            <option>Funnel Conversion Yield Drops</option>
-            <option>Creative Fatigue / Ad Message Breakdown</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label id="lblFormDetails">Historical Run-Rate Metrics & Goals</label>
-          <textarea placeholder="Briefly detail current average monthly ad budgets, performance bottlenecks, and target numbers..."></textarea>
-        </div>
-        <button type="submit" class="form-submit" id="btnFormSubmitText">Initialize Diagnostic Run</button>
-      </form>
-      <div class="form-success" id="successBlock">
-        <p id="txtFormSuccess">Diagnostic Sequence Initialized. Our technical media allocators will parse your domain data footprints and communicate via terminal routes within 12 hours.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section reveal">
-  <p class="cta-eyebrow" id="ctaEyebrowText">Execution Mandate</p>
-  <h2 class="cta-title" id="ctaTitleText">Terminate capital leakage. <em>Scale your volume now</em>.</h2>
-  <p class="cta-sub" id="ctaSubText">Transition away from speculative, artistic marketing campaigns and hook your business to a high-yield algorithmic distribution engine.</p>
-  <a href="#contact" class="btn-primary" id="ctaBtnText">Secure Performance Blueprint</a>
+<section class="cta-section">
+  <p class="cta-eyebrow" id="ct1">Next Protocol</p>
+  <h2 class="cta-title" id="ct2">Terminate speculation. Start <em>scaling systematically</em>.</h2>
+  <p class="cta-sub" id="ct3">Build an analytical growth ecosystem engineered for predictability and compounding margin scale.</p>
+  <a href="#contact" class="btn-primary" id="ctBtn">Deploy Free Audit Blueprint</a>
 </section>
 
 <footer>
   <a href="#" class="footer-logo">Blueprint<span>.</span></a>
-  <span class="footer-copy" id="footerCopyText">&copy; 2026 Blueprint Architecture Firm. Performance Optimization Reserved.</span>
+  <span class="footer-copy" id="fCopy">&copy; 2026 Blueprint Agency. All Architectural Systems Reserved.</span>
   <div class="footer-links">
     <a href="#services">Capabilities</a>
-    <a href="#process">Pipeline</a>
-    <a href="#contact">Contact</a>
+    <a href="#process">Architecture</a>
+    <a href="#contact">Matrix</a>
   </div>
 </footer>
 
+<div class="social-floating">
+  <a href="#" target="_blank" title="LinkedIn">in</a>
+  <a href="#" target="_blank" title="Instagram">ig</a>
+</div>
+
+<!-- DATA TRANSLATION ENGINE & 3D MOTION BACKEND LOGIC -->
 <script>
-  // POLYGLOT STRUCTURAL TRANSLATION DICTIONARY
-  const dictionary = {
+  // ----- DYNAMIC MULTI-LANGUAGE RESOURCE MATRIX -----
+  const translations = {
     en: {
       dir: 'ltr',
-      navCta: 'Request Strategy',
+      navCta: 'Deploy Scale',
       heroEyebrow: 'Performance Marketing Architecture',
-      heroTitle: 'We engineer customer flows that <em>multiply</em> enterprise value.',
-      heroSub: 'Blueprint Agency is a precision performance deployment firm. We build cross-channel acquisition funnels, scale paid media algorithms, and structure end-to-end multi-touch revenue architecture.',
-      heroBtnPrimary: 'Deploy Scale Framework',
-      heroBtnGhost: 'View Core Capabilities',
-      marquee: '<span>ROAS Optimization</span> <span class="accent">✦</span> <span>Paid Media Scale Models</span> <span class="accent">✦</span> <span>Customer Acquisition Cost Reduction</span> <span class="accent">✦</span> <span>Data Attribution Auditing</span> <span class="accent">✦</span> <span>LTV Expansion Mechanics</span> <span class="accent">✦</span> <span>Retention Optimization</span> <span class="accent">✦</span>',
-      stat1: 'Client Revenue Generated', stat2: 'Average Blended ROAS', stat3: 'Average Reduction in CAC', stat4: 'Funnels Structured & Scaled',
-      srvEyebrow: 'Core Disciplines', srvTitle: 'Structured execution layers built for <em>measurable conversion</em>.',
-      srvC1: 'Cross-Channel Allocation', srvD1: 'We allocate investment capital dynamically across Meta, Google, TikTok, and Programmatic ecosystems based on real-time margin efficiency metrics.',
-      srvC2: 'Attribution & Analytics Rooms', srvD2: 'We strip away data noise, bypass signal degradation, and build multi-touch attribution models to compute true marketing contribution margins.',
-      srvC3: 'Conversion Rate Optimization', srvD3: 'We isolate drop-off vectors in your acquisition process, rewriting checkout logic and user flow mechanics to maximize visitor yield metrics.',
-      srvC4: 'High-Performance Message Engines', srvD4: 'We build highly calculated visual and textual assets engineered directly to break down specific user resistance metrics and spark action.',
-      srvC5: 'LTV Retention Frameworks', srvD5: 'We build automation sequences designed to maximize user frequency metrics, lengthening relationship values through predictive cross-selling models.',
-      procEyebrow: 'System Deployment', procTitle: 'Our onboarding <em>velocity pipeline</em>',
-      procT1: 'Infrastructure Audit', procD1: 'We execute deep technical tracing across ad accounts and analytical tags to uncover leakage metrics.',
-      procT2: 'Funnel Architectural Blueprint', procD2: 'We build complete theoretical models detailing exact allocation points, message hooks, and checkout logic adjustments.',
-      procT3: 'Deployment & Velocity Testing', procD3: 'We push live across communication and budget networks, feeding clean algorithmic data loops to accelerate scaling paths.',
-      procT4: 'Macro-Scale Amplification', procD4: 'We push budgets aggressively into working assets while maintaining strict target margin profiles to secure bottom-line compounding.',
-      aboutQ: '"True marketing scaling is an exact data engineering science, not a creative guessing game."',
-      aboutP1: 'We operate as a deeply quantitative growth deployment partner. We do not pitch abstract aesthetic vanity rebrands or hide behind ambiguous engagement data metrics. We map capital allocation models directly to closed enterprise performance results.',
-      aboutP2: 'Our team consists strictly of data-oriented media allocators, conversion rate specialists, and direct-response behavioral engineers. We join forces with market leaders to transform chaotic ad spend habits into predictable revenue engines.',
-      blogEyebrow: 'Strategic Intelligence', blogTitle: 'Tactical performance briefs from <em>the frontline</em>',
-      blogT1: 'Deconstructing Algorithmic Ad Buying Models', blogD1: 'An executive breakdown on structuring simplified ad accounts to feed modern deep-learning attribution systems.',
-      blogT2: 'Isolating Marginal Performance Degrade Patterns', blogD2: 'How to compute exact conversion saturation limits per target audience tier to prevent ad fatigue events.',
-      blogT3: 'Navigating Real-Time Privacy Tracking Deprecations', blogD3: 'A complete walkthrough for deploying raw first-party data loops to insulate targeting profiles from browser limits.',
-      testiEyebrow: 'Validated Compound Growth', testiTitle: 'Direct operational feedback from <em>our enterprise partners</em>',
-      testiQ1: '"Blueprint re-engineered our conversion flow logic completely. Our customer acquisition costs fell by 41% while overall acquisition volume scaled to heights we hadn't touched before."',
-      testiQ2: '"The tracking architecture they structured gave our board absolute visibility into actual multi-touch attribution streams. We scaled our annual ad spend to eight figures confidently."',
-      contEyebrow: 'Capital Audit Engagement', contTitle: 'Initiate your performance <em>diagnostic sequence</em>',
-      contDesc: 'We will execute a thorough multi-point analysis across your historical ad accounts, funnel drop-off vectors, and data tracking loops entirely at our expense. Let us pinpoint the exact friction areas holding back your metrics.',
-      fName: 'Operator Name', fEmail: 'Secure Email Terminal', fUrl: 'Enterprise Digital Domain', fFocus: 'Primary Growth Bottleneck', fDetails: 'Historical Run-Rate Metrics & Goals', fBtn: 'Initialize Diagnostic Run',
-      fSuccess: 'Diagnostic Sequence Initialized. Our technical media allocators will parse your domain data footprints and communicate via terminal routes within 12 hours.',
-      ctaEyebrow: 'Execution Mandate', ctaTitle: 'Terminate capital leakage. <em>Scale your volume now</em>.', ctaSub: 'Transition away from speculative, artistic marketing campaigns and hook your business to a high-yield algorithmic distribution engine.', ctaBtn: 'Secure Performance Blueprint',
-      footerCopy: '&copy; 2026 Blueprint Architecture Firm. Performance Optimization Reserved.'
+      heroTitle: 'Engineering data-driven models that <em>amplify</em> corporate enterprise capital.',
+      heroSub: 'We eliminate the ambiguities of creative speculation. Blueprint designs pure mathematical marketing frameworks that optimize ad budgets, deprecate acquisition cost thresholds, and anchor compound conversion velocity.',
+      heroPrimary: 'Initiate Scaling Audit Matrix →',
+      heroGhost: 'View Capabilities',
+      fnM1: 'Capital Allocation', fnM2: 'Precision Ad Media', fnM3: 'Attribution Integrity', fnM4: 'Net Revenue ROAS',
+      st1: 'Mean Account Portfolio ROAS', st2: 'Optimized Ad Budget Flow', st3: 'Retention Contract Stability', st4: 'Server-Side Verified Tracking',
+      srvEyebrow: 'Strategic Domains', srvTitle: 'Five core capabilities, <em>one distinct blueprint</em> — algorithmic scale.',
+      s1Title: 'Market Placement & Strategy', s1Desc: 'We construct structured architectural diagrams mapping your complete target landscape. No guesswork—just high-fidelity competitor intelligence assessments, product placement matrices, and quantitative investment channels.',
+      s2Title: 'Enterprise Paid Media Scaling', s2Desc: 'Deploying quantitative asset distribution algorithms across Google Search networks, Meta tracking environments, and TikTok ad instances to scale target operations safely without performance deterioration.',
+      s3Title: 'Asset Design & Copy Directives', s3Desc: 'Engineering high-retention visual assets and calculated messaging frameworks built precisely to command user consideration. We transform simple creative formats into high-volume psychological conversion drivers.',
+      s4Title: 'Conversion Optimization Systems', s4Desc: 'We map digital acquisition workflows down to individual customer behavior interactions. Through structured content split-testing and behavioral telemetry loops, we isolate conversion hurdles to compress sales cycles.',
+      s5Title: 'Telemetry & Attribution Integrity', s5Desc: 'Bypassing client-side cookie limitations by deploying permanent server-side tag structures and cross-channel event schemas to isolate accurate tracking verification across every single multi-touch path.',
+      prcEyebrow: 'Operational Sequence', prcTitle: 'The <em>proven</em> framework',
+      p1Title: 'Technical Audit', p1Desc: 'Isolating attribution breaks, mapping past spending trends, and configuring core structural analytics frameworks before scaling.',
+      p2Title: 'Modeling Blueprint', p2Desc: 'Constructing clear budget allocation graphs and visual creative models directly aligned with performance goals.',
+      p3Title: 'Deployment Phase', p3Desc: 'Launching localized media asset tests, testing conversion optimization pathways, and stabilizing account delivery engines.',
+      p4Title: 'Algorithmic Scaling', p4Desc: 'Amplifying successful campaigns, stabilizing margins, and systematically dominating broader market segments.',
+      abtQuote: '"Elite digital acquisition structures aren\'t built on flash or artistic guesswork. They are built on structured mathematical models, rigorous verification loops, and absolute execution alignment."',
+      abtP1: 'We function as a unified engineering firm dedicated strictly to tactical performance marketing. We do not bury insights inside misleading vanity tracking sheets or confusing marketing speak. We prioritize bottom-line financial architecture.',
+      abtP2: 'Whether your objective is to launch high-end minimalist brand equity blueprints or optimize complex international spend channels, our team manages your scaling paths with extreme operational precision.',
+      blgEyebrow: 'Analytical Briefs', blgTitle: 'Latest files from <em>the architecture lab</em>',
+      b1Title: 'The 2026 ROAS Matrix: Navigating Meta CPM Inflation', b1Desc: 'How to bypass ad-fatigue thresholds using strategic campaign diversification node configurations.', b1Btn: 'Review Brief →',
+      b2Title: 'Quiet Luxury Positioning: Digital Marketing for High-End Apparel', b2Desc: 'Deconstructing minimalist aesthetics and premium scarcity positioning matrices in saturated global consumer markets.', b2Btn: 'Review Brief →',
+      b3Title: 'Server-Side Cloud Infrastructure Overhauls', b3Desc: 'An explicit technical look at configuring independent attribution nodes to completely negate cookie tracking decay.', b3Btn: 'Review Brief →',
+      tstEyebrow: 'Verified Attestations', tstTitle: 'Strategic outcomes from our <em>partner network</em>',
+      q1: '"Blueprint totally transformed our client scaling framework. They shifted our chaotic creative processes into a cold, metrics-driven pipeline. Inbound pipelines grew by 140% in single-quarter timelines."', r1: 'Managing Director, Heritage Retail',
+      q2: '"They treat capital management with serious technical rigor. The custom reporting setups and server-side tracking nodes they built gave us perfect clarity into our exact customer acquisition metrics."', r2: 'Operations Lead, Nexus Tech',
+      cntEyebrow: 'Initiate Contact', cntTitle: 'Request an allocation <em>audit brief</em>', cntDesc: 'Ready to build a predictable scaling structure? Request an exhaustive performance audit mapping your tracking stability and channel vulnerabilities entirely free of charge.',
+      cd1: 'Direct Channel:', cd2: 'Availability:', l1: 'Operator Name', l2: 'Communications Node', l3: 'Enterprise Portal URL', l4: 'Primary Scaling Hurdle', l5: 'Operational Overview', fBtn: 'Deploy Audit Execution Request', fSucc: 'Transmission Logged. Performance engineers will evaluate your target structure and follow up in 24 hours.',
+      ct1: 'Next Protocol', ct2: 'Terminate speculation. Start <em>scaling systematically</em>.', ct3: 'Build an analytical growth ecosystem engineered for predictability and compounding margin scale.', ctBtn: 'Deploy Free Audit Blueprint', fCopy: '© 2026 Blueprint Agency. All Architectural Systems Reserved.'
     },
     fr: {
       dir: 'ltr',
-      navCta: 'Demander une Stratégie',
-      heroEyebrow: 'Architecture de Marketing de Performance',
-      heroTitle: 'Nous engineering les flux clients pour <em>multiplier</em> la valeur entreprise.',
-      heroSub: 'Blueprint Agency est une firme de déploiement de performance de précision. Nous construisons des tunnels d'acquisition, adaptons les algorithmes de médias payants et structurons l'architecture de revenus.',
-      heroBtnPrimary: 'Déployer le Cadre de Croissance',
-      heroBtnGhost: 'Voir les Capacités Clés',
-      marquee: '<span>Optimisation du ROAS</span> <span class="accent">✦</span> <span>Modèles d'Échelle Média</span> <span class="accent">✦</span> <span>Réduction du Coût d'Acquisition Client</span> <span class="accent">✦</span> <span>Audit d'Attribution de Données</span> <span class="accent">✦</span>',
-      stat1: 'Revenus Clients Générés', stat2: 'ROAS Global Moyen', stat3: 'Réduction Moyenne du CAC', stat4: 'Tunnels Structurés & Escalés',
-      srvEyebrow: 'Disciplines Fondamentales', srvTitle: 'Couches d'exécution structurées pour une <em>conversion mesurable</em>.',
-      srvC1: 'Allocation Cross-Canal', srvD1: 'Nous allouons le capital d'investissement de manière dynamique sur Meta, Google et TikTok en fonction des marges d'efficacité en temps réel.',
-      srvC2: 'Attribution & Salles Analytics', srvD2: 'Nous éliminons le bruit des données pour calculer les véritables marges de contribution de vos campagnes marketing.',
-      srvC3: 'Optimisation du Taux de Conversion', srvD3: 'Nous isolons les vecteurs de perte dans votre parcours d'achat en réécrivant la logique du panier pour maximiser le rendement.',
-      srvC4: 'Moteurs de Messages Haute Performance', srvD4: 'Nous construisons des visuels et textes calculés spécifiquement pour briser les résistances des utilisateurs et déclencher l'action.',
-      srvC5: 'Modèles de Rétention LTV', srvD5: 'Nous déployons des séquences d'automatisation pour maximiser la fréquence d'achat via des modèles prédictifs.',
-      procEyebrow: 'Déploiement Système', procTitle: 'Notre pipeline de <em>vélocité d'intégration</em>',
-      procT1: 'Audit des Infrastructures', procD1: 'Nous exécutons un traçage technique approfondi sur vos comptes publicitaires pour localiser les fuites de budget.',
-      procT2: 'Plan Architectural du Tunnel', procD2: 'Modélisation théorique complète détaillant les points d'allocation et ajustements logiques.',
-      procT3: 'Tests de Déploiement & Vélocité', procD3: 'Lancement des flux de communication pour alimenter les boucles de données algorithmiques.',
-      procT4: 'Amplification à Grande Échelle', procD4: 'Augmentation agressive des budgets sur les actifs rentables sous contrôle strict des marges.',
-      aboutQ: '"L'augmentation des revenus est une science d'ingénierie de données exacte, pas un jeu de devinettes créatives."',
-      aboutP1: 'Nous agissons comme un partenaire de déploiement de croissance purement quantitatif. Nous ne vendons pas de refontes esthétiques vagues, nous lions le capital directement aux résultats financiers.',
-      aboutP2: 'Notre équipe est composée de spécialistes des médias axés sur les chiffres et d'ingénieurs comportementaux. Nous transformons les dépenses publicitaires chaotiques en moteurs de revenus prévisibles.',
-      blogEyebrow: 'Intelligence Stratégique', blogTitle: 'Notes de performance tactiques du <em>front de scaling</em>',
-      blogT1: 'Déconstruction des Modèles d'Achat Algorithmiques', blogD1: 'Comment simplifier la structure des comptes publicitaires pour nourrir les systèmes d'attribution modernes.',
-      blogT2: 'Isoler les Modèles de Dégradation de Performance', blogD2: 'Calculer les limites exactes de saturation par niveau d'audience pour prévenir la fatigue publicitaire.',
-      blogT3: 'Naviguer dans la Dépréciation du Suivi Privé', blogD3: 'Guide complet pour déployer des boucles de données de première partie à l'abri des restrictions des navigateurs.',
-      testiEyebrow: 'Croissance Validée', testiTitle: 'Retours opérationnels de nos <em>partenaires entreprises</em>',
-      testiQ1: '"Blueprint a complètement réorganisé notre logique de conversion. Nos coûts d'acquisition ont chuté de 41% avec des volumes records."',
-      testiQ2: '"L'architecture de suivi nous a donné une visibilité absolue sur l'attribution réelle. Nous investissons désormais à 8 chiffres sereinement."',
-      contEyebrow: 'Engagement d'Audit de Capital', contTitle: 'Initialiser votre <em>séquence de diagnostic</em>',
-      contDesc: 'Nous réaliserons une analyse approfondie de vos comptes publicitaires et boucles de suivi à nos frais pour identifier précisément les points de friction.',
-      fName: 'Nom du Responsable', fEmail: 'Terminal Email Sécurisé', fUrl: 'Domaine Digital de l'Entreprise', fFocus: 'Bloqueur Principal de Croissance', fDetails: 'Métriques Historiques & Objectifs', fBtn: 'Lancer le Diagnostic',
-      fSuccess: 'Séquence de Diagnostic Initialisée. Nos allocateurs techniques analyseront vos empreintes de données sous 12 heures.',
-      ctaEyebrow: 'Mandat d'Exécution', ctaTitle: 'Stoppez les fuites de capital. <em>Activez la croissance</em>.', ctaSub: 'Oubliez les campagnes artistiques spéculatives et connectez votre entreprise à un moteur de distribution algorithmique.', ctaBtn: 'Obtenir le Plan de Performance',
-      footerCopy: '&copy; 2026 Blueprint Architecture Firm. Tous Droits de Performance Réservés.'
+      navCta: 'Déployer la Croissance',
+      heroEyebrow: 'Architecture de Performance Marketing',
+      heroTitle: 'Ingénierie de modèles axés sur les données qui <em>amplifient</em> le capital de l’entreprise.',
+      heroSub: 'Nous éliminons les ambiguïtés de la spéculation créative. Blueprint conçoit des modèles mathématiques rigoureux pour optimiser les budgets publicitaires, abaisser les seuils de coût d’acquisition et ancrer une vélocité de conversion durable.',
+      heroPrimary: 'Lancer l’Audit de Performance →',
+      heroGhost: 'Voir Nos Domaines',
+      fnM1: 'Allocation de Capital', fnM2: 'Achat Média de Précision', fnM3: 'Intégrité d’Attribution', fnM4: 'ROAS Global Net',
+      st1: 'ROAS Moyen du Portefeuille', st2: 'Flux Budgétaire Optimisé', st3: 'Stabilité des Contrats de Rétention', st4: 'Suivi Certifié Server-Side',
+      srvEyebrow: 'Domaines Stratégiques', srvTitle: 'Cinq compétences clés, <em>un blueprint unique</em> — croissance algorithmique.',
+      s1Title: 'Positionnement & Stratégie de Marché', s1Desc: 'Nous construisons des diagrammes structurels cartographiant l’ensemble de votre marché. Pas de supposition—uniquement de l’intelligence concurrentielle de haute fidélité et des canaux d’investissement quantitatifs.',
+      s2Title: 'Scaling Média Payant Enterprise', s2Desc: 'Déploiement d’algorithmes de distribution de capital sur Google Search, Meta et TikTok Ads pour scaler vos opérations en toute sécurité sans dégradation des performances.',
+      s3Title: 'Directives Créatives & Copywriting', s3Desc: 'Conception d’actifs visuels à forte rétention et de structures de messages calculées pour capter l’attention des utilisateurs et maximiser les volumes de conversion.',
+      s4Title: 'Optimisation des Taux de Conversion (CRO)', s4Desc: 'Nous analysons les parcours d’acquisition au niveau des interactions comportementales individuelles. Grâce aux tests A/B continus, nous éliminons les points de friction.',
+      s5Title: 'Télémétrie & Intégrité de l’Attribution', s5Desc: 'Contournement des limites des cookies tiers via l’intégration d’infrastructures de tracking server-side pour valider chaque point de contact du parcours client.',
+      prcEyebrow: 'Séquence Opérationnelle', prcTitle: 'Le cadre de travail <em>éprouvé</em>',
+      p1Title: 'Audit Technique', p1Desc: 'Isolation des ruptures d’attribution, analyse historique des dépenses et configuration des bases analytiques avant tout scaling.',
+      p2Title: 'Modélisation Budgétaire', p2Desc: 'Construction de graphiques d’allocation budgétaire et de modèles créatifs alignés sur vos objectifs financiers.',
+      p3Title: 'Phase de Déploiement', p3Desc: 'Lancement des tests d’actifs médias localisés, optimisation des entonnoirs et stabilisation des moteurs de diffusion.',
+      p4Title: 'Scaling Algorithmique', p4Desc: 'Amplification des campagnes rentables, stabilisation des marges et domination systématique des segments de marché cibles.',
+      abtQuote: '"Les structures d\'acquisition digitales d\'élite ne reposent pas sur l\'intuition artistique. Elles sont construites sur des modèles mathématiques rigoureux et un alignement absolu de l\'exécution."',
+      abtP1: 'Nous fonctionnons comme une entreprise d’ingénierie dédiée exclusivement au marketing de performance tactique. Nous ne cachons pas la réalité derrière des rapports de vanité ou un jargon complexe.',
+      abtP2: 'Que votre objectif soit de structurer une image de marque de luxe minimaliste ou d’optimiser des canaux d’acquisition internationaux, notre équipe gère vos campagnes avec une précision chirurgicale.',
+      blgEyebrow: 'Briefs Analytiques', blgTitle: 'Derniers rapports du <em>laboratoire d’architecture</em>',
+      b1Title: 'La Matrice ROAS 2026 : Naviguer l’Inflation des CPM Meta', b1Desc: 'Comment contourner la fatigue publicitaire grâce à des structures de diversification de campagnes.', b1Btn: 'Consulter le Rapport →',
+      b2Title: 'Positionnement Quiet Luxury : Marketing Digital pour le Textile Haut de Gamme', b2Desc: 'Déconstruction des esthétiques minimalistes et des stratégies de rareté sur des marchés grand public saturés.', b2Btn: 'Consulter le Rapport →',
+      b3Title: 'Refonte des Infrastructures Cloud Server-Side', b3Desc: 'Analyse technique approfondie sur la configuration de nœuds d’attribution indépendants pour contrer la dégradation des cookies.', b3Btn: 'Consulter le Rapport →',
+      tstEyebrow: 'Attestations Vérifiées', tstTitle: 'Résultats stratégiques de notre <em>réseau de partenaires</em>',
+      q1: '"Blueprint a complètement transformé notre modèle d\'acquisition. Ils ont converti nos processus créatifs en un pipeline analytique froid et ultra-performant. Volume inbound en hausse de 140%."', r1: 'Directeur Général, Heritage Retail',
+      q2: '"Ils gèrent le capital de nos campagnes avec une rigueur technique impressionnante. Leurs tableaux de bord personnalisés nous offrent une visibilité parfaite sur nos coûts d\'acquisition réels."', r2: 'Responsable des Opérations, Nexus Tech',
+      cntEyebrow: 'Prendre Contact', cntTitle: 'Demander un <em>brief d’audit d’allocation</em>', cntDesc: 'Prêt à déployer un système de croissance prévisible ? Demandez un audit complet de vos canaux d’acquisition gratuitement.',
+      cd1: 'Canal Direct :', cd2: 'Disponibilité :', l1: 'Nom de l’Opérateur', l2: 'Point de Communication (Email)', l3: 'URL du Portail d’Entreprise', l4: 'Obstacle Principal au Scaling', l5: 'Aperçu Opérationnel', fBtn: 'Soumettre la Demande d’Audit', fSucc: 'Transmission enregistrée. Nos ingénieurs analyseront votre structure et vous répondront sous 24 heures.',
+      ct1: 'Prochain Protocole', ct2: 'Terminez les spéculations. Activez un <em>scaling systématique</em>.', ct3: 'Bâtissez un écosystème de croissance analytique conçu pour la prévisibilité et l’expansion de vos marges.', ctBtn: 'Obtenir Votre Audit Gratuit', fCopy: '© 2026 Blueprint Agency. Tous systèmes architecturaux réservés.'
     },
     ar: {
       dir: 'rtl',
-      navCta: 'طلب استراتيجية النمو',
-      heroEyebrow: 'هندسة تسويق الأداء الرقمي',
-      heroTitle: 'نحن نهندس تدفقات العملاء التي <em>تضاعف</em> القيمة السوقية للشركات.',
-      heroSub: 'وكالة بلو برينت هي شركة متخصصة في النشر الدقيق لإعلانات الأداء. نقوم ببناء مسارات الاستحواذ المتقدمة، وتطوير خوارزميات الإعلانات المدفوعة، وضبط العائدات بشكل شامل.',
-      heroBtnPrimary: 'تفعيل إطار النمو الخوارزمي',
-      heroBtnGhost: 'رؤية قدراتنا التشغيلية',
-      marquee: '<span>تحسين العائد على الإنفاق الإعلاني ROAS</span> <span class="accent">✦</span> <span>نماذج مضاعفة الميزانيات</span> <span class="accent">✦</span> <span>تخفيض تكلفة الاستحواذ للعميل CAC</span> <span class="accent">✦</span> <span>تدقيق نسب التحليل البياني</span> <span class="accent">✦</span>',
-      stat1: 'إجمالي الإيرادات المحققة للمستثمرين', stat2: 'معدل العائد الصافي على الإعلانات', stat3: 'متوسط خفض تكاليف الاستحواذ', stat4: 'مسارات التحويل المفتوحة والمطورة',
-      srvEyebrow: 'التخصصات المحورية', srvTitle: 'طبقات تنفيذية مهندسة خصيصاً <em>لتحقيق نسب تحويل قابلة للقياس</em>.',
-      srvC1: 'توزيع رأس المال عبر المنصات', srvD1: 'نقوم بتوزيع الميزانيات الاستثمارية ديناميكياً عبر منصات ميتا، جوجل، وتيك توك بناءً على هوامش الربحية ولحظية الكفاءة.',
-      srvC2: 'غرف التتبع وإثبات البيانات', srvD2: 'نحن نفصل الضوضاء البيانية، ونتجاوز مشاكل تراجع الإشارات، ونبني نماذج تتبع متعددة النقاط لحساب أرباحك الحقيقية.',
-      srvC3: 'تحسين معدلات التحويل ومسار الشراء', srvD3: 'نعزل نقاط تسرب العملاء في مسار الاستحواذ الخاص بك، ونعيد صياغة منطق الدفع والخروج لرفع إنتاجية كل زائر.',
-      srvC4: 'محركات الرسائل الإعلانية الحركية', srvD4: 'نبني الأصول المرئية والنصية المحسوبة بدقة لكسر الحواجز النفسية لدى شريحة المستهلك المستهدفة وحثها على التحرك.',
-      srvC5: 'أطر استبقاء العملاء وتوسيع قيمتهم الممتدة', srvD5: 'نبني تتابعات مؤتمتة لرفع وتيرة إعادة الشراء من العملاء الحاليين، وزيادة قيمتهم الإجمالية عبر نماذج البيع المتقاطع التنبؤية.',
-      procEyebrow: 'نشر الأنظمة وتفعيلها', procTitle: 'مخطط <em>سرعة التدفق</em> الخاص بنا',
-      procT1: 'التدقيق الشامل للبنية التحتية', procD1: 'نجري تتبعاً تقنياً عميقاً عبر الحسابات الإعلانية والوسوم التحليلية لاكتشاف نقاط هدر الميزانية.',
-      procT2: 'المخطط الهندسي لمسار التحويل', procD2: 'نبني نماذج نظرية متكاملة توضح نقاط التخصيص، ومحفزات الرسائل، وتعديلات تدفق الدفع.',
-      procT3: 'الاختبار الميداني السريع للأنظمة', procD3: 'نطلق الحملات حية عبر شبكات التواصل، مع تغذية حلقات البيانات الخوارزمية لتسريع مسارات النمو.',
-      procT4: 'المضاعفة الكبرى والتوسيع', procD4: 'ندفع الميزانيات بقوة داخل الأصول الإعلانية الرابحة مع الحفاظ على هوامش الأرباح الصافية المستهدفة.',
-      aboutQ: '"توسيع نطاق التسويق ومضاعفة الأرباح هو علم هندسة بيانات دقيق، وليس لعبة تخمين إبداعية."',
-      aboutP1: 'نحن نعمل كشريك نمو كمي صارم. لا نقدم تصميمات جمالية شكلية لا طائل منها أو نختبئ خلف أرقام التفاعل الوهمية. نحن نربط نماذج التوزيع المالي مباشرة بالنتائج التشغيلية الختامية لشركتك.',
-      aboutP2: 'يتكون فريقنا حصرياً من مخططي ميزانيات رقمية موجهين بالبيانات، وأخصائيي معدلات التحويل، ومهندسي السلوك الاستهلاكي. نتحالف مع قادة السوق لتحويل الإنفاق العشوائي إلى محركات نمو مستدامة.',
-      blogEyebrow: 'الاستخبارات الاستراتيجية', blogTitle: 'تقارير الأداء التكتيكية من <em>خطوط المواجهة الإعلانية</em>',
-      blogT1: 'تفكيك نماذج الشراء الإعلاني الخوارزمي', blogD1: 'تحليل تنفيذي حول كيفية هيكلة الحسابات الإعلانية المبسطة لتغذية أنظمة التتبع بالذكاء الاصطناعي.',
-      blogT2: 'عزل أنماط تراجع الأداء الهامشي للاستحواذ', blogD2: 'كيفية حساب حدود تشبع الإعلانات الدقيقة لكل شريحة جماهيرية لمنع ظاهرة خمول الإعلان وتراجع بريقه.',
-      blogT3: 'التعامل مع قوانين إلغاء ملفات التتبع والخصوصية', blogD3: 'دليل عملي كامل لنشر حلقات بيانات الطرف الأول لحماية ملفات الاستهداف من قيود المتصفحات الحديثة.',
-      testiEyebrow: 'النمو المركب المثبت', testiTitle: 'آراء شركائنا من <em>المؤسسات والشركات الكبرى</em>',
-      testiQ1: '"أعادت بلو برينت هندسة منطق التحويل لدينا بالكامل. انخفضت تكاليف الاستحواذ بنسبة 41٪ بينما تضاعف حجم المبيعات إلى مستويات لم نصل إليها من قبل."',
-      testiQ2: '"بنية التتبع التقنية التي صمموها منحت مجلس إدارتنا رؤية مطلقة لمصادر الأرباح الحقيقية. نحن الآن نضخ ميزانيات من 8 أرقام بثقة كاملة."',
-      contEyebrow: 'بدء التدقيق المالي والإعلاني', contTitle: 'ابدأ تتابع <em>التشخيص الرقمي لأعمالك</em>',
-      contDesc: 'سنقوم بإجراء تحليل شامل وعميق عبر حساباتك الإعلانية التاريخية، ونقاط تسرب العملاء، وحلقات البيانات على نفقتنا الكاملة. دعنا نحدد مناطق الاحتكاك التي تعوق نموك.',
-      fName: 'اسم المدير المسؤول', fEmail: 'عنوان الاتصال الرقمي الآمن', fUrl: 'النطاق الإلكتروني للمؤسسة', fFocus: 'العقبة الرئيسية أمام نموّك', fDetails: 'المؤشرات الحالية والأهداف المستهدفة', fBtn: 'تفعيل الفحص والتشخيص الرقمي',
-      fSuccess: 'تم تفعيل تسلسل التشخيص بنجاح. سيتولى مهندسو البيانات لدينا فحص بصمتك الرقمية والتواصل معك عبر القنوات الآمنة خلال 12 ساعة.',
-      ctaEyebrow: 'تفويض التنفيذ الصارم', ctaTitle: 'أوقف تسرب رأس المال الإعلاني. <em>ضاعف حجم مبيعاتك الآن</em>.', ctaSub: 'انتقل بعيداً عن الحملات التسويقية الفنية التخمينية، واربط أعمالك بمحرك توزيع خوارزمي عالي الإنتاجية والأرباح.', ctaBtn: 'احصل على مخطط الأداء الاستراتيجي',
-      footerCopy: '&copy; 2026 شركة بلو برينت لهندسة الأداء الرقمي. كافة حقوق الكفاءة محفوظة.'
+      navCta: 'نشر نموذج النمو',
+      heroEyebrow: 'بنية هندسة التسويق القائم على الأداء',
+      heroTitle: 'نحن نصمم نماذج دقيقة تعتمد على البيانات <em>لمضاعفة</em> رأس المال الاستثماري للشركات.',
+      heroSub: 'نلغي تماماً فرضيات التخمين الإبداعي. تقوم بلو برينت ببناء أطر تسويقية رياضية بحتة تُحسّن الميزانيات الإعلانية، وتكسر قيود تكلفة الاستحواذ، وتدعم سرعة تدفق المبيعات بشكل مستدام.',
+      heroPrimary: 'ابدأ فحص مصفوفة الأداء الآن ←',
+      heroGhost: 'رؤية القدرات التكتيكية',
+      fnM1: 'تخصيص رأس المال', fnM2: 'الإعلام الإعلاني الدقيق', fnM3: 'سلامة تتبع البيانات', fnM4: 'العائد الصافي على الإعلانات',
+      st1: 'متوسط العائد الإعلاني للمحفظة', st2: 'تدفق الميزانية الإعلانية المحسّنة', st3: 'استقرار عقود الشراكة المستدامة', st4: 'تتبع موثق عبر الخادم (Server-Side)',
+      srvEyebrow: 'النطاقات الاستراتيجية', srvTitle: 'خمس قدرات أساسية، <em>مخطط تكتيكي واحد</em> — نمو خوارزمي دقيق.',
+      s1Title: 'استراتيجية التموضع وصياغة الأسواق', s1Desc: 'نقوم بتحليل ورسم خرائط هيكلية متكاملة للمشهد التنافسي. لا مكان للتخمين—فقط دراسات دقيقة للمنافسين ومصفوفات تموضع المنتجات وقنوات الاستثمار الكمية.',
+      s2Title: 'توسيع نطاق الإعلانات المدفوعة للمؤسسات', s2Desc: 'نشر خوارزميات توزيع الأصول الإعلانية عبر شبكات بحث Google، وبيئات تتبع Meta، ومنصات TikTok لتوسيع العمليات بأمان ودون تراجع في الأداء.',
+      s3Title: 'توجيه صناعة الأصول الإعلانية والنصوص', s3Desc: 'هندسة أصول مرئية عالية الاحتفاظ وصياغة نصوص إعلانية مدروسة بدقة لفرض الانتباه وتوجيه سلوك المستهلك نحو التحول والشراء العالي.',
+      s4Title: 'أنظمة تحسين معدلات التحويل (CRO)', s4Desc: 'نحن نتتبع مسارات الاستحواذ الرقمي حتى مستوى سلوك المستخدم الفردي. عبر اختبارات المحتوى المتعددة، نقضي على عقباتEntonnoir لتسريع دورة المبيعات.',
+      s5Title: 'تكامل تتبع البيانات والتحليلات المتقدمة', s5Desc: 'تجاوز قيود ملفات تعريف الارتباط التقليدية من خلال نشر هياكل تتبع دائمة عبر الخادم (Server-Side Tagging) لتوثيق دقة البيانات عبر كافة منصات الشراء.',
+      prcEyebrow: 'التسلسل العملياتي', prcTitle: 'إطار العمل <em>المثبت</em>',
+      p1Title: 'الفحص التقني الشامل', p1Desc: 'تحديد ثغرات التتبع، مراجعة قنوات الإنفاق السابقة، وإعداد البنية التحليلية الأساسية قبل بدء التوسع.',
+      p2Title: 'بناء مخطط النمذجة', p2Desc: 'تصميم الرسوم البيانية لتخصيص الميزانيات وصياغة الأصول المرئية المتوافقة تماماً مع الأهداف المالية المحددة.',
+      p3Title: 'مرحلة النشر والتفعيل', p3Desc: 'إطلاق اختبارات الأصول الإعلانية المحلية، وتحسين مسارات التحويل، وتثبيت محركات التسليم داخل الحسابات.',
+      p4Title: 'التوسع الخوارزمي المطرد', p4Desc: 'تضخيم الحملات الناجحة، وتأمين استقرار هوامش الربح، والسيطرة المنهجية على شرائح أوسع من السوق المستهدف.',
+      abtQuote: '"إن بنى الاستحواذ الرقمي المتميزة لا تُبنى على التخمين الفني أو الإبهار المؤقت. إنها تُشيد على نماذج رياضية صارمة، وحلقات تحقق دقيقة، والتزام مطلق بالتنفيذ."',
+      abtP1: 'نحن نعمل كمنظومة هندسية موحدة مكرسة بالكامل للتسويق الرقمي التكتيكي القائم على الأداء. لا ندفن الحقائق وراء تقارير المظهر الوهمية أو المصطلحات المعقدة. أولويتنا هي البنية المالية لصافي أرباحك.',
+      abtP2: 'سواء كان هدفك إطلاق مصفوفة تجارية راقية ومبسطة (Quiet Luxury) أو تحسين قنوات الإنفاق الدولية المعقدة، فإن فريقنا يدير مسارات توسعك بدقة عملياتية متناهية.',
+      blgEyebrow: 'التقارير التحليلية', blgTitle: 'أحدث الملفات من <em>مختبر الهندسة التسويقية</em>',
+      b1Title: 'مصفوفة العائد الإعلاني لعام 2026: التعامل مع تضخم تكاليف ميتـا', b1Desc: 'كيفية تجنب عتبات إجهاد الإعلان باستخدام إعدادات تنويع الحملات الاستراتيجية.', b1Btn: 'مراجعة التقرير ←',
+      b2Title: 'تموضع الفخامة الهادئة: التسويق الرقمي للأزياء الراقية', b2Desc: 'تفكيك الجماليات المبسطة ومصفوفات الندرة النخبوية في أسواق المستهلكين العالمية المشبعة.', b2Btn: 'مراجعة التقرير ←',
+      b3Title: 'تحديثات البنية التحتية للتتبع عبر الخادم (Server-Side Cloud)', b3Desc: 'نظرة تقنية صريحة على تكوين نقاط تتبع مستقلة لإلغاء تدهور البيانات الناتجة عن حظر ملفات تعريف الارتباط.', b3Btn: 'مراجعة التقرير ←',
+      tstEyebrow: 'الشهادات الموثقة', tstTitle: 'نتائج استراتيجية حقيقية من <em>شبكة شركائنا</em>',
+      q1: '"قامت بلو برينت بتحويل إطار عمل الاستحواذ لدينا بالكامل. لقد حولوا عملياتنا الإبداعية العشوائية إلى خط إنتاج صارم يعتمد على الأرقام فقط. نمت مبيعاتنا بنسبة 140% خلال ربع سنوي واحد."', r1: 'المدير التنفيذي، التراث لقطاع التجزئة',
+      q2: '"إنهم يتعاملون مع إدارة رأس المال الإعلاني بصرامة تقنية بالغة. أنظمة التقارير المخصصة ونقاط التتبع عبر الخادم منحتنا وضوحاً كاملاً لمقاييس تكلفة الاستحواذ الفعلية لدينا."', r2: 'قائد العمليات، نكسوس للتكنولوجيا',
+      cntEyebrow: 'بدء الاتصال', cntTitle: 'طلب تقرير <em>فحص وتخصيص الميزانيات</em>', cntDesc: 'هل أنت مستعد لبناء هيكل نمو يمكن التنبؤ به؟ اطلب الآن فحصاً شاملاً لأدائك وتقييم استقرار التتبع لديك مجاناً بالكامل.',
+      cd1: 'القناة المباشرة:', cd2: 'الحالة الحالية:', l1: 'اسم المشغل', l2: 'نقطة الاتصال (البريد الإلكتروني)', l3: 'رابط موقع المؤسسة', l4: 'العقبة الرئيسية أمام التوسع', l5: 'نظرة عامة على العمليات', fBtn: 'إرسال طلب تنفيذ الفحص الشامل', fSucc: 'تم تسجيل البيانات بنجاح. سيتولى مهندسو الأداء مراجعة بنيتك التسويقية والتواصل معك خلال 24 ساعة.',
+      ct1: 'البروتوكول التالي', ct2: 'ضع حداً للتخمين. ابدأ <em>بالتوسع المنهجي المدروس</em>.', ct3: 'ابنِ نظاماً تسويقياً تحليلياً مصمماً لضمان الاستقرار المالي ومضاعفة هوامش أرباحك.', ctBtn: 'احصل على مخطط الفحص المجاني الآن', fCopy: '© 2026 وكالة بلو برينت. جميع الحقوق الأنظمة الهندسية محفوظة.'
     }
   };
 
-  function changeLanguage(lang) {
-    const data = dictionary[lang];
+  function changeLanguage(lang, buttonEl) {
+    const data = translations[lang];
     if (!data) return;
 
-    // Toggle active language button appearance
-    document.querySelectorAll('.lang-toggle').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`lang-${lang}`).classList.add('active');
+    // Toggle active layout button class
+    document.querySelectorAll('.lang-toggle').forEach(btn => btn.classList.remove('active-lang'));
+    buttonEl.classList.add('active-lang');
 
-    // Apply layout alignment state directional changes
+    // Trigger dynamic native direction mutation
     document.documentElement.setAttribute('dir', data.dir);
+    
+    // Core Layout Updates
+    document.getElementById('navCta').innerHTML = data.navCta;
+    document.getElementById('heroEyebrow').innerHTML = data.heroEyebrow;
+    document.getElementById('heroTitle').innerHTML = data.heroTitle;
+    document.getElementById('heroSub').innerHTML = data.heroSub;
+    document.getElementById('heroPrimary').innerHTML = data.heroPrimary;
+    document.getElementById('heroGhost').innerHTML = data.heroGhost;
+    
+    // Funnel Visuals
+    document.getElementById('fnM1').innerHTML = data.fnM1;
+    document.getElementById('fnM2').innerHTML = data.fnM2;
+    document.getElementById('fnM3').innerHTML = data.fnM3;
+    document.getElementById('fnM4').innerHTML = data.fnM4;
 
-    // Swap string values inside target layout fields
-    document.getElementById('navCtaText').innerHTML = data.navCta;
-    document.getElementById('heroEyebrowText').innerHTML = data.heroEyebrow;
-    document.getElementById('heroTitleText').innerHTML = data.heroTitle;
-    document.getElementById('heroSubText').innerHTML = data.heroSub;
-    document.getElementById('heroBtnPrimaryText').innerHTML = data.heroBtnPrimary;
-    document.getElementById('heroBtnGhostText').innerHTML = data.heroBtnGhost;
-    document.getElementById('marqueeTrackText').innerHTML = data.marquee;
-    
-    document.getElementById('statLabel1').innerHTML = data.stat1;
-    document.getElementById('statLabel2').innerHTML = data.stat2;
-    document.getElementById('statLabel3').innerHTML = data.stat3;
-    document.getElementById('statLabel4').innerHTML = data.stat4;
-    
-    document.getElementById('srvEyebrowText').innerHTML = data.srvEyebrow;
-    document.getElementById('srvTitleText').innerHTML = data.srvTitle;
-    document.getElementById('srvCardTitle1').innerHTML = data.srvC1;
-    document.getElementById('srvCardDesc1').innerHTML = data.srvD1;
-    document.getElementById('srvCardTitle2').innerHTML = data.srvC2;
-    document.getElementById('srvCardDesc2').innerHTML = data.srvD2;
-    document.getElementById('srvCardTitle3').innerHTML = data.srvC3;
-    document.getElementById('srvCardDesc3').innerHTML = data.srvD3;
-    document.getElementById('srvCardTitle4').innerHTML = data.srvC4;
-    document.getElementById('srvCardDesc4').innerHTML = data.srvD4;
-    document.getElementById('srvCardTitle5').innerHTML = data.srvC5;
-    document.getElementById('srvCardDesc5').innerHTML = data.srvD5;
-    
-    document.getElementById('procEyebrowText').innerHTML = data.procEyebrow;
-    document.getElementById('procTitleText').innerHTML = data.procTitle;
-    document.getElementById('procStepTitle1').innerHTML = data.procT1;
-    document.getElementById('procStepDesc1').innerHTML = data.procD1;
-    document.getElementById('procStepTitle2').innerHTML = data.procT2;
-    document.getElementById('procStepDesc2').innerHTML = data.procD2;
-    document.getElementById('procStepTitle3').innerHTML = data.procT3;
-    document.getElementById('procStepDesc3').innerHTML = data.procD3;
-    document.getElementById('procStepTitle4').innerHTML = data.procT4;
-    document.getElementById('procStepDesc4').innerHTML = data.procD4;
-    
-    document.getElementById('aboutQuoteText').innerHTML = data.aboutQ;
-    document.getElementById('aboutPara1').innerHTML = data.aboutP1;
-    document.getElementById('aboutPara2').innerHTML = data.aboutP2;
-    
-    document.getElementById('blogEyebrowText').innerHTML = data.blogEyebrow;
-    document.getElementById('blogTitleText').innerHTML = data.blogTitle;
-    document.getElementById('blogCardTitle1').innerHTML = data.blogT1;
-    document.getElementById('blogCardDesc1').innerHTML = data.blogD1;
-    document.getElementById('blogCardTitle2').innerHTML = data.blogT2;
-    document.getElementById('blogCardDesc2').innerHTML = data.blogD2;
-    document.getElementById('blogCardTitle3').innerHTML = data.blogT3;
-    document.getElementById('blogCardDesc3').innerHTML = data.blogD3;
-    
-    document.getElementById('testiEyebrowText').innerHTML = data.testiEyebrow;
-    document.getElementById('testiTitleText').innerHTML = data.testiTitle;
-    document.getElementById('testiQuote1').innerHTML = data.testiQ1;
-    document.getElementById('testiQuote2').innerHTML = data.testiQ2;
-    
-    document.getElementById('contEyebrowText').innerHTML = data.contEyebrow;
-    document.getElementById('contTitleText').innerHTML = data.contTitle;
-    document.getElementById('contDescText').innerHTML = data.contDesc;
-    
-    document.getElementById('lblFormName').innerHTML = data.fName;
-    document.getElementById('lblFormEmail').innerHTML = data.fEmail;
-    document.getElementById('lblFormUrl').innerHTML = data.fUrl;
-    document.getElementById('lblFormFocus').innerHTML = data.fFocus;
-    document.getElementById('lblFormDetails').innerHTML = data.fDetails;
-    document.getElementById('btnFormSubmitText').innerHTML = data.fBtn;
-    document.getElementById('txtFormSuccess').innerHTML = data.fSuccess;
-    
-    document.getElementById('ctaEyebrowText').innerHTML = data.ctaEyebrow;
-    document.getElementById('ctaTitleText').innerHTML = data.ctaTitle;
-    document.getElementById('ctaSubText').innerHTML = data.ctaSub;
-    document.getElementById('ctaBtnText').innerHTML = data.ctaBtn;
-    document.getElementById('footerCopyText').innerHTML = data.footerCopy;
+    // Stat Labels
+    document.getElementById('st1').innerHTML = data.st1;
+    document.getElementById('st2').innerHTML = data.st2;
+    document.getElementById('st3').innerHTML = data.st3;
+    document.getElementById('st4').innerHTML = data.st4;
 
-    // Dynamically adjust select box values layout options on translation action
-    const sFocus = document.getElementById('selectFormFocus');
-    if(lang === 'ar') {
-      sFocus.options[0].text = 'مشاكل في زيادة ميزانيات الإعلانات وتوسيع القنوات';
-      sFocus.options[1].text = 'عدم دقة قراءات التتبع ونسب التحليل البياني';
-      sFocus.options[2].text = 'تراجع معدلات وإنتاجية التحويل داخل الموقع';
-      sFocus.options[3].text = 'خمول الإعلانات وتراجع تأثير الرسائل التسويقية';
-    } else if(lang === 'fr') {
-      sFocus.options[0].text = 'Friction d'Échelle Capital Multi-Canal';
-      sFocus.options[1].text = 'Suivi de Conversion & Attribution Instable';
-      sFocus.options[2].text = 'Chute de Rendement de Conversion du Tunnel';
-      sFocus.options[3].text = 'Fatigue Créative / Rupture du Message';
-    } else {
-      sFocus.options[0].text = 'Cross-Channel Capital Scale Friction';
-      sFocus.options[1].text = 'Unreliable Conversion Tracking & Attribution';
-      sFocus.options[2].text = 'Funnel Conversion Yield Drops';
-      sFocus.options[3].text = 'Creative Fatigue / Ad Message Breakdown';
+    // Capabilities Section
+    document.getElementById('srvEyebrow').innerHTML = data.srvEyebrow;
+    document.getElementById('srvTitle').innerHTML = data.srvTitle;
+    document.getElementById('s1Title').innerHTML = data.s1Title; document.getElementById('s1Desc').innerHTML = data.s1Desc;
+    document.getElementById('s2Title').innerHTML = data.s2Title; document.getElementById('s2Desc').innerHTML = data.s2Desc;
+    document.getElementById('s3Title').innerHTML = data.s3Title; document.getElementById('s3Desc').innerHTML = data.s3Desc;
+    document.getElementById('s4Title').innerHTML = data.s4Title; document.getElementById('s4Desc').innerHTML = data.s4Desc;
+    document.getElementById('s5Title').innerHTML = data.s5Title; document.getElementById('s5Desc').innerHTML = data.s5Desc;
+
+    // Framework Process Section
+    document.getElementById('prcEyebrow').innerHTML = data.prcEyebrow;
+    document.getElementById('prcTitle').innerHTML = data.prcTitle;
+    document.getElementById('p1Title').innerHTML = data.p1Title; document.getElementById('p1Desc').innerHTML = data.p1Desc;
+    document.getElementById('p2Title').innerHTML = data.p2Title; document.getElementById('p2Desc').innerHTML = data.p2Desc;
+    document.getElementById('p3Title').innerHTML = data.p3Title; document.getElementById('p3Desc').innerHTML = data.p3Desc;
+    document.getElementById('p4Title').innerHTML = data.p4Title; document.getElementById('p4Desc').innerHTML = data.p4Desc;
+
+    // About Element
+    document.getElementById('abtQuote').innerHTML = data.abtQuote;
+    document.getElementById('abtP1').innerHTML = data.abtP1;
+    document.getElementById('abtP2').innerHTML = data.abtP2;
+
+    // Analytics Brief Elements
+    document.getElementById('blgEyebrow').innerHTML = data.blgEyebrow;
+    document.getElementById('blgTitle').innerHTML = data.blgTitle;
+    document.getElementById('b1Title').innerHTML = data.b1Title; document.getElementById('b1Desc').innerHTML = data.b1Desc; document.getElementById('b1Btn').innerHTML = data.b1Btn;
+    document.getElementById('b2Title').innerHTML = data.b2Title; document.getElementById('b2Desc').innerHTML = data.b2Desc; document.getElementById('b2Btn').innerHTML = data.b2Btn;
+    document.getElementById('b3Title').innerHTML = data.b3Title; document.getElementById('b3Desc').innerHTML = data.b3Desc; document.getElementById('b3Btn').innerHTML = data.b3Btn;
+
+    // Attestations
+    document.getElementById('tstEyebrow').innerHTML = data.tstEyebrow;
+    document.getElementById('tstTitle').innerHTML = data.tstTitle;
+    document.getElementById('q1').innerHTML = data.q1; document.getElementById('r1').innerHTML = data.r1;
+    document.getElementById('q2').innerHTML = data.q2; document.getElementById('r2').innerHTML = data.r2;
+
+    // Form Interface Elements
+    document.getElementById('cntEyebrow').innerHTML = data.cntEyebrow;
+    document.getElementById('cntTitle').innerHTML = data.cntTitle;
+    document.getElementById('cntDesc').innerHTML = data.cntDesc;
+    document.getElementById('cd1').innerHTML = data.cd1;
+    document.getElementById('cd2').innerHTML = data.cd2;
+    document.getElementById('l1').innerHTML = data.l1;
+    document.getElementById('l2').innerHTML = data.l2;
+    document.getElementById('l3').innerHTML = data.l3;
+    document.getElementById('l4').innerHTML = data.l4;
+    document.getElementById('l5').innerHTML = data.l5;
+    document.getElementById('fBtn').innerHTML = data.fBtn;
+    document.getElementById('fSucc').innerHTML = data.fSucc;
+
+    // Bottom Action Bar Context
+    document.getElementById('ct1').innerHTML = data.ct1;
+    document.getElementById('ct2').innerHTML = data.ct2;
+    document.getElementById('ct3').innerHTML = data.ct3;
+    document.getElementById('ctBtn').innerHTML = data.ctBtn;
+    document.getElementById('fCopy').innerHTML = data.fCopy;
+  }
+
+  // ----- BACKGROUND KINETIC MATRIX CANVAS ENGINE -----
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    initNodes();
+  });
+
+  let nodes = [];
+  function initNodes() {
+    nodes = [];
+    const numNodes = Math.floor((width * height) / 14000);
+    for(let i=0; i<numNodes; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 1
+      });
     }
   }
 
-  // INTERACTIVE 3D MOUSE MOVEMENT LOGIC (BACKGROUND GRID & ACCENT OBJECT TRANSLATION)
-  const matrixGrid = document.getElementById('matrixGrid');
-  const heroFunnel = document.getElementById('heroFunnel');
-  const formCard = document.getElementById('formContainerCard');
+  function renderNodes() {
+    ctx.clearRect(0,0,width,height);
+    ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.05)';
+    ctx.lineWidth = 1;
+
+    for(let i=0; i<nodes.length; i++) {
+      let n = nodes[i];
+      n.x += n.vx;
+      n.y += n.vy;
+
+      if(n.x < 0 || n.x > width) n.vx *= -1;
+      if(n.y < 0 || n.y > height) n.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fill();
+
+      for(let j=i+1; j<nodes.length; j++) {
+        let n2 = nodes[j];
+        let dist = Math.hypot(n.x - n2.x, n.y - n2.y);
+        if(dist < 130) {
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(n2.x, n2.y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(renderNodes);
+  }
+  initNodes();
+  renderNodes();
+
+  // ----- MOUSE COORDINATES 3D MATRIX REACTION -----
+  const funnel = document.getElementById('funnel3d');
+  const contactBox = document.getElementById('contactBox');
+  const canvasElement = document.getElementById('bgCanvas');
 
   window.addEventListener('mousemove', (e) => {
-    const xPct = (e.clientX / window.innerWidth) - 0.5; // Bounds output: -0.5 to 0.5
-    const yPct = (e.clientY / window.innerHeight) - 0.5;
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
 
-    // Tilt global matrix background grid subtly
-    matrixGrid.style.transform = `rotateX(${60 + (yPct * 12)}deg) rotateY(${xPct * 8}deg) translateZ(-200px)`;
+    // Convert mouse tilt bounds across geometric constraints
+    const rotateX = -(dy / cy) * 14; 
+    const rotateY = (dx / cx) * 14; 
 
-    // Calculate real-time 3D conversion funnel tilt matrix offset properties
-    if (heroFunnel && window.getComputedStyle(heroFunnel.parentElement).display !== 'none') {
-      const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-      const baseRotationY = isRtl ? 20 : -20;
-      heroFunnel.style.transform = `rotateY(${baseRotationY + (xPct * 25)}deg) rotateX(${15 + (yPct * -20)}deg)`;
+    if (funnel) {
+      funnel.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     }
+    if (contactBox) {
+      contactBox.style.transform = `rotateX(${rotateX * 0.4}deg) rotateY(${rotateY * 0.4}deg)`;
+    }
+    
+    // Parallax background canvas displacement shifts
+    canvasElement.style.transform = `translateX(${dx * 0.02}px) translateY(${dy * 0.02}px)`;
+  });
 
-    // Slightly tilt form right container card upon pointer navigation
-    if(formCard && window.innerWidth > 768) {
-      formCard.style.transform = `rotateY(${xPct * 10}deg) rotateX(${yPct * -10}deg)`;
+  // ----- WINDOW INTERSECTION SCROLL TELEMETRY ENGINE -----
+  const revealElements = document.querySelectorAll('.reveal');
+  function checkViewportReveal() {
+    const triggerThreshold = window.innerHeight * 0.88;
+    revealElements.forEach(el => {
+      const elementTopPosition = el.getBoundingClientRect().top;
+      if (elementTopPosition < triggerThreshold) {
+        el.classList.add('active');
+      }
+    });
+  }
+  window.addEventListener('scroll', checkViewportReveal);
+  window.addEventListener('load', checkViewportReveal);
+
+  // ----- HEADER MATRIX ACTION COMPRESSION -----
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.style.padding = '1rem 4rem';
+      navbar.style.background = 'rgba(11, 19, 43, 0.95)';
+      navbar.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+    } else {
+      navbar.style.padding = '1.5rem 4rem';
+      navbar.style.background = 'rgba(11, 19, 43, 0.8)';
+      navbar.style.boxShadow = 'none';
     }
   });
 
-  // SCROLL MONITOR LAYER: REVEALING LAYOUT NODES & CONTRAST ADJUSTMENTS
-  const revealTargets = document.querySelectorAll('.reveal');
-  const navBar = document.getElementById('masterNav');
-
-  function evaluateViewportScroll() {
-    const triggerThreshold = window.innerHeight * 0.88;
-    
-    revealTargets.forEach(target => {
-      const elementTop = target.getBoundingClientRect().top;
-      if (elementTop < triggerThreshold) {
-        target.classList.add('active');
-      }
-    });
-
-    // Condense header spacing dynamically on vertical document navigation paths
-    if (window.scrollY > 50) {
-      navBar.style.padding = '1rem 4rem';
-      navBar.style.background = 'rgba(6, 11, 24, 0.9)';
-    } else {
-      navBar.style.padding = '1.75rem 4rem';
-      navBar.style.background = 'rgba(11, 19, 43, 0.7)';
-    }
-  }
-
-  window.addEventListener('scroll', evaluateViewportScroll);
-  window.addEventListener('load', evaluateViewportScroll);
-
-  // FORM SUBMISSION EVENT HANDLER
-  function executeFormSubmit(e) {
+  // ----- FORM SUBMISSION HANDLER ACTIONS -----
+  function handleAuditSubmit(e) {
     e.preventDefault();
-    document.getElementById('funnelForm').style.display = 'none';
-    document.getElementById('successBlock').style.display = 'block';
+    document.getElementById('auditForm').style.display = 'none';
+    document.getElementById('auditSuccess').style.display = 'block';
   }
 </script>
-
 </body>
 </html>
